@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Favorite Websites ✨</title>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        color: #e0e0e0;
+        font-family: 'Poppins', sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      /* ✨ Neon Glow */
+      .neon-text {
+        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+      }
+
+      /* 💫 Glowing Card Animation */
+      .neon-card {
+        position: relative;
+        background: rgba(20, 20, 20, 0.8);
+        transition: all 0.4s ease;
+        box-shadow: 0 0 15px #00ffff40;
+        overflow: hidden;
+        border-radius: 1rem;
+        animation: floatIn 0.8s ease-out forwards;
+        opacity: 0;
+        backdrop-filter: blur(10px);
+      }
+
+      /* 🌀 Floating Entry Animation */
+      @keyframes floatIn {
+        0% {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* 🌈 Animated Neon Border */
+      .neon-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 1rem;
+        padding: 2px;
+        background: linear-gradient(45deg, #0ff, #f0f, #0f0, #0ff);
+        background-size: 400%;
+        animation: neonGlow 6s linear infinite;
+        -webkit-mask: linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+
+      @keyframes neonGlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* ✨ Hover Lift + Glow */
+      .neon-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 0 30px #00ffffa0;
+      }
+
+      /* 🧭 Navbar */
+      .nav-bg {
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+      }
+
+      /* Floating particles background */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(0, 255, 255, 0.3);
+        animation: float 15s infinite linear;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) translateX(100px);
+          opacity: 0;
+        }
+      }
+
+      /* Enhanced icons */
+      .icon-container {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-bottom: 1.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+      }
+
+      .neon-card:hover .icon-container {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px currentColor;
+      }
+
+      /* Gradient text */
+      .gradient-text {
+        background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Enhanced footer */
+      .footer-text {
+        position: relative;
+        display: inline-block;
+      }
+
+      .footer-text::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background: linear-gradient(90deg, transparent, #00ffff, transparent);
+      }
+
+      /* Form styles */
+      .form-input {
+        background: rgba(20, 20, 20, 0.7);
+        border: 1px solid #00ffff;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        color: white;
+        width: 100%;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+      }
+
+      .form-input:focus {
+        outline: none;
+        box-shadow: 0 0 10px #00ffff;
+        border-color: #00ffff;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #00ffff;
+        font-weight: 500;
+      }
+
+      .submit-btn {
+        background: linear-gradient(45deg, #00ffff, #0080ff);
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.75rem 2rem;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px #00ffff80;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 20px #00ffff;
+      }
+
+      /* About page specific styles */
+      .profile-img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #00ffff;
+        box-shadow: 0 0 20px #00ffff80;
+      }
+
+      .skill-bar {
+        height: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 0.5rem;
+      }
+
+      .skill-progress {
+        height: 100%;
+        background: linear-gradient(90deg, #00ffff, #0080ff);
+        border-radius: 5px;
+      }
+
+      /* Page transition */
+      .page {
+        display: none;
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      .active-page {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen flex flex-col items-center justify-center text-center px-4"
+  >
+    <!-- Floating Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navbar -->
+    <nav
+      class="w-full flex justify-between items-center py-4 px-6 nav-bg fixed top-0 left-0 shadow-lg border-b border-cyan-400 z-50"
+    >
+      <h1 class="text-2xl font-bold text-cyan-400 neon-text">
+        <i class="fas fa-star mr-2"></i>My Favorite Websites✨
+      </h1>
+      <button id="menu-btn" class="text-cyan-400 text-3xl md:hidden">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul id="menu" class="hidden md:flex space-x-6 text-lg">
+        <li>
+          <a
+            href="#"
+            class="nav-link hover:text-pink-400 transition"
+            data-page="home"
+            ><i class="fas fa-home mr-1"></i>Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="nav-link hover:text-green-400 transition"
+            data-page="about"
+            ><i class="fas fa-info-circle mr-1"></i>About</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="nav-link hover:text-purple-400 transition"
+            data-page="contact"
+            ><i class="fas fa-envelope mr-1"></i>Contact</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="hidden flex-col space-y-4 mt-20 md:hidden text-xl fixed top-16 left-0 w-full bg-black bg-opacity-90 py-4 z-40 backdrop-blur-md"
+    >
+      <a href="#" class="nav-link hover:text-pink-400 py-2" data-page="home"
+        ><i class="fas fa-home mr-2"></i>Home</a
+      >
+      <a href="#" class="nav-link hover:text-green-400 py-2" data-page="about"
+        ><i class="fas fa-info-circle mr-2"></i>About</a
+      >
+      <a
+        href="#"
+        class="nav-link hover:text-purple-400 py-2"
+        data-page="contact"
+        ><i class="fas fa-envelope mr-2"></i>Contact</a
+      >
+    </div>
+
+    <!-- Home Page -->
+    <div id="home" class="page active-page mt-32 w-full max-w-6xl">
+      <h2 class="text-4xl font-bold mb-8 neon-text">
+        Discover Amazing Websites
+      </h2>
+      <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+        Explore my curated collection of the best websites for movies, AI tools,
+        coding resources, and more!
+      </p>
+
+      <!-- Links Section -->
+      <main
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 w-full"
+      >
+        <!-- Card 1 -->
+        <a
+          href="/movie_websites.html"
+          target="_blank"
+          class="neon-card p-8 border border-cyan-500 group"
+        >
+          <div class="icon-container text-cyan-400">
+            <i class="fas fa-film text-4xl"></i>
+          </div>
+          <h2 class="text-2xl font-semibold text-cyan-300 mb-2 gradient-text">
+            <i class="fas fa-video mr-2"></i>Best Movies Websites
+          </h2>
+          <p class="text-gray-400">
+            Download and stream your favorite movies in HD quality.
+          </p>
+          <div
+            class="mt-4 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <i class="fas fa-external-link-alt mr-1"></i> Explore now
+          </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a
+          href="/ai_tools.html"
+          target="_blank"
+          class="neon-card p-8 border border-green-500 group"
+        >
+          <div class="icon-container text-green-400">
+            <i class="fas fa-robot text-4xl"></i>
+          </div>
+          <h2 class="text-2xl font-semibold text-green-300 mb-2 gradient-text">
+            <i class="fas fa-tools mr-2"></i>Free AI Tools
+          </h2>
+          <p class="text-gray-400">
+            Explore a curated list of free AI tools for various applications.
+          </p>
+          <div
+            class="mt-4 text-green-400 opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <i class="fas fa-external-link-alt mr-1"></i> Explore now
+          </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a
+          href="/ai_website.html"
+          target="_blank"
+          class="neon-card p-8 border border-pink-500 group"
+        >
+          <div class="icon-container text-pink-400">
+            <i class="fas fa-brain text-4xl"></i>
+          </div>
+          <h2 class="text-2xl font-semibold text-pink-300 mb-2 gradient-text">
+            <i class="fas fa-globe mr-2"></i>Best AI Websites
+          </h2>
+          <p class="text-gray-400">
+            Stay updated with the latest AI trends and news.
+          </p>
+          <div
+            class="mt-4 text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <i class="fas fa-external-link-alt mr-1"></i> Explore now
+          </div>
+        </a>
+      </main>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page mt-32 w-full max-w-4xl">
+      <h2 class="text-4xl font-bold mb-8 neon-text">About Me</h2>
+
+      <div class="neon-card p-8 border border-green-500 mb-10">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="flex-shrink-0">
+            <img src="/developer.png" alt="Profile" class="profile-img" />
+          </div>
+          <div class="text-left">
+            <h3 class="text-2xl font-bold text-green-300 mb-4">
+              Hi, I'm Amit!
+            </h3>
+            <p class="text-gray-300 mb-4">
+              I'm a passionate web developer and digital enthusiast with a love
+              for discovering and sharing amazing online resources. This website
+              is my personal collection of the best tools and websites I've
+              found across the internet.
+            </p>
+            <p class="text-gray-300 mb-4">
+              My mission is to help others discover useful websites that can
+              enhance productivity, creativity, and entertainment. I carefully
+              curate each resource to ensure quality and value.
+            </p>
+            <div class="flex space-x-4 mt-6">
+              <a href="#" class="text-green-400 hover:text-green-300 text-2xl"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a href="#" class="text-blue-400 hover:text-blue-300 text-2xl"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a href="#" class="text-pink-400 hover:text-pink-300 text-2xl"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="text-cyan-400 hover:text-cyan-300 text-2xl"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold mb-6 text-cyan-300">My Skills</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        <div class="neon-card p-6 border border-cyan-500">
+          <h4 class="text-xl font-semibold text-cyan-300 mb-2">
+            Web Development
+          </h4>
+          <div class="skill-bar">
+            <div class="skill-progress" style="width: 90%"></div>
+          </div>
+        </div>
+
+        <div class="neon-card p-6 border border-purple-500">
+          <h4 class="text-xl font-semibold text-purple-300 mb-2">
+            UI/UX Design
+          </h4>
+          <div class="skill-bar">
+            <div class="skill-progress" style="width: 80%"></div>
+          </div>
+        </div>
+
+        <div class="neon-card p-6 border border-green-500">
+          <h4 class="text-xl font-semibold text-green-300 mb-2">
+            Content Curation
+          </h4>
+          <div class="skill-bar">
+            <div class="skill-progress" style="width: 95%"></div>
+          </div>
+        </div>
+
+        <div class="neon-card p-6 border border-yellow-500">
+          <h4 class="text-xl font-semibold text-yellow-300 mb-2">
+            Digital Marketing
+          </h4>
+          <div class="skill-bar">
+            <div class="skill-progress" style="width: 75%"></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold mb-6 text-pink-300">My Interests</h3>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="neon-card p-4 border border-pink-500">
+          <i class="fas fa-code text-2xl text-pink-400 mb-2"></i>
+          <p class="text-gray-300">Coding</p>
+        </div>
+
+        <div class="neon-card p-4 border border-blue-500">
+          <i class="fas fa-film text-2xl text-blue-400 mb-2"></i>
+          <p class="text-gray-300">Movies</p>
+        </div>
+
+        <div class="neon-card p-4 border border-green-500">
+          <i class="fas fa-robot text-2xl text-green-400 mb-2"></i>
+          <p class="text-gray-300">AI Technology</p>
+        </div>
+
+        <div class="neon-card p-4 border border-yellow-500">
+          <i class="fas fa-music text-2xl text-yellow-400 mb-2"></i>
+          <p class="text-gray-300">Music</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page mt-32 w-full max-w-2xl">
+      <h2 class="text-4xl font-bold mb-8 neon-text">Get In Touch</h2>
+      <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+        Have questions, suggestions, or just want to say hello? Feel free to
+        reach out!
+      </p>
+
+      <div class="neon-card p-8 border border-purple-500">
+        <form id="contact-form" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="name" class="form-label"
+                ><i class="fas fa-user mr-2"></i>Your Name</label
+              >
+              <input
+                type="text"
+                id="name"
+                class="form-input"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="email" class="form-label"
+                ><i class="fas fa-envelope mr-2"></i>Your Email</label
+              >
+              <input
+                type="email"
+                id="email"
+                class="form-input"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="subject" class="form-label"
+              ><i class="fas fa-tag mr-2"></i>Subject</label
+            >
+            <input
+              type="text"
+              id="subject"
+              class="form-input"
+              placeholder="What is this regarding?"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="message" class="form-label"
+              ><i class="fas fa-comment mr-2"></i>Your Message</label
+            >
+            <textarea
+              id="message"
+              rows="5"
+              class="form-input"
+              placeholder="Type your message here..."
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn w-full md:w-auto">
+            <i class="fas fa-paper-plane mr-2"></i>Send Message
+          </button>
+        </form>
+
+        <div class="mt-12 pt-8 border-t border-gray-700">
+          <h3 class="text-2xl font-bold mb-6 text-cyan-300">
+            Other Ways to Connect
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="text-center">
+              <div class="icon-container mx-auto text-cyan-400">
+                <i class="fas fa-envelope text-3xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-cyan-300 mt-4">Email</h4>
+              <p class="text-gray-400">amit192400@gmail.com</p>
+            </div>
+
+            <div class="text-center">
+              <div class="icon-container mx-auto text-green-400">
+                <i class="fas fa-comments text-3xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-green-300 mt-4">
+                Chat with me
+              </h4>
+
+              <div class="space-y-3 mt-4">
+                <!-- Working WhatsApp -->
+                <a
+                  href="https://wa.me/919876543210?text=Hi%20Amit,%20I%20found%20your%20website%20and%20wanted%20to%20chat!"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="block text-green-400 hover:text-green-300 transition py-2 px-4 border border-green-500 rounded-lg hover:border-green-400"
+                >
+                  <i class="fab fa-whatsapp mr-2"></i>
+                  WhatsApp
+                </a>
+
+                <!-- Working Telegram -->
+                <a
+                  href="https://t.me/yourusername"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="block text-blue-400 hover:text-blue-300 transition py-2 px-4 border border-blue-500 rounded-lg hover:border-blue-400"
+                >
+                  <i class="fab fa-telegram mr-2"></i>
+                  Telegram
+                </a>
+
+                <!-- Email fallback -->
+                <a
+                  href="mailto:amit192400@gmail.com?subject=Chat%20Request&body=Hi%20Amit,%20I%20wanted%20to%20chat%20with%20you..."
+                  class="block text-purple-400 hover:text-purple-300 transition py-2 px-4 border border-purple-500 rounded-lg hover:border-purple-400"
+                >
+                  <i class="fas fa-envelope mr-2"></i>
+                  Email Me
+                </a>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <div class="icon-container mx-auto text-purple-400">
+                <i class="fas fa-map-marker-alt text-3xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-purple-300 mt-4">
+                Location
+              </h4>
+              <p class="text-gray-400">India</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16 mb-8 text-gray-500">
+      <p class="footer-text">
+        <i class="fas fa-heart text-red-500 mr-2"></i>made by @mit<i
+          class="fas fa-heart text-red-500 ml-2"
+        ></i>
+      </p>
+    </footer>
+
+    <!-- Script for Hamburger, Particles and Page Navigation -->
+    <script>
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Animate cards on load
+      const cards = document.querySelectorAll('.neon-card');
+      cards.forEach((card, i) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+        }, i * 200);
+      });
+
+      // Create floating particles
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+
+        // Random properties
+        const size = Math.random() * 6 + 2;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const delay = Math.random() * 15;
+        const duration = Math.random() * 10 + 15;
+
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+
+        particlesContainer.appendChild(particle);
+      }
+
+      // Page navigation
+      const navLinks = document.querySelectorAll('.nav-link');
+      const pages = document.querySelectorAll('.page');
+
+      navLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetPage = link.getAttribute('data-page');
+
+          // Hide all pages
+          pages.forEach((page) => {
+            page.classList.remove('active-page');
+          });
+
+          // Show target page
+          document.getElementById(targetPage).classList.add('active-page');
+
+          // Close mobile menu if open
+          mobileMenu.classList.add('hidden');
+        });
+      });
+
+      // Contact form submission
+      const contactForm = document.getElementById('contact-form');
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+
+        // In a real application, you would send this data to a server
+        // For now, we'll just show an alert
+        alert(
+          `Thank you, ${name}! Your message has been sent. I'll get back to you soon.`,
+        );
+
+        // Reset form
+        contactForm.reset();
+      });
+    </script>
+  </body>
+</html>
