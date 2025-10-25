@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Models & Tools Directory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+        
+        h1, h2 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff, 0 0 20px #00ffff;
+        }
+        
+        .neon-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 247, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .neon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.3);
+            border-color: rgba(0, 247, 255, 0.5);
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
+            padding: 3px;
+            border-radius: 12px;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 3px;
+            background: linear-gradient(135deg, #00ffff, #ff00ff, #ffff00);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+        
+        .search-input {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            color: #e2e8f0;
+        }
+        
+        .search-input:focus {
+            box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+            border-color: rgba(0, 247, 255, 0.7);
+        }
+        
+        .category-btn {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background: rgba(0, 247, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+            border-color: rgba(0, 247, 255, 0.7);
+        }
+        
+        .site-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .site-link:hover {
+            transform: scale(1.05);
+        }
+        
+        .icon-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(0, 247, 255, 0.1);
+            margin-right: 12px;
+        }
+        
+        .google-search-btn {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(66, 133, 244, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .google-search-btn:hover {
+            background: rgba(66, 133, 244, 0.2);
+            box-shadow: 0 0 10px rgba(66, 133, 244, 0.5);
+            border-color: rgba(66, 133, 244, 0.7);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 247, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 247, 255, 0);
+            }
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(0, 247, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            border-radius: 16px;
+        }
+        
+        .ai-badge {
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold neon-text mb-4">AI Models & Tools Directory</h1>
+            <p class="text-lg text-cyan-200 max-w-2xl mx-auto">Comprehensive collection of 46+ AI models and tools for various applications</p>
+            
+            <!-- Hero Section -->
+            <div class="hero-section p-6 mt-8 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-robot text-white text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-cyan-300 mb-2">Cutting-Edge AI Technology</h2>
+                    <p class="text-cyan-100">Explore the latest AI models for text, image, video generation and more</p>
+                </div>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="mt-8 max-w-xl mx-auto">
+                <div class="relative">
+                    <input type="text" id="searchInput" placeholder="Search for AI models..." class="w-full py-3 px-4 pr-10 rounded-lg search-input focus:outline-none">
+                    <i class="fas fa-search absolute right-3 top-3 text-cyan-400"></i>
+                </div>
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <button class="category-btn active px-4 py-2 rounded-lg" data-category="all">All Models</button>
+                <button class="category-btn px-4 py-2 rounded-lg" data-category="text">Text AI</button>
+                <button class="category-btn px-4 py-2 rounded-lg" data-category="image">Image AI</button>
+                <button class="category-btn px-4 py-2 rounded-lg" data-category="video">Video AI</button>
+                <button class="category-btn px-4 py-2 rounded-lg" data-category="utility">Utilities</button>
+            </div>
+        </header>
+        
+        <!-- AI Tools Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="toolsContainer">
+            <!-- AI tools will be dynamically inserted here -->
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-cyan-200 text-sm">
+            <p class="mb-2">Collection of AI models and tools for developers, researchers, and enthusiasts</p>
+            <p>Made with <i class="fas fa-brain text-purple-500"></i> for AI innovation</p>
+        </footer>
+    </div>
+
+    <script>
+        // AI Models & Tools data
+        const aiTools = [
+            // Text Generation Models
+            { 
+                name: "Claude Opus 4", 
+                category: "text", 
+                icon: "fa-brain",
+                description: "Anthropic's most powerful language model for complex reasoning",
+                type: "Text Generation"
+            },
+            { 
+                name: "Claude Sonnet 4", 
+                category: "text", 
+                icon: "fa-network-wired",
+                description: "Balanced AI model for enterprise applications",
+                type: "Text Generation"
+            },
+            { 
+                name: "DeepSeek R1", 
+                category: "text", 
+                icon: "fa-search",
+                description: "Reasoning-focused language model",
+                type: "Text Generation"
+            },
+            { 
+                name: "DeepSeek V3", 
+                category: "text", 
+                icon: "fa-rocket",
+                description: "Latest version of DeepSeek language model",
+                type: "Text Generation"
+            },
+            { 
+                name: "Codestral 2501", 
+                category: "text", 
+                icon: "fa-code",
+                description: "AI model specialized for coding and programming",
+                type: "Code Generation"
+            },
+            { 
+                name: "Phi 4", 
+                category: "text", 
+                icon: "fa-gem",
+                description: "Microsoft's efficient language model",
+                type: "Text Generation"
+            },
+            { 
+                name: "Gemini 2.5 Pro", 
+                category: "text", 
+                icon: "fa-star",
+                description: "Google's advanced multimodal AI model",
+                type: "Multimodal AI"
+            },
+            { 
+                name: "Grok 3", 
+                category: "text", 
+                icon: "fa-bolt",
+                description: "xAI's conversational AI with real-time knowledge",
+                type: "Chat AI"
+            },
+            { 
+                name: "Llama 4 Maverick", 
+                category: "text", 
+                icon: "fa-horse",
+                description: "Meta's latest open-source language model",
+                type: "Text Generation"
+            },
+            { 
+                name: "GPT-4.1", 
+                category: "text", 
+                icon: "fa-microchip",
+                description: "Enhanced version of GPT-4 with improved capabilities",
+                type: "Text Generation"
+            },
+            { 
+                name: "GPT-4.5 Preview", 
+                category: "text", 
+                icon: "fa-eye",
+                description: "Preview of next-generation GPT model",
+                type: "Text Generation"
+            },
+            { 
+                name: "Qwen3 235B A22B", 
+                category: "text", 
+                icon: "fa-cube",
+                description: "Alibaba's large-scale language model",
+                type: "Text Generation"
+            },
+            { 
+                name: "Qwen3 30B A3B", 
+                category: "text", 
+                icon: "fa-cubes",
+                description: "Smaller version of Qwen3 model",
+                type: "Text Generation"
+            },
+            { 
+                name: "WizardLM-2 8x22B", 
+                category: "text", 
+                icon: "fa-wand-magic",
+                description: "Advanced instruction-following model",
+                type: "Text Generation"
+            },
+            { 
+                name: "GPT-4o", 
+                category: "text", 
+                icon: "fa-comments",
+                description: "Omnimodel with multimodal capabilities",
+                type: "Multimodal AI"
+            },
+            { 
+                name: "GPT-4o-mini", 
+                category: "text", 
+                icon: "fa-comment",
+                description: "Compact version of GPT-4o",
+                type: "Multimodal AI"
+            },
+            { 
+                name: "Claude 3.7 Sonnet", 
+                category: "text", 
+                icon: "fa-chess-queen",
+                description: "Latest Claude model with enhanced performance",
+                type: "Text Generation"
+            },
+            { 
+                name: "Moonshot-v1", 
+                category: "text", 
+                icon: "fa-moon",
+                description: "Experimental AI model for complex tasks",
+                type: "Text Generation"
+            },
+            { 
+                name: "Llama Guard 4", 
+                category: "text", 
+                icon: "fa-shield-alt",
+                description: "Safety and content moderation model",
+                type: "Safety AI"
+            },
+            { 
+                name: "Saba", 
+                category: "text", 
+                icon: "fa-cloud",
+                description: "Cloud-native AI model platform",
+                type: "Cloud AI"
+            },
+
+            // Video Generation Models
+            { 
+                name: "Kling v2.1 I2V Pro", 
+                category: "video", 
+                icon: "fa-video",
+                description: "Professional image-to-video generation",
+                type: "Video Generation"
+            },
+            { 
+                name: "Kling v2.1 I2V Standard", 
+                category: "video", 
+                icon: "fa-film",
+                description: "Standard image-to-video model",
+                type: "Video Generation"
+            },
+            { 
+                name: "Kling v2.0 T2V Master", 
+                category: "video", 
+                icon: "fa-keyboard",
+                description: "Text-to-video generation master model",
+                type: "Video Generation"
+            },
+            { 
+                name: "Veo2 T2V", 
+                category: "video", 
+                icon: "fa-play-circle",
+                description: "Google's text-to-video generation model",
+                type: "Video Generation"
+            },
+            { 
+                name: "Veo3", 
+                category: "video", 
+                icon: "fa-forward",
+                description: "Next-generation video generation AI",
+                type: "Video Generation"
+            },
+            { 
+                name: "Runway", 
+                category: "video", 
+                icon: "fa-running",
+                description: "Creative video generation platform",
+                type: "Video Generation"
+            },
+            { 
+                name: "Luma", 
+                category: "video", 
+                icon: "fa-sun",
+                description: "AI video and 3D content creation",
+                type: "Video Generation"
+            },
+            { 
+                name: "Sora", 
+                category: "video", 
+                icon: "fa-cloud",
+                description: "OpenAI's revolutionary video generation",
+                type: "Video Generation"
+            },
+            { 
+                name: "Sora Image", 
+                category: "video", 
+                icon: "fa-image",
+                description: "Image generation capabilities of Sora",
+                type: "Video Generation"
+            },
+
+            // Image Generation Models
+            { 
+                name: "Flux 1.1 Ultra", 
+                category: "image", 
+                icon: "fa-palette",
+                description: "Ultra-high quality image generation",
+                type: "Image Generation"
+            },
+            { 
+                name: "Flux 1.1 Pro", 
+                category: "image", 
+                icon: "fa-paint-brush",
+                description: "Professional image generation model",
+                type: "Image Generation"
+            },
+            { 
+                name: "FLUX.1 Dev", 
+                category: "image", 
+                icon: "fa-tools",
+                description: "Development version of Flux model",
+                type: "Image Generation"
+            },
+            { 
+                name: "GPT-4o Image", 
+                category: "image", 
+                icon: "fa-camera",
+                description: "GPT-4o's image generation capabilities",
+                type: "Image Generation"
+            },
+            { 
+                name: "DALL-E 3", 
+                category: "image", 
+                icon: "fa-robot",
+                description: "OpenAI's advanced image generation",
+                type: "Image Generation"
+            },
+            { 
+                name: "Midjourney", 
+                category: "image", 
+                icon: "fa-road",
+                description: "Popular artistic image generation",
+                type: "Image Generation"
+            },
+            { 
+                name: "Ideogram 2.0", 
+                category: "image", 
+                icon: "fa-font",
+                description: "Text-integrated image generation",
+                type: "Image Generation"
+            },
+            { 
+                name: "Ideogram 2.0 Turbo", 
+                category: "image", 
+                icon: "fa-bolt",
+                description: "Fast version of Ideogram model",
+                type: "Image Generation"
+            },
+
+            // Utility Models
+            { 
+                name: "Open Manus", 
+                category: "utility", 
+                icon: "fa-hand-paper",
+                description: "Hand gesture and manipulation AI",
+                type: "Utility AI"
+            },
+            { 
+                name: "Deep Research", 
+                category: "utility", 
+                icon: "fa-search-plus",
+                description: "Advanced research assistance AI",
+                type: "Research AI"
+            },
+            { 
+                name: "AI Detector", 
+                category: "utility", 
+                icon: "fa-fingerprint",
+                description: "AI content detection and analysis",
+                type: "Detection AI"
+            },
+            { 
+                name: "Proofreading AI", 
+                category: "utility", 
+                icon: "fa-spell-check",
+                description: "Advanced grammar and style checking",
+                type: "Writing AI"
+            },
+            { 
+                name: "Perplexity", 
+                category: "utility", 
+                icon: "fa-compass",
+                description: "AI-powered search and discovery",
+                type: "Search AI"
+            },
+            { 
+                name: "GPT-4o Search Preview", 
+                category: "utility", 
+                icon: "fa-binoculars",
+                description: "Search capabilities in GPT-4o",
+                type: "Search AI"
+            },
+            { 
+                name: "GPT-4.1 Minial", 
+                category: "utility", 
+                icon: "fa-compress",
+                description: "Minimal version of GPT-4.1",
+                type: "Text Generation"
+            },
+            { 
+                name: "Llama 3.3 70B", 
+                category: "utility", 
+                icon: "fa-database",
+                description: "Large-scale open-source model",
+                type: "Text Generation"
+            },
+            { 
+                name: "MiniMax-O1", 
+                category: "utility", 
+                icon: "fa-balance-scale",
+                description: "Optimization and decision-making AI",
+                type: "Optimization AI"
+            }
+        ];
+
+        // Function to open Google search - ONLY THE AI MODEL NAME
+        function searchOnGoogle(modelName) {
+            const query = encodeURIComponent(modelName);
+            window.open(`https://www.google.com/search?q=${query}`, '_blank');
+        }
+
+        // Function to render AI tools
+        function renderTools(tools) {
+            const container = document.getElementById('toolsContainer');
+            container.innerHTML = '';
+            
+            tools.forEach(tool => {
+                const toolElement = document.createElement('div');
+                toolElement.className = 'gradient-border';
+                
+                toolElement.innerHTML = `
+                    <div class="neon-card rounded-lg p-4 h-full flex flex-col">
+                        <div class="site-link block flex-grow" data-name="${tool.name}">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center">
+                                    <div class="icon-container">
+                                        <i class="fas ${tool.icon} text-cyan-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-cyan-300">${tool.name}</h3>
+                                </div>
+                                <span class="ai-badge">AI</span>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-3">${tool.description}</p>
+                            <div class="mt-auto">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm px-2 py-1 rounded ${getCategoryColor(tool.category)}">${getCategoryText(tool.category)}</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-800 text-gray-300 rounded">${tool.type}</span>
+                                </div>
+                                <button class="google-search-btn w-full mt-3 px-3 py-2 rounded-lg text-sm flex items-center justify-center" data-name="${tool.name}">
+                                    <i class="fab fa-google mr-2 text-blue-400"></i>
+                                    Search on Google
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(toolElement);
+            });
+            
+            // Add click event to all tool cards
+            document.querySelectorAll('.site-link').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('button')) {
+                        const modelName = card.getAttribute('data-name');
+                        searchOnGoogle(modelName);
+                    }
+                });
+            });
+            
+            // Add click event to all search buttons
+            document.querySelectorAll('.google-search-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const modelName = button.getAttribute('data-name');
+                    searchOnGoogle(modelName);
+                });
+            });
+        }
+
+        // Helper functions for categories
+        function getCategoryColor(category) {
+            switch(category) {
+                case 'text': return 'bg-purple-900 text-purple-200';
+                case 'image': return 'bg-pink-900 text-pink-200';
+                case 'video': return 'bg-blue-900 text-blue-200';
+                case 'utility': return 'bg-green-900 text-green-200';
+                default: return 'bg-gray-700 text-gray-200';
+            }
+        }
+
+        function getCategoryText(category) {
+            switch(category) {
+                case 'text': return 'Text AI';
+                case 'image': return 'Image AI';
+                case 'video': return 'Video AI';
+                case 'utility': return 'Utilities';
+                default: return 'Other';
+            }
+        }
+
+        // Filter tools by category
+        function filterTools(category) {
+            if (category === 'all') {
+                return aiTools;
+            }
+            return aiTools.filter(tool => tool.category === category);
+        }
+
+        // Search functionality
+        function searchTools(query) {
+            return aiTools.filter(tool => 
+                tool.name.toLowerCase().includes(query.toLowerCase()) ||
+                tool.description.toLowerCase().includes(query.toLowerCase()) ||
+                tool.type.toLowerCase().includes(query.toLowerCase())
+            );
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Render all tools initially
+            renderTools(aiTools);
+            
+            // Category filter buttons
+            document.querySelectorAll('.category-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const category = button.getAttribute('data-category');
+                    const filteredTools = filterTools(category);
+                    renderTools(filteredTools);
+                });
+            });
+            
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                const query = e.target.value;
+                if (query.length > 0) {
+                    const searchedTools = searchTools(query);
+                    renderTools(searchedTools);
+                } else {
+                    // If search is empty, show tools based on active category
+                    const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+                    const filteredTools = filterTools(activeCategory);
+                    renderTools(filteredTools);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

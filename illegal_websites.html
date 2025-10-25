@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Useful Tools Directory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+        
+        h1, h2 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff, 0 0 20px #00ffff;
+        }
+        
+        .neon-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 247, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .neon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.3);
+            border-color: rgba(0, 247, 255, 0.5);
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
+            padding: 3px;
+            border-radius: 12px;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 3px;
+            background: linear-gradient(135deg, #00ffff, #ff00ff, #ffff00);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+        
+        .search-input {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            color: #e2e8f0;
+        }
+        
+        .search-input:focus {
+            box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+            border-color: rgba(0, 247, 255, 0.7);
+        }
+        
+        .category-btn {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background: rgba(0, 247, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+            border-color: rgba(0, 247, 255, 0.7);
+        }
+        
+        .site-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .site-link:hover {
+            transform: scale(1.05);
+        }
+        
+        .icon-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(0, 247, 255, 0.1);
+            margin-right: 12px;
+        }
+        
+        .google-search-btn {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(66, 133, 244, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .google-search-btn:hover {
+            background: rgba(66, 133, 244, 0.2);
+            box-shadow: 0 0 10px rgba(66, 133, 244, 0.5);
+            border-color: rgba(66, 133, 244, 0.7);
+        }
+        
+        .tool-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 247, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 247, 255, 0);
+            }
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(0, 247, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold neon-text mb-4">Useful Tools Directory</h1>
+            <p class="text-lg text-cyan-200 max-w-2xl mx-auto">Handy online tools for gaming, learning, and productivity</p>
+            
+            <!-- Hero Section -->
+            <div class="hero-section p-6 mt-8 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-toolbox text-white text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-cyan-300 mb-2">Practical Online Tools</h2>
+                    <p class="text-cyan-100">Discover useful websites for retro gaming, file conversion, learning, and more</p>
+                </div>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="mt-8 max-w-xl mx-auto">
+                <div class="relative">
+                    <input type="text" id="searchInput" placeholder="Search for tools..." class="w-full py-3 px-4 pr-10 rounded-lg search-input focus:outline-none">
+                    <i class="fas fa-search absolute right-3 top-3 text-cyan-400"></i>
+                </div>
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <button class="category-btn active px-4 py-2 rounded-lg" data-category="all">All Tools</button>
+                <button class="category-btn px-4 py-2 rounded-lg" data-category="gaming">Gaming</button>
+                <button class="category-btn px-4 py-2 rounded-lg" data-category="learning">Learning</button>
+                <button class="category-btn px-4 py-2 rounded-lg" data-category="productivity">Productivity</button>
+                <button class="category-btn px-4 py-2 rounded-lg" data-category="fun">Fun</button>
+            </div>
+        </header>
+        
+        <!-- Tools Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="toolsContainer">
+            <!-- Tools will be dynamically inserted here -->
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-cyan-200 text-sm">
+            <p class="mb-2">Collection of useful online tools for various everyday tasks and entertainment</p>
+            <p>Made with <i class="fas fa-tools text-green-500"></i> for productivity and fun</p>
+        </footer>
+    </div>
+
+    <script>
+        // Miscellaneous Tools data
+        const miscTools = [
+            { 
+                name: "Retrogames", 
+                category: "gaming", 
+                icon: "fa-gamepad",
+                description: "Play classic retro games online in your browser",
+                type: "Online Gaming"
+            },
+            { 
+                name: "Prankshit", 
+                category: "fun", 
+                icon: "fa-laugh-squint",
+                description: "Funny pranks and entertainment content",
+                type: "Entertainment"
+            },
+            { 
+                name: "TV Garden", 
+                category: "entertainment", 
+                icon: "fa-tv",
+                description: "Watch TV channels and streams from around the world",
+                type: "Live TV"
+            },
+            { 
+                name: "Mindluster", 
+                category: "learning", 
+                icon: "fa-graduation-cap",
+                description: "Free online courses and learning resources",
+                type: "Education"
+            },
+            { 
+                name: "Bugmenot", 
+                category: "productivity", 
+                icon: "fa-user-secret",
+                description: "Shared login credentials for various websites",
+                type: "Account Access"
+            },
+            { 
+                name: "TinyWow", 
+                category: "productivity", 
+                icon: "fa-wrench",
+                description: "Collection of free online tools and utilities",
+                type: "Online Tools"
+            }
+        ];
+
+        // Function to open Google search - ONLY THE TOOL NAME
+        function searchOnGoogle(toolName) {
+            const query = encodeURIComponent(toolName);
+            window.open(`https://www.google.com/search?q=${query}`, '_blank');
+        }
+
+        // Function to render tools
+        function renderTools(tools) {
+            const container = document.getElementById('toolsContainer');
+            container.innerHTML = '';
+            
+            tools.forEach(tool => {
+                const toolElement = document.createElement('div');
+                toolElement.className = 'gradient-border';
+                
+                toolElement.innerHTML = `
+                    <div class="neon-card rounded-lg p-4 h-full flex flex-col">
+                        <div class="site-link block flex-grow" data-name="${tool.name}">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center">
+                                    <div class="icon-container">
+                                        <i class="fas ${tool.icon} text-cyan-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-cyan-300">${tool.name}</h3>
+                                </div>
+                                <span class="tool-badge">TOOL</span>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-3">${tool.description}</p>
+                            <div class="mt-auto">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm px-2 py-1 rounded ${getCategoryColor(tool.category)}">${getCategoryText(tool.category)}</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-800 text-gray-300 rounded">${tool.type}</span>
+                                </div>
+                                <button class="google-search-btn w-full mt-3 px-3 py-2 rounded-lg text-sm flex items-center justify-center" data-name="${tool.name}">
+                                    <i class="fab fa-google mr-2 text-blue-400"></i>
+                                    Search on Google
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(toolElement);
+            });
+            
+            // Add click event to all tool cards
+            document.querySelectorAll('.site-link').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('button')) {
+                        const toolName = card.getAttribute('data-name');
+                        searchOnGoogle(toolName);
+                    }
+                });
+            });
+            
+            // Add click event to all search buttons
+            document.querySelectorAll('.google-search-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const toolName = button.getAttribute('data-name');
+                    searchOnGoogle(toolName);
+                });
+            });
+        }
+
+        // Helper functions for categories
+        function getCategoryColor(category) {
+            switch(category) {
+                case 'gaming': return 'bg-purple-900 text-purple-200';
+                case 'learning': return 'bg-blue-900 text-blue-200';
+                case 'productivity': return 'bg-green-900 text-green-200';
+                case 'fun': return 'bg-pink-900 text-pink-200';
+                case 'entertainment': return 'bg-yellow-900 text-yellow-200';
+                default: return 'bg-gray-700 text-gray-200';
+            }
+        }
+
+        function getCategoryText(category) {
+            switch(category) {
+                case 'gaming': return 'Gaming';
+                case 'learning': return 'Learning';
+                case 'productivity': return 'Productivity';
+                case 'fun': return 'Fun';
+                case 'entertainment': return 'Entertainment';
+                default: return 'Other';
+            }
+        }
+
+        // Filter tools by category
+        function filterTools(category) {
+            if (category === 'all') {
+                return miscTools;
+            }
+            return miscTools.filter(tool => tool.category === category);
+        }
+
+        // Search functionality
+        function searchTools(query) {
+            return miscTools.filter(tool => 
+                tool.name.toLowerCase().includes(query.toLowerCase()) ||
+                tool.description.toLowerCase().includes(query.toLowerCase()) ||
+                tool.type.toLowerCase().includes(query.toLowerCase())
+            );
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Render all tools initially
+            renderTools(miscTools);
+            
+            // Category filter buttons
+            document.querySelectorAll('.category-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const category = button.getAttribute('data-category');
+                    const filteredTools = filterTools(category);
+                    renderTools(filteredTools);
+                });
+            });
+            
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                const query = e.target.value;
+                if (query.length > 0) {
+                    const searchedTools = searchTools(query);
+                    renderTools(searchedTools);
+                } else {
+                    // If search is empty, show tools based on active category
+                    const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+                    const filteredTools = filterTools(activeCategory);
+                    renderTools(filteredTools);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
