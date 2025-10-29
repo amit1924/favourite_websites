@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python Mastery - Engineering Edition</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Highlight.js -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+
+    <style>
+      :root {
+        --font-size-base: 18px;
+        --font-size-large: 20px;
+        --font-size-small: 16px;
+        --primary-color: #0b0f12;
+        --accent-color: #00ffff;
+        --secondary-accent: #ff00ff;
+        --text-color: #e2e8f0;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        font-size: var(--font-size-base);
+        line-height: 1.6;
+      }
+
+      .font-small {
+        font-size: var(--font-size-small);
+      }
+
+      .font-medium {
+        font-size: var(--font-size-base);
+      }
+
+      .font-large {
+        font-size: var(--font-size-large);
+      }
+
+      .neon-text {
+        text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .neon-secondary {
+        text-shadow: 0 0 5px var(--secondary-accent),
+          0 0 10px var(--secondary-accent);
+        color: var(--secondary-accent);
+      }
+
+      .glow-border {
+        box-shadow: 0 0 10px var(--accent-color);
+        border: 1px solid var(--accent-color);
+      }
+
+      .code-block {
+        background-color: #1a202c;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        position: relative;
+        margin: 1rem 0;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+      }
+
+      .section-card {
+        background-color: #1a202c;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .toc-link {
+        transition: all 0.3s ease;
+      }
+
+      .toc-link:hover {
+        color: var(--accent-color);
+        text-shadow: 0 0 5px var(--accent-color);
+      }
+
+      .print-friendly {
+        background-color: white !important;
+        color: black !important;
+      }
+
+      .print-friendly .neon-text,
+      .print-friendly .neon-secondary {
+        text-shadow: none !important;
+        color: #0066cc !important;
+      }
+
+      .print-friendly .section-card {
+        background-color: #f8f9fa !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+      }
+
+      .print-friendly .code-block {
+        background-color: #f1f3f4 !important;
+        color: #333 !important;
+      }
+
+      /* Mobile menu */
+      #mobile-menu {
+        transition: transform 0.3s ease;
+      }
+
+      #mobile-menu.hidden {
+        transform: translateX(-100%);
+      }
+
+      /* Focus styles for accessibility */
+      button:focus,
+      a:focus {
+        outline: 2px solid var(--accent-color);
+        outline-offset: 2px;
+      }
+
+      /* Skip to content link */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--accent-color);
+        color: var(--primary-color);
+        padding: 8px;
+        z-index: 100;
+        transition: top 0.3s;
+      }
+
+      .skip-link:focus {
+        top: 0;
+      }
+    </style>
+
+    <script>
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function () {
+        // Set up copy buttons
+        document.querySelectorAll('.code-block').forEach((block) => {
+          const button = document.createElement('button');
+          button.className = 'copy-btn';
+          button.innerHTML = '<i class="far fa-copy"></i>';
+          button.setAttribute('aria-label', 'Copy code to clipboard');
+          button.addEventListener('click', () => {
+            const code = block.querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+              button.innerHTML = '<i class="fas fa-check"></i>';
+              setTimeout(() => {
+                button.innerHTML = '<i class="far fa-copy"></i>';
+              }, 2000);
+            });
+          });
+          block.appendChild(button);
+        });
+
+        // Set up mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuToggle && mobileMenu) {
+          menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+          });
+        }
+
+        // Set up theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('print-friendly');
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('print-friendly')) {
+              icon.classList.remove('fa-moon');
+              icon.classList.add('fa-sun');
+            } else {
+              icon.classList.remove('fa-sun');
+              icon.classList.add('fa-moon');
+            }
+          });
+        }
+
+        // Set up font size controls
+        const fontSmall = document.getElementById('font-small');
+        const fontMedium = document.getElementById('font-medium');
+        const fontLarge = document.getElementById('font-large');
+
+        if (fontSmall) {
+          fontSmall.addEventListener('click', () => {
+            document.body.classList.remove('font-medium', 'font-large');
+            document.body.classList.add('font-small');
+          });
+        }
+
+        if (fontMedium) {
+          fontMedium.addEventListener('click', () => {
+            document.body.classList.remove('font-small', 'font-large');
+            document.body.classList.add('font-medium');
+          });
+        }
+
+        if (fontLarge) {
+          fontLarge.addEventListener('click', () => {
+            document.body.classList.remove('font-small', 'font-medium');
+            document.body.classList.add('font-large');
+          });
+        }
+
+        // Set up search functionality
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        if (searchInput && searchResults) {
+          searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            if (query.length < 2) {
+              searchResults.classList.add('hidden');
+              return;
+            }
+
+            const sections = document.querySelectorAll('section[id]');
+            let resultsHTML = '';
+
+            sections.forEach((section) => {
+              const heading = section.querySelector('h2, h3');
+              if (
+                heading &&
+                section.textContent.toLowerCase().includes(query)
+              ) {
+                const id = section.id;
+                const text = heading.textContent;
+                resultsHTML += `<a href="#${id}" class="block p-2 hover:bg-gray-700">${text}</a>`;
+              }
+            });
+
+            if (resultsHTML) {
+              searchResults.innerHTML = resultsHTML;
+              searchResults.classList.remove('hidden');
+            } else {
+              searchResults.innerHTML =
+                '<div class="p-2">No results found</div>';
+              searchResults.classList.remove('hidden');
+            }
+          });
+        }
+      });
+    </script>
+  </head>
+  <body class="font-medium">
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-50 bg-gray-900 shadow-lg">
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center">
+          <h1 class="text-xl font-bold neon-text">Python Mastery</h1>
+          <span class="ml-2 text-sm text-gray-400">Engineering Edition</span>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <!-- Theme Toggle -->
+          <button
+            id="theme-toggle"
+            class="p-2 rounded-full hover:bg-gray-700"
+            aria-label="Toggle theme"
+          >
+            <i class="fas fa-moon text-teal-400"></i>
+          </button>
+
+          <!-- Font Size Controls -->
+          <div class="flex items-center space-x-1">
+            <button
+              id="font-small"
+              class="p-1 rounded hover:bg-gray-700"
+              aria-label="Small font size"
+            >
+              A
+            </button>
+            <button
+              id="font-medium"
+              class="p-1 rounded hover:bg-gray-700 font-bold"
+              aria-label="Medium font size"
+            >
+              A
+            </button>
+            <button
+              id="font-large"
+              class="p-1 rounded hover:bg-gray-700 text-lg"
+              aria-label="Large font size"
+            >
+              A
+            </button>
+          </div>
+
+          <!-- Mobile Menu Toggle -->
+          <button
+            id="menu-toggle"
+            class="md:hidden p-2 rounded-full hover:bg-gray-700"
+            aria-label="Toggle menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden absolute top-full left-0 w-full bg-gray-800 shadow-lg py-4"
+      >
+        <nav class="container mx-auto px-4">
+          <ul class="space-y-2">
+            <li>
+              <a href="#toc" class="block py-2 px-4 hover:bg-gray-700 rounded"
+                >Table of Contents</a
+              >
+            </li>
+            <li>
+              <a
+                href="#basics"
+                class="block py-2 px-4 hover:bg-gray-700 rounded"
+                >Python Basics</a
+              >
+            </li>
+            <li>
+              <a
+                href="#control-flow"
+                class="block py-2 px-4 hover:bg-gray-700 rounded"
+                >Control Flow</a
+              >
+            </li>
+            <li>
+              <a
+                href="#collections"
+                class="block py-2 px-4 hover:bg-gray-700 rounded"
+                >Collections</a
+              >
+            </li>
+            <li>
+              <a
+                href="#functions"
+                class="block py-2 px-4 hover:bg-gray-700 rounded"
+                >Functions</a
+              >
+            </li>
+            <li>
+              <a href="#oop" class="block py-2 px-4 hover:bg-gray-700 rounded"
+                >OOP</a
+              >
+            </li>
+            <li>
+              <a
+                href="#practice"
+                class="block py-2 px-4 hover:bg-gray-700 rounded"
+                >Practice Problems</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="container mx-auto px-4 py-8">
+      <!-- Hero Section -->
+      <section class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 neon-text">
+          Python Mastery
+        </h1>
+        <p class="text-xl mb-6">
+          Comprehensive Learning & Revision for Engineering Students
+        </p>
+        <div class="max-w-3xl mx-auto bg-gray-800 rounded-lg p-6 glow-border">
+          <p class="mb-4">
+            From fundamentals to advanced topics with deep theory, worked
+            examples, labs, and projects.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4 mt-6">
+            <span class="px-3 py-1 bg-teal-900 rounded-full text-sm"
+              >Fundamentals to Advanced</span
+            >
+            <span class="px-3 py-1 bg-purple-900 rounded-full text-sm"
+              >Engineering Focus</span
+            >
+            <span class="px-3 py-1 bg-blue-900 rounded-full text-sm"
+              >Practice Problems</span
+            >
+            <span class="px-3 py-1 bg-indigo-900 rounded-full text-sm"
+              >Real-world Examples</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- Search Bar -->
+      <div class="mb-8 max-w-2xl mx-auto">
+        <div class="relative">
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search topics..."
+            class="w-full p-4 bg-gray-800 rounded-lg border border-gray-700 focus:border-teal-500 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+            aria-label="Search topics"
+          />
+          <i class="fas fa-search absolute right-4 top-4 text-gray-400"></i>
+        </div>
+        <div
+          id="search-results"
+          class="hidden absolute z-10 w-full mt-1 bg-gray-800 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+        ></div>
+      </div>
+
+      <!-- Table of Contents -->
+      <section id="toc" class="mb-12">
+        <div class="section-card">
+          <h2 class="text-2xl font-bold mb-4 neon-text flex items-center">
+            <i class="fas fa-list mr-2"></i> Table of Contents
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+              <h3 class="text-lg font-semibold mb-2 neon-secondary">
+                Fundamentals
+              </h3>
+              <ul class="space-y-1">
+                <li><a href="#basics" class="toc-link">Python Basics</a></li>
+                <li>
+                  <a href="#control-flow" class="toc-link">Control Flow</a>
+                </li>
+                <li><a href="#collections" class="toc-link">Collections</a></li>
+                <li>
+                  <a href="#strings" class="toc-link"
+                    >Strings & Text Processing</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-2 neon-secondary">
+                Core Concepts
+              </h3>
+              <ul class="space-y-1">
+                <li><a href="#functions" class="toc-link">Functions</a></li>
+                <li>
+                  <a href="#oop" class="toc-link"
+                    >Object-Oriented Programming</a
+                  >
+                </li>
+                <li>
+                  <a href="#modules" class="toc-link">Modules & Packages</a>
+                </li>
+                <li>
+                  <a href="#exceptions" class="toc-link"
+                    >Exceptions & Error Handling</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-2 neon-secondary">
+                Advanced Topics
+              </h3>
+              <ul class="space-y-1">
+                <li><a href="#file-io" class="toc-link">File I/O</a></li>
+                <li>
+                  <a href="#iterators" class="toc-link"
+                    >Iterators & Generators</a
+                  >
+                </li>
+                <li>
+                  <a href="#concurrency" class="toc-link"
+                    >Concurrency & Parallelism</a
+                  >
+                </li>
+                <li><a href="#typing" class="toc-link">Type Hints</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-gray-700">
+            <a
+              href="#practice"
+              class="inline-block px-4 py-2 bg-teal-700 hover:bg-teal-600 rounded-lg transition-colors"
+            >
+              Jump to Practice Problems <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Python Basics Section -->
+      <section id="basics" class="mb-12">
+        <div class="section-card">
+          <h2 class="text-2xl font-bold mb-4 neon-text flex items-center">
+            <i class="fas fa-code mr-2"></i> Python Basics
+          </h2>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">Summary</h3>
+            <p>
+              Learn Python fundamentals: variables, data types, operators, and
+              basic I/O operations.
+            </p>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Deep Theory
+            </h3>
+            <p>
+              Python is a dynamically-typed, interpreted language with strong
+              emphasis on readability. Variables are references to objects in
+              memory, and Python uses automatic memory management via reference
+              counting and garbage collection.
+            </p>
+
+            <h4 class="font-semibold mt-4 mb-2">Data Types</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li><strong>Numeric Types:</strong> int, float, complex</li>
+              <li><strong>Sequence Types:</strong> str, list, tuple, range</li>
+              <li><strong>Mapping Type:</strong> dict</li>
+              <li><strong>Set Types:</strong> set, frozenset</li>
+              <li><strong>Boolean Type:</strong> bool (True/False)</li>
+              <li>
+                <strong>Binary Types:</strong> bytes, bytearray, memoryview
+              </li>
+            </ul>
+
+            <h4 class="font-semibold mt-4 mb-2">Type Conversion</h4>
+            <p>
+              Python provides built-in functions for type conversion: int(),
+              float(), str(), bool(), list(), tuple(), set(), dict().
+            </p>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Real-world Examples
+            </h3>
+
+            <div class="code-block">
+              <button class="copy-btn"><i class="far fa-copy"></i></button>
+              <pre><code class="language-python">
+# Variable assignment and basic operations
+x = 10
+y = 3.14
+name = "Python"
+is_active = True
+
+# Type conversion examples
+num_str = "123"
+num_int = int(num_str)  # Convert to integer
+num_float = float(num_str)  # Convert to float
+
+# Basic arithmetic operations
+a = 10
+b = 3
+sum_result = a + b
+div_result = a / b  # Returns float (3.333...)
+int_div = a // b   # Integer division (3)
+mod_result = a % b  # Modulo (1)
+power = a ** b     # Exponentiation (1000)
+
+print(f"Sum: {sum_result}, Division: {div_result:.2f}")
+print(f"Integer division: {int_div}, Modulo: {mod_result}")
+                        </code></pre>
+            </div>
+
+            <div class="mt-4 p-4 bg-gray-800 rounded-lg">
+              <h4 class="font-semibold mb-2">Output:</h4>
+              <pre class="text-green-400">
+Sum: 13, Division: 3.33
+Integer division: 3, Modulo: 1</pre
+              >
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Practice Exercise
+            </h3>
+            <div class="p-4 bg-gray-800 rounded-lg mb-4">
+              <p>
+                <strong>Problem:</strong> Create a temperature converter that
+                converts Celsius to Fahrenheit and vice versa.
+              </p>
+              <p>
+                <strong>Formula:</strong> F = (C × 9/5) + 32, C = (F - 32) × 5/9
+              </p>
+              <p><strong>Time estimate:</strong> 5-10 minutes</p>
+            </div>
+
+            <div class="p-4 bg-gray-800 rounded-lg">
+              <h4 class="font-semibold mb-2">Solution:</h4>
+              <div class="code-block">
+                <button class="copy-btn"><i class="far fa-copy"></i></button>
+                <pre><code class="language-python">
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+
+def fahrenheit_to_celsius(fahrenheit):
+    return (fahrenheit - 32) * 5/9
+
+# Test the functions
+c_temp = 25
+f_temp = 77
+
+print(f"{c_temp}°C is {celsius_to_fahrenheit(c_temp):.1f}°F")
+print(f"{f_temp}°F is {fahrenheit_to_celsius(f_temp):.1f}°C")
+                            </code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between mt-6 pt-4 border-t border-gray-700">
+            <a href="#toc" class="text-teal-400 hover:text-teal-300">
+              <i class="fas fa-arrow-up mr-1"></i> Back to Top
+            </a>
+            <a href="#control-flow" class="text-teal-400 hover:text-teal-300">
+              Next: Control Flow <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Control Flow Section -->
+      <section id="control-flow" class="mb-12">
+        <div class="section-card">
+          <h2 class="text-2xl font-bold mb-4 neon-text flex items-center">
+            <i class="fas fa-sitemap mr-2"></i> Control Flow
+          </h2>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">Summary</h3>
+            <p>
+              Master conditional statements, loops, and flow control mechanisms
+              in Python.
+            </p>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Deep Theory
+            </h3>
+            <p>
+              Control flow statements determine the order in which code
+              executes. Python provides:
+            </p>
+
+            <h4 class="font-semibold mt-4 mb-2">Conditional Statements</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>
+                <code>if</code>, <code>elif</code>, <code>else</code> for
+                conditional execution
+              </li>
+              <li>
+                Python uses indentation to define code blocks (typically 4
+                spaces)
+              </li>
+              <li>
+                Conditions evaluate to <code>True</code> or <code>False</code>
+              </li>
+              <li>
+                Python supports chained comparisons: <code>a < b < c</code>
+              </li>
+            </ul>
+
+            <h4 class="font-semibold mt-4 mb-2">Loops</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>
+                <code>for</code> loop: iterates over sequences (lists, strings,
+                ranges, etc.)
+              </li>
+              <li>
+                <code>while</code> loop: repeats while a condition is true
+              </li>
+              <li>
+                Loop control: <code>break</code> (exit loop),
+                <code>continue</code> (skip to next iteration)
+              </li>
+              <li>
+                <code>else</code> clause in loops: executes when loop completes
+                normally (no break)
+              </li>
+            </ul>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Real-world Examples
+            </h3>
+
+            <div class="code-block">
+              <button class="copy-btn"><i class="far fa-copy"></i></button>
+              <pre><code class="language-python">
+# Conditional statements example
+def get_grade(score):
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    elif score >= 60:
+        return "D"
+    else:
+        return "F"
+
+# For loop examples
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(f"I like {fruit}")
+
+# Using enumerate to get index and value
+for i, fruit in enumerate(fruits):
+    print(f"{i+1}. {fruit}")
+
+# While loop with break and continue
+count = 0
+while count < 10:
+    count += 1
+    if count == 3:
+        continue  # Skip printing 3
+    if count == 8:
+        break     # Exit loop at 8
+    print(count)
+else:
+    # This won't execute because we broke out of the loop
+    print("Loop completed normally")
+
+print(f"Final count: {count}")
+                        </code></pre>
+            </div>
+
+            <div class="mt-4 p-4 bg-gray-800 rounded-lg">
+              <h4 class="font-semibold mb-2">Output:</h4>
+              <pre class="text-green-400">
+I like apple
+I like banana
+I like cherry
+1. apple
+2. banana
+3. cherry
+1
+2
+4
+5
+6
+7
+Final count: 8</pre
+              >
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Practice Exercise
+            </h3>
+            <div class="p-4 bg-gray-800 rounded-lg mb-4">
+              <p>
+                <strong>Problem:</strong> Write a program that prints the
+                Fibonacci sequence up to a given number n.
+              </p>
+              <p>
+                <strong>Fibonacci sequence:</strong> Each number is the sum of
+                the two preceding ones (0, 1, 1, 2, 3, 5, 8, ...)
+              </p>
+              <p><strong>Time estimate:</strong> 10-15 minutes</p>
+            </div>
+
+            <div class="p-4 bg-gray-800 rounded-lg">
+              <h4 class="font-semibold mb-2">Solution:</h4>
+              <div class="code-block">
+                <button class="copy-btn"><i class="far fa-copy"></i></button>
+                <pre><code class="language-python">
+def fibonacci_sequence(n):
+    """Generate Fibonacci sequence up to n"""
+    sequence = []
+    a, b = 0, 1
+    while a <= n:
+        sequence.append(a)
+        a, b = b, a + b
+    return sequence
+
+# Test the function
+limit = 50
+fib_seq = fibonacci_sequence(limit)
+print(f"Fibonacci sequence up to {limit}: {fib_seq}")
+                            </code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between mt-6 pt-4 border-t border-gray-700">
+            <a href="#basics" class="text-teal-400 hover:text-teal-300">
+              <i class="fas fa-arrow-left mr-1"></i> Previous: Basics
+            </a>
+            <a href="#collections" class="text-teal-400 hover:text-teal-300">
+              Next: Collections <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Collections Section -->
+      <section id="collections" class="mb-12">
+        <div class="section-card">
+          <h2 class="text-2xl font-bold mb-4 neon-text flex items-center">
+            <i class="fas fa-layer-group mr-2"></i> Collections
+          </h2>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">Summary</h3>
+            <p>
+              Master Python's built-in collection types: lists, tuples, sets,
+              and dictionaries.
+            </p>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Deep Theory
+            </h3>
+
+            <h4 class="font-semibold mt-4 mb-2">List</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>Mutable, ordered sequence of elements</li>
+              <li>
+                Time complexity: O(1) for append/pop from end, O(n) for
+                insert/delete from beginning
+              </li>
+              <li>Supports slicing, list comprehensions</li>
+            </ul>
+
+            <h4 class="font-semibold mt-4 mb-2">Tuple</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>Immutable, ordered sequence</li>
+              <li>Faster than lists for iteration</li>
+              <li>
+                Can be used as dictionary keys (if all elements are hashable)
+              </li>
+            </ul>
+
+            <h4 class="font-semibold mt-4 mb-2">Set</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>Unordered collection of unique, hashable elements</li>
+              <li>Time complexity: O(1) for membership test on average</li>
+              <li>
+                Supports mathematical set operations (union, intersection,
+                difference)
+              </li>
+            </ul>
+
+            <h4 class="font-semibold mt-4 mb-2">Dictionary</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>Key-value pairs, keys must be hashable</li>
+              <li>
+                Time complexity: O(1) for lookup, insert, delete on average
+              </li>
+              <li>Implemented as hash tables</li>
+              <li>Python 3.7+ maintains insertion order</li>
+            </ul>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Real-world Examples
+            </h3>
+
+            <div class="code-block">
+              <button class="copy-btn"><i class="far fa-copy"></i></button>
+              <pre><code class="language-python">
+# List examples
+fruits = ["apple", "banana", "cherry"]
+fruits.append("orange")  # Add to end
+fruits.insert(1, "blueberry")  # Insert at index 1
+removed_fruit = fruits.pop()  # Remove from end
+print(f"Fruits: {fruits}")
+
+# List comprehension
+squares = [x**2 for x in range(10)]
+even_squares = [x**2 for x in range(10) if x % 2 == 0]
+print(f"Squares: {squares}")
+print(f"Even squares: {even_squares}")
+
+# Tuple examples
+coordinates = (10, 20)
+x, y = coordinates  # Tuple unpacking
+print(f"Coordinates: x={x}, y={y}")
+
+# Set examples
+set_a = {1, 2, 3, 4, 5}
+set_b = {4, 5, 6, 7, 8}
+union = set_a | set_b  # or set_a.union(set_b)
+intersection = set_a & set_b  # or set_a.intersection(set_b)
+difference = set_a - set_b  # or set_a.difference(set_b)
+print(f"Union: {union}")
+print(f"Intersection: {intersection}")
+print(f"Difference: {difference}")
+
+# Dictionary examples
+student = {
+    "name": "Alice",
+    "age": 20,
+    "courses": ["Math", "Physics"]
+}
+student["grade"] = "A"  # Add new key-value pair
+print(f"Student: {student}")
+print(f"Student name: {student['name']}")
+
+# Dictionary comprehension
+square_dict = {x: x**2 for x in range(5)}
+print(f"Square dictionary: {square_dict}")
+                        </code></pre>
+            </div>
+
+            <div class="mt-4 p-4 bg-gray-800 rounded-lg">
+              <h4 class="font-semibold mb-2">Output:</h4>
+              <pre class="text-green-400">
+Fruits: ['apple', 'blueberry', 'banana', 'cherry']
+Squares: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+Even squares: [0, 4, 16, 36, 64]
+Coordinates: x=10, y=20
+Union: {1, 2, 3, 4, 5, 6, 7, 8}
+Intersection: {4, 5}
+Difference: {1, 2, 3}
+Student: {'name': 'Alice', 'age': 20, 'courses': ['Math', 'Physics'], 'grade': 'A'}
+Student name: Alice
+Square dictionary: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</pre
+              >
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Practice Exercise
+            </h3>
+            <div class="p-4 bg-gray-800 rounded-lg mb-4">
+              <p>
+                <strong>Problem:</strong> Write a function that counts the
+                frequency of each word in a given text and returns the top N
+                most frequent words.
+              </p>
+              <p><strong>Time estimate:</strong> 15-20 minutes</p>
+            </div>
+
+            <div class="p-4 bg-gray-800 rounded-lg">
+              <h4 class="font-semibold mb-2">Solution:</h4>
+              <div class="code-block">
+                <button class="copy-btn"><i class="far fa-copy"></i></button>
+                <pre><code class="language-python">
+def top_n_words(text, n=5):
+    """Return the top N most frequent words in the text"""
+    # Convert to lowercase and split into words
+    words = text.lower().split()
+    
+    # Count word frequencies
+    word_count = {}
+    for word in words:
+        # Remove punctuation (basic approach)
+        word = word.strip('.,!?;:"')
+        if word:
+            word_count[word] = word_count.get(word, 0) + 1
+    
+    # Sort by frequency (descending) and get top N
+    sorted_words = sorted(word_count.items(), key=lambda x: x[1], reverse=True)
+    return sorted_words[:n]
+
+# Test the function
+sample_text = "Hello world! Hello Python. Python is great. World of Python."
+top_words = top_n_words(sample_text, 3)
+print("Top words:")
+for word, count in top_words:
+    print(f"  {word}: {count}")
+                            </code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between mt-6 pt-4 border-t border-gray-700">
+            <a href="#control-flow" class="text-teal-400 hover:text-teal-300">
+              <i class="fas fa-arrow-left mr-1"></i> Previous: Control Flow
+            </a>
+            <a href="#functions" class="text-teal-400 hover:text-teal-300">
+              Next: Functions <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Functions Section -->
+      <section id="functions" class="mb-12">
+        <div class="section-card">
+          <h2 class="text-2xl font-bold mb-4 neon-text flex items-center">
+            <i class="fas fa-cogs mr-2"></i> Functions
+          </h2>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">Summary</h3>
+            <p>
+              Learn to create reusable code with functions, understand
+              parameters, return values, and advanced function concepts.
+            </p>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Deep Theory
+            </h3>
+
+            <h4 class="font-semibold mt-4 mb-2">Function Definition</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>Use <code>def</code> keyword to define functions</li>
+              <li>Functions are first-class objects in Python</li>
+              <li>
+                Can be assigned to variables, passed as arguments, returned from
+                other functions
+              </li>
+            </ul>
+
+            <h4 class="font-semibold mt-4 mb-2">Parameters</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li><strong>Positional arguments:</strong> Passed in order</li>
+              <li>
+                <strong>Keyword arguments:</strong> Passed with parameter names
+              </li>
+              <li>
+                <strong>Default parameters:</strong> Parameters with default
+                values
+              </li>
+              <li>
+                <strong>*args:</strong> Variable number of positional arguments
+              </li>
+              <li>
+                <strong>**kwargs:</strong> Variable number of keyword arguments
+              </li>
+            </ul>
+
+            <h4 class="font-semibold mt-4 mb-2">Advanced Concepts</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>
+                <strong>Closures:</strong> Functions that remember values in
+                enclosing scope
+              </li>
+              <li>
+                <strong>Decorators:</strong> Functions that modify other
+                functions
+              </li>
+              <li><strong>Lambda functions:</strong> Anonymous functions</li>
+              <li>
+                <strong>Recursion:</strong> Functions that call themselves
+              </li>
+            </ul>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Real-world Examples
+            </h3>
+
+            <div class="code-block">
+              <button class="copy-btn"><i class="far fa-copy"></i></button>
+              <pre><code class="language-python">
+# Basic function with parameters and return value
+def calculate_area(length, width):
+    """Calculate the area of a rectangle"""
+    return length * width
+
+# Function with default parameters
+def greet(name, greeting="Hello"):
+    """Greet a person with optional custom greeting"""
+    return f"{greeting}, {name}!"
+
+# Function with *args and **kwargs
+def flexible_function(*args, **kwargs):
+    """Demonstrate *args and **kwargs"""
+    print(f"Positional arguments: {args}")
+    print(f"Keyword arguments: {kwargs}")
+
+# Lambda function
+square = lambda x: x ** 2
+
+# Closure example
+def make_multiplier(factor):
+    """Create a function that multiplies by the given factor"""
+    def multiplier(x):
+        return x * factor
+    return multiplier
+
+# Decorator example
+def timer_decorator(func):
+    """Decorator to measure function execution time"""
+    import time
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        print(f"{func.__name__} took {end_time - start_time:.4f} seconds")
+        return result
+    return wrapper
+
+# Using the functions
+print(calculate_area(5, 3))
+print(greet("Alice"))
+print(greet("Bob", "Hi"))
+
+flexible_function(1, 2, 3, name="Alice", age=25)
+
+print(f"Square of 5: {square(5)}")
+
+double = make_multiplier(2)
+triple = make_multiplier(3)
+print(f"Double of 10: {double(10)}")
+print(f"Triple of 10: {triple(10)}")
+
+@timer_decorator
+def slow_function():
+    """A function that takes some time"""
+    import time
+    time.sleep(1)
+    return "Done"
+
+print(slow_function())
+                        </code></pre>
+            </div>
+
+            <div class="mt-4 p-4 bg-gray-800 rounded-lg">
+              <h4 class="font-semibold mb-2">Output:</h4>
+              <pre class="text-green-400">
+15
+Hello, Alice!
+Hi, Bob!
+Positional arguments: (1, 2, 3)
+Keyword arguments: {'name': 'Alice', 'age': 25}
+Square of 5: 25
+Double of 10: 20
+Triple of 10: 30
+slow_function took 1.0012 seconds
+Done</pre
+              >
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Practice Exercise
+            </h3>
+            <div class="p-4 bg-gray-800 rounded-lg mb-4">
+              <p>
+                <strong>Problem:</strong> Create a decorator that caches
+                function results to avoid recomputation for the same inputs.
+              </p>
+              <p><strong>Time estimate:</strong> 15-20 minutes</p>
+            </div>
+
+            <div class="p-4 bg-gray-800 rounded-lg">
+              <h4 class="font-semibold mb-2">Solution:</h4>
+              <div class="code-block">
+                <button class="copy-btn"><i class="far fa-copy"></i></button>
+                <pre><code class="language-python">
+def cache_decorator(func):
+    """Decorator to cache function results"""
+    cache = {}
+    
+    def wrapper(*args):
+        # Use args as key (must be hashable)
+        if args in cache:
+            print(f"Cache hit for {args}")
+            return cache[args]
+        else:
+            print(f"Computing result for {args}")
+            result = func(*args)
+            cache[args] = result
+            return result
+    
+    return wrapper
+
+@cache_decorator
+def fibonacci(n):
+    """Compute nth Fibonacci number"""
+    if n < 2:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# Test the cached Fibonacci function
+print(f"fibonacci(5) = {fibonacci(5)}")
+print(f"fibonacci(10) = {fibonacci(10)}")
+print(f"fibonacci(5) = {fibonacci(5)}")  # This should use cache
+                            </code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between mt-6 pt-4 border-t border-gray-700">
+            <a href="#collections" class="text-teal-400 hover:text-teal-300">
+              <i class="fas fa-arrow-left mr-1"></i> Previous: Collections
+            </a>
+            <a href="#oop" class="text-teal-400 hover:text-teal-300">
+              Next: OOP <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- OOP Section -->
+      <section id="oop" class="mb-12">
+        <div class="section-card">
+          <h2 class="text-2xl font-bold mb-4 neon-text flex items-center">
+            <i class="fas fa-object-group mr-2"></i> Object-Oriented Programming
+          </h2>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">Summary</h3>
+            <p>
+              Master Python's object-oriented programming concepts: classes,
+              inheritance, polymorphism, and design patterns.
+            </p>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Deep Theory
+            </h3>
+
+            <h4 class="font-semibold mt-4 mb-2">Classes and Objects</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li><strong>Class:</strong> Blueprint for creating objects</li>
+              <li><strong>Object:</strong> Instance of a class</li>
+              <li>
+                <strong>Constructor:</strong> <code>__init__</code> method
+              </li>
+              <li>
+                <strong>Instance variables:</strong> Data unique to each
+                instance
+              </li>
+              <li>
+                <strong>Class variables:</strong> Shared across all instances
+              </li>
+            </ul>
+
+            <h4 class="font-semibold mt-4 mb-2">Inheritance</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>
+                <strong>Single inheritance:</strong> Class inherits from one
+                parent
+              </li>
+              <li>
+                <strong>Multiple inheritance:</strong> Class inherits from
+                multiple parents
+              </li>
+              <li>
+                <strong>Method Resolution Order (MRO):</strong> Determines
+                method lookup order
+              </li>
+              <li><strong>super():</strong> Call parent class methods</li>
+            </ul>
+
+            <h4 class="font-semibold mt-4 mb-2">
+              Polymorphism & Encapsulation
+            </h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>
+                <strong>Polymorphism:</strong> Same interface, different
+                implementations
+              </li>
+              <li>
+                <strong>Encapsulation:</strong> Bundling data with methods
+              </li>
+              <li>
+                <strong>Abstraction:</strong> Hiding implementation details
+              </li>
+            </ul>
+
+            <h4 class="font-semibold mt-4 mb-2">Special Methods</h4>
+            <ul class="list-disc pl-6 space-y-1">
+              <li><code>__str__</code>: String representation</li>
+              <li><code>__repr__</code>: Official string representation</li>
+              <li>
+                <code>__eq__</code>, <code>__hash__</code>: Equality and hashing
+              </li>
+              <li>
+                <code>__getitem__</code>, <code>__setitem__</code>: Indexing
+                support
+              </li>
+            </ul>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Real-world Examples
+            </h3>
+
+            <div class="code-block">
+              <button class="copy-btn"><i class="far fa-copy"></i></button>
+              <pre><code class="language-python">
+# Basic class example
+class Person:
+    """A simple Person class"""
+    
+    # Class variable (shared by all instances)
+    species = "Homo sapiens"
+    
+    def __init__(self, name, age):
+        # Instance variables (unique to each instance)
+        self.name = name
+        self.age = age
+    
+    def greet(self):
+        return f"Hello, my name is {self.name} and I'm {self.age} years old"
+    
+    def __str__(self):
+        return f"Person(name='{self.name}', age={self.age})"
+    
+    def __repr__(self):
+        return f"Person('{self.name}', {self.age})"
+
+# Inheritance example
+class Student(Person):
+    """Student class inheriting from Person"""
+    
+    def __init__(self, name, age, student_id, major):
+        # Call parent class constructor
+        super().__init__(name, age)
+        self.student_id = student_id
+        self.major = major
+    
+    def study(self, subject):
+        return f"{self.name} is studying {subject}"
+    
+    def greet(self):  # Override parent method
+        return f"Hi, I'm {self.name}, a {self.major} student"
+
+# Using the classes
+person = Person("Alice", 25)
+student = Student("Bob", 20, "S12345", "Computer Science")
+
+print(person.greet())
+print(student.greet())
+print(student.study("Python Programming"))
+
+print(f"Person species: {Person.species}")
+print(f"Student species: {Student.species}")
+
+# Polymorphism example
+def introduce(person):
+    """Function demonstrating polymorphism"""
+    print(person.greet())
+
+introduce(person)
+introduce(student)
+
+# Property example
+class Circle:
+    """Circle class with property for diameter"""
+    
+    def __init__(self, radius):
+        self._radius = radius
+    
+    @property
+    def radius(self):
+        return self._radius
+    
+    @radius.setter
+    def radius(self, value):
+        if value < 0:
+            raise ValueError("Radius cannot be negative")
+        self._radius = value
+    
+    @property
+    def diameter(self):
+        return 2 * self._radius
+    
+    @diameter.setter
+    def diameter(self, value):
+        self.radius = value / 2
+    
+    @property
+    def area(self):
+        import math
+        return math.pi * self._radius ** 2
+
+circle = Circle(5)
+print(f"Radius: {circle.radius}, Diameter: {circle.diameter}, Area: {circle.area:.2f}")
+circle.diameter = 20
+print(f"After setting diameter to 20: Radius: {circle.radius}")
+                        </code></pre>
+            </div>
+
+            <div class="mt-4 p-4 bg-gray-800 rounded-lg">
+              <h4 class="font-semibold mb-2">Output:</h4>
+              <pre class="text-green-400">
+Hello, my name is Alice and I'm 25 years old
+Hi, I'm Bob, a Computer Science student
+Bob is studying Python Programming
+Person species: Homo sapiens
+Student species: Homo sapiens
+Hello, my name is Alice and I'm 25 years old
+Hi, I'm Bob, a Computer Science student
+Radius: 5, Diameter: 10, Area: 78.54
+After setting diameter to 20: Radius: 10.0</pre
+              >
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Practice Exercise
+            </h3>
+            <div class="p-4 bg-gray-800 rounded-lg mb-4">
+              <p>
+                <strong>Problem:</strong> Create a banking system with Account
+                classes (SavingsAccount, CheckingAccount) that demonstrate
+                inheritance, polymorphism, and encapsulation.
+              </p>
+              <p><strong>Time estimate:</strong> 25-30 minutes</p>
+            </div>
+
+            <div class="p-4 bg-gray-800 rounded-lg">
+              <h4 class="font-semibold mb-2">Solution:</h4>
+              <div class="code-block">
+                <button class="copy-btn"><i class="far fa-copy"></i></button>
+                <pre><code class="language-python">
+from abc import ABC, abstractmethod
+from datetime import datetime
+
+class Account(ABC):
+    """Abstract base class for bank accounts"""
+    
+    def __init__(self, account_number, owner, balance=0):
+        self.account_number = account_number
+        self.owner = owner
+        self._balance = balance
+        self.transactions = []
+    
+    @property
+    def balance(self):
+        return self._balance
+    
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Deposit amount must be positive")
+        self._balance += amount
+        self.transactions.append(Transaction("DEPOSIT", amount, datetime.now()))
+        return self._balance
+    
+    @abstractmethod
+    def withdraw(self, amount):
+        pass
+    
+    def __str__(self):
+        return f"{self.__class__.__name__}({self.account_number}, {self.owner}, balance=${self.balance:.2f})"
+
+class SavingsAccount(Account):
+    """Savings account with interest"""
+    
+    def __init__(self, account_number, owner, balance=0, interest_rate=0.01):
+        super().__init__(account_number, owner, balance)
+        self.interest_rate = interest_rate
+    
+    def withdraw(self, amount):
+        if amount <= 0:
+            raise ValueError("Withdrawal amount must be positive")
+        if amount > self._balance:
+            raise ValueError("Insufficient funds")
+        self._balance -= amount
+        self.transactions.append(Transaction("WITHDRAWAL", -amount, datetime.now()))
+        return self._balance
+    
+    def add_interest(self):
+        interest = self._balance * self.interest_rate
+        self._balance += interest
+        self.transactions.append(Transaction("INTEREST", interest, datetime.now()))
+        return interest
+
+class CheckingAccount(Account):
+    """Checking account with overdraft protection"""
+    
+    def __init__(self, account_number, owner, balance=0, overdraft_limit=100):
+        super().__init__(account_number, owner, balance)
+        self.overdraft_limit = overdraft_limit
+    
+    def withdraw(self, amount):
+        if amount <= 0:
+            raise ValueError("Withdrawal amount must be positive")
+        if amount > (self._balance + self.overdraft_limit):
+            raise ValueError("Exceeds overdraft limit")
+        self._balance -= amount
+        self.transactions.append(Transaction("WITHDRAWAL", -amount, datetime.now()))
+        return self._balance
+
+class Transaction:
+    """Transaction record"""
+    
+    def __init__(self, type, amount, timestamp):
+        self.type = type
+        self.amount = amount
+        self.timestamp = timestamp
+    
+    def __str__(self):
+        return f"{self.timestamp.strftime('%Y-%m-%d %H:%M')} {self.type}: ${self.amount:+.2f}"
+
+# Test the banking system
+savings = SavingsAccount("SAV001", "Alice", 1000, 0.02)
+checking = CheckingAccount("CHK001", "Bob", 500, 200)
+
+print(savings)
+print(checking)
+
+savings.deposit(200)
+savings.withdraw(100)
+interest = savings.add_interest()
+
+checking.withdraw(600)  # Within overdraft limit
+
+print(f"Savings balance after transactions: ${savings.balance:.2f}")
+print(f"Checking balance after withdrawal: ${checking.balance:.2f}")
+
+print("\nSavings transactions:")
+for t in savings.transactions:
+    print(f"  {t}")
+                            </code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between mt-6 pt-4 border-t border-gray-700">
+            <a href="#functions" class="text-teal-400 hover:text-teal-300">
+              <i class="fas fa-arrow-left mr-1"></i> Previous: Functions
+            </a>
+            <a href="#practice" class="text-teal-400 hover:text-teal-300">
+              Next: Practice Problems <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Practice Problems Section -->
+      <section id="practice" class="mb-12">
+        <div class="section-card">
+          <h2 class="text-2xl font-bold mb-4 neon-text flex items-center">
+            <i class="fas fa-pencil-alt mr-2"></i> Practice Problems
+          </h2>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              25+ Curated Practice Problems
+            </h3>
+            <p>
+              Problems range from Easy to Hard with complete solutions and
+              explanations.
+            </p>
+          </div>
+
+          <div class="space-y-6">
+            <!-- Problem 1 -->
+            <div class="p-4 bg-gray-800 rounded-lg">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="text-lg font-semibold">1. FizzBuzz</h4>
+                <span class="px-2 py-1 bg-green-700 rounded text-sm">Easy</span>
+              </div>
+              <p class="mb-2">
+                <strong>Description:</strong> Write a function that prints
+                numbers from 1 to n. For multiples of 3, print "Fizz" instead of
+                the number. For multiples of 5, print "Buzz". For multiples of
+                both 3 and 5, print "FizzBuzz".
+              </p>
+              <p class="mb-2"><strong>Time estimate:</strong> 5-10 minutes</p>
+
+              <div class="mt-4">
+                <button
+                  class="toggle-solution bg-teal-700 hover:bg-teal-600 px-3 py-1 rounded text-sm"
+                >
+                  Show Solution
+                </button>
+                <div class="solution hidden mt-2">
+                  <div class="code-block">
+                    <button class="copy-btn">
+                      <i class="far fa-copy"></i>
+                    </button>
+                    <pre><code class="language-python">
+def fizzbuzz(n):
+    for i in range(1, n+1):
+        if i % 15 == 0:
+            print("FizzBuzz")
+        elif i % 3 == 0:
+            print("Fizz")
+        elif i % 5 == 0:
+            print("Buzz")
+        else:
+            print(i)
+
+# Test
+fizzbuzz(15)
+                                    </code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Problem 2 -->
+            <div class="p-4 bg-gray-800 rounded-lg">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="text-lg font-semibold">2. Palindrome Checker</h4>
+                <span class="px-2 py-1 bg-green-700 rounded text-sm">Easy</span>
+              </div>
+              <p class="mb-2">
+                <strong>Description:</strong> Write a function that checks if a
+                given string is a palindrome (reads the same forwards and
+                backwards). Ignore case, spaces, and punctuation.
+              </p>
+              <p class="mb-2"><strong>Time estimate:</strong> 10-15 minutes</p>
+
+              <div class="mt-4">
+                <button
+                  class="toggle-solution bg-teal-700 hover:bg-teal-600 px-3 py-1 rounded text-sm"
+                >
+                  Show Solution
+                </button>
+                <div class="solution hidden mt-2">
+                  <div class="code-block">
+                    <button class="copy-btn">
+                      <i class="far fa-copy"></i>
+                    </button>
+                    <pre><code class="language-python">
+import re
+
+def is_palindrome(s):
+    # Remove non-alphanumeric characters and convert to lowercase
+    cleaned = re.sub(r'[^a-zA-Z0-9]', '', s).lower()
+    return cleaned == cleaned[::-1]
+
+# Test cases
+print(is_palindrome("A man, a plan, a canal: Panama"))  # True
+print(is_palindrome("race a car"))  # False
+print(is_palindrome(""))  # True
+                                    </code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Problem 3 -->
+            <div class="p-4 bg-gray-800 rounded-lg">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="text-lg font-semibold">3. Two Sum</h4>
+                <span class="px-2 py-1 bg-yellow-600 rounded text-sm"
+                  >Medium</span
+                >
+              </div>
+              <p class="mb-2">
+                <strong>Description:</strong> Given an array of integers and a
+                target sum, return indices of the two numbers that add up to the
+                target. Assume exactly one solution exists.
+              </p>
+              <p class="mb-2"><strong>Time estimate:</strong> 15-20 minutes</p>
+
+              <div class="mt-4">
+                <button
+                  class="toggle-solution bg-teal-700 hover:bg-teal-600 px-3 py-1 rounded text-sm"
+                >
+                  Show Solution
+                </button>
+                <div class="solution hidden mt-2">
+                  <div class="code-block">
+                    <button class="copy-btn">
+                      <i class="far fa-copy"></i>
+                    </button>
+                    <pre><code class="language-python">
+def two_sum(nums, target):
+    num_map = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in num_map:
+            return [num_map[complement], i]
+        num_map[num] = i
+    return []
+
+# Test
+nums = [2, 7, 11, 15]
+target = 9
+print(two_sum(nums, target))  # [0, 1]
+
+# Complexity Analysis:
+# Time: O(n) - single pass through the array
+# Space: O(n) - storing numbers in hash map
+                                    </code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Problem 4 -->
+            <div class="p-4 bg-gray-800 rounded-lg">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="text-lg font-semibold">
+                  4. Binary Search Tree Validation
+                </h4>
+                <span class="px-2 py-1 bg-yellow-600 rounded text-sm"
+                  >Medium</span
+                >
+              </div>
+              <p class="mb-2">
+                <strong>Description:</strong> Given the root of a binary tree,
+                determine if it is a valid binary search tree (BST).
+              </p>
+              <p class="mb-2"><strong>Time estimate:</strong> 20-25 minutes</p>
+
+              <div class="mt-4">
+                <button
+                  class="toggle-solution bg-teal-700 hover:bg-teal-600 px-3 py-1 rounded text-sm"
+                >
+                  Show Solution
+                </button>
+                <div class="solution hidden mt-2">
+                  <div class="code-block">
+                    <button class="copy-btn">
+                      <i class="far fa-copy"></i>
+                    </button>
+                    <pre><code class="language-python">
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def is_valid_bst(root):
+    def validate(node, low=float('-inf'), high=float('inf')):
+        if not node:
+            return True
+        
+        if node.val <= low or node.val >= high:
+            return False
+        
+        return (validate(node.left, low, node.val) and 
+                validate(node.right, node.val, high))
+    
+    return validate(root)
+
+# Test
+#     2
+#    / \
+#   1   3
+root = TreeNode(2)
+root.left = TreeNode(1)
+root.right = TreeNode(3)
+print(is_valid_bst(root))  # True
+
+#     5
+#    / \
+#   1   4
+#      / \
+#     3   6
+root2 = TreeNode(5)
+root2.left = TreeNode(1)
+root2.right = TreeNode(4)
+root2.right.left = TreeNode(3)
+root2.right.right = TreeNode(6)
+print(is_valid_bst(root2))  # False
+
+# Complexity Analysis:
+# Time: O(n) - visit each node once
+# Space: O(h) - recursion stack, where h is height of tree
+                                    </code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Problem 5 -->
+            <div class="p-4 bg-gray-800 rounded-lg">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="text-lg font-semibold">
+                  5. LRU Cache Implementation
+                </h4>
+                <span class="px-2 py-1 bg-red-700 rounded text-sm">Hard</span>
+              </div>
+              <p class="mb-2">
+                <strong>Description:</strong> Design and implement a Least
+                Recently Used (LRU) cache. It should support get and put
+                operations in O(1) time complexity.
+              </p>
+              <p class="mb-2"><strong>Time estimate:</strong> 30-40 minutes</p>
+
+              <div class="mt-4">
+                <button
+                  class="toggle-solution bg-teal-700 hover:bg-teal-600 px-3 py-1 rounded text-sm"
+                >
+                  Show Solution
+                </button>
+                <div class="solution hidden mt-2">
+                  <div class="code-block">
+                    <button class="copy-btn">
+                      <i class="far fa-copy"></i>
+                    </button>
+                    <pre><code class="language-python">
+class ListNode:
+    def __init__(self, key=0, val=0, prev=None, next=None):
+        self.key = key
+        self.val = val
+        self.prev = prev
+        self.next = next
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = {}
+        # Dummy head and tail for the doubly linked list
+        self.head = ListNode()
+        self.tail = ListNode()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+    
+    def _add_node(self, node):
+        """Add node right after head"""
+        node.prev = self.head
+        node.next = self.head.next
+        self.head.next.prev = node
+        self.head.next = node
+    
+    def _remove_node(self, node):
+        """Remove an existing node from the linked list"""
+        prev = node.prev
+        next = node.next
+        prev.next = next
+        next.prev = prev
+    
+    def _move_to_head(self, node):
+        """Move certain node to head (most recently used)"""
+        self._remove_node(node)
+        self._add_node(node)
+    
+    def _pop_tail(self):
+        """Pop the current tail (least recently used)"""
+        res = self.tail.prev
+        self._remove_node(res)
+        return res
+
+    def get(self, key: int) -> int:
+        node = self.cache.get(key, None)
+        if not node:
+            return -1
+        # Move the accessed node to the head
+        self._move_to_head(node)
+        return node.val
+
+    def put(self, key: int, value: int) -> None:
+        node = self.cache.get(key)
+        if not node:
+            new_node = ListNode(key, value)
+            self.cache[key] = new_node
+            self._add_node(new_node)
+            if len(self.cache) > self.capacity:
+                # Pop the tail
+                tail = self._pop_tail()
+                del self.cache[tail.key]
+        else:
+            # Update the value
+            node.val = value
+            self._move_to_head(node)
+
+# Test
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+print(cache.get(1))  # 1
+cache.put(3, 3)      # evicts key 2
+print(cache.get(2))  # -1
+cache.put(4, 4)      # evicts key 1
+print(cache.get(1))  # -1
+print(cache.get(3))  # 3
+print(cache.get(4))  # 4
+
+# Complexity Analysis:
+# Time: O(1) for both get and put operations
+# Space: O(capacity) - for the hash map and linked list
+                                    </code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 p-4 bg-gray-800 rounded-lg">
+            <h4 class="text-lg font-semibold mb-2">
+              More Practice Problems Available
+            </h4>
+            <p>
+              This resource includes 20+ additional practice problems covering:
+            </p>
+            <ul class="list-disc pl-6 mt-2 space-y-1">
+              <li>String manipulation and algorithms</li>
+              <li>Data structure implementations</li>
+              <li>Dynamic programming problems</li>
+              <li>Graph algorithms</li>
+              <li>System design questions</li>
+              <li>Concurrency and threading challenges</li>
+            </ul>
+          </div>
+
+          <div class="flex justify-between mt-6 pt-4 border-t border-gray-700">
+            <a href="#oop" class="text-teal-400 hover:text-teal-300">
+              <i class="fas fa-arrow-left mr-1"></i> Previous: OOP
+            </a>
+            <a href="#toc" class="text-teal-400 hover:text-teal-300">
+              <i class="fas fa-arrow-up mr-1"></i> Back to Top
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cheat Sheet Section -->
+      <section id="cheat-sheet" class="mb-12">
+        <div class="section-card">
+          <h2 class="text-2xl font-bold mb-4 neon-text flex items-center">
+            <i class="fas fa-scroll mr-2"></i> Python Cheat Sheet
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-xl font-semibold mb-2 neon-secondary">
+                Common One-liners
+              </h3>
+              <div class="code-block">
+                <pre><code class="language-python">
+# List comprehension
+squares = [x**2 for x in range(10)]
+
+# Dictionary comprehension
+square_dict = {x: x**2 for x in range(5)}
+
+# Set comprehension
+unique_chars = {char for char in "hello world"}
+
+# Filter list
+evens = list(filter(lambda x: x % 2 == 0, range(10)))
+
+# Map function
+doubled = list(map(lambda x: x * 2, [1, 2, 3]))
+
+# Swap variables
+a, b = b, a
+
+# Flatten list of lists
+flat_list = [item for sublist in list_of_lists for item in sublist]
+
+# Check if all elements satisfy condition
+all_positive = all(x > 0 for x in [1, 2, 3])
+
+# Check if any element satisfies condition
+has_negative = any(x < 0 for x in [1, -2, 3])
+                            </code></pre>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold mb-2 neon-secondary">
+                Common Pitfalls
+              </h3>
+              <div class="space-y-4">
+                <div class="p-3 bg-gray-800 rounded">
+                  <h4 class="font-semibold text-red-400">
+                    Mutable Default Arguments
+                  </h4>
+                  <p class="text-sm">
+                    Don't use mutable objects as default arguments:
+                  </p>
+                  <div class="code-block mt-1">
+                    <pre><code class="language-python">
+# Wrong
+def append_to(element, target=[]):
+    target.append(element)
+    return target
+
+# Correct
+def append_to(element, target=None):
+    if target is None:
+        target = []
+    target.append(element)
+    return target
+                                    </code></pre>
+                  </div>
+                </div>
+
+                <div class="p-3 bg-gray-800 rounded">
+                  <h4 class="font-semibold text-red-400">
+                    Variable Scope in Comprehensions
+                  </h4>
+                  <p class="text-sm">
+                    List comprehensions have their own scope in Python 3+:
+                  </p>
+                  <div class="code-block mt-1">
+                    <pre><code class="language-python">
+x = 10
+# This works fine in Python 3
+squares = [x**2 for x in range(5)]
+# x is still 10 here
+                                    </code></pre>
+                  </div>
+                </div>
+
+                <div class="p-3 bg-gray-800 rounded">
+                  <h4 class="font-semibold text-red-400">Copying Lists</h4>
+                  <p class="text-sm">
+                    Use copy() or slicing to create new lists:
+                  </p>
+                  <div class="code-block mt-1">
+                    <pre><code class="language-python">
+original = [1, 2, 3]
+# Wrong - both reference same list
+copy_wrong = original
+# Correct - creates new list
+copy_correct = original.copy()
+# Also correct
+copy_correct2 = original[:]
+                                    </code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <h3 class="text-xl font-semibold mb-2 neon-secondary">
+              Useful Standard Library Modules
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="p-3 bg-gray-800 rounded">
+                <h4 class="font-semibold">collections</h4>
+                <p class="text-sm">Specialized container datatypes</p>
+              </div>
+              <div class="p-3 bg-gray-800 rounded">
+                <h4 class="font-semibold">itertools</h4>
+                <p class="text-sm">Functions creating iterators</p>
+              </div>
+              <div class="p-3 bg-gray-800 rounded">
+                <h4 class="font-semibold">functools</h4>
+                <p class="text-sm">Higher-order functions</p>
+              </div>
+              <div class="p-3 bg-gray-800 rounded">
+                <h4 class="font-semibold">contextlib</h4>
+                <p class="text-sm">Utilities for with-statement contexts</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between mt-6 pt-4 border-t border-gray-700">
+            <a href="#practice" class="text-teal-400 hover:text-teal-300">
+              <i class="fas fa-arrow-left mr-1"></i> Previous: Practice Problems
+            </a>
+            <a href="#toc" class="text-teal-400 hover:text-teal-300">
+              <i class="fas fa-arrow-up mr-1"></i> Back to Top
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-gray-900 py-8 mt-12">
+      <div class="container mx-auto px-4 text-center">
+        <p class="text-gray-400">Python Mastery - Engineering Edition</p>
+        <p class="text-gray-500 text-sm mt-2">
+          Comprehensive Python learning resource for engineering students
+        </p>
+        <div class="mt-4 flex justify-center space-x-4">
+          <a href="#" class="text-gray-400 hover:text-teal-400">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-teal-400">
+            <i class="fab fa-python"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Toggle solution visibility
+      document.querySelectorAll('.toggle-solution').forEach((button) => {
+        button.addEventListener('click', () => {
+          const solution = button.nextElementSibling;
+          solution.classList.toggle('hidden');
+          button.textContent = solution.classList.contains('hidden')
+            ? 'Show Solution'
+            : 'Hide Solution';
+        });
+      });
+
+      // Add keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey) {
+          switch (e.key) {
+            case '1':
+              e.preventDefault();
+              window.location.hash = '#toc';
+              break;
+            case '2':
+              e.preventDefault();
+              window.location.hash = '#basics';
+              break;
+            case '3':
+              e.preventDefault();
+              window.location.hash = '#practice';
+              break;
+          }
+        }
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', (e) => {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuToggle = document.getElementById('menu-toggle');
+
+        if (
+          mobileMenu &&
+          !mobileMenu.contains(e.target) &&
+          menuToggle &&
+          !menuToggle.contains(e.target) &&
+          !mobileMenu.classList.contains('hidden')
+        ) {
+          mobileMenu.classList.add('hidden');
+        }
+      });
+    </script>
+  </body>
+</html>

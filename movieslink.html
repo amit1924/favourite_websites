@@ -1,346 +1,984 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Sites Directory</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Streaming Sites Directory - Multi-Theme & Category Colors</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Orbitron:wght@600;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&display=swap');
-        
+      :root {
+        --bg-1: #070617;
+        --bg-2: #0f1026;
+        --accent-a: #00f0ff;
+        --accent-b: #ff4bd6;
+        --glass: rgba(255, 255, 255, 0.04);
+      }
+
+      body {
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
+          'Helvetica Neue', Arial;
+        color: #e6eef6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        padding: 36px;
+        transition: all 0.5s ease;
+      }
+
+      /* Theme 1: Cyberpunk (Default) */
+      .theme-cyberpunk {
+        background: radial-gradient(
+            1200px 600px at 10% 10%,
+            rgba(0, 240, 255, 0.06),
+            transparent 8%
+          ),
+          radial-gradient(
+            900px 500px at 90% 90%,
+            rgba(255, 75, 214, 0.05),
+            transparent 10%
+          ),
+          linear-gradient(180deg, #070617 0%, #0f1026 100%);
+      }
+
+      /* Theme 2: Dark Space */
+      .theme-space {
+        background: radial-gradient(
+            ellipse at 20% 20%,
+            rgba(30, 30, 70, 0.8) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(70, 20, 100, 0.6) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #0a0a2e 0%, #1a1a4a 50%, #0f0f23 100%);
+      }
+
+      /* Theme 3: Forest */
+      .theme-forest {
+        background: radial-gradient(
+            ellipse at 10% 20%,
+            rgba(20, 80, 60, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 90% 80%,
+            rgba(30, 100, 80, 0.3) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #0a2e1a 0%, #1a4a2e 50%, #0f2318 100%);
+      }
+
+      /* Theme 4: Sunset */
+      .theme-sunset {
+        background: radial-gradient(
+            ellipse at 20% 20%,
+            rgba(255, 100, 50, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(255, 150, 50, 0.3) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #2e0a0a 0%, #4a1a1a 50%, #230f0f 100%);
+      }
+
+      /* Theme 5: Ocean */
+      .theme-ocean {
+        background: radial-gradient(
+            ellipse at 20% 20%,
+            rgba(0, 150, 200, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(0, 100, 180, 0.3) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #0a1a2e 0%, #1a2e4a 50%, #0f1823 100%);
+      }
+
+      .blob {
+        position: fixed;
+        filter: blur(60px);
+        opacity: 0.5;
+        pointer-events: none;
+        transition: all 0.5s ease;
+      }
+
+      .blob.a {
+        left: 6%;
+        top: 10%;
+        width: 360px;
+        height: 360px;
+      }
+
+      .blob.b {
+        right: 6%;
+        bottom: 8%;
+        width: 420px;
+        height: 420px;
+      }
+
+      .theme-cyberpunk .blob.a {
+        background: linear-gradient(45deg, var(--accent-a), var(--accent-b));
+      }
+
+      .theme-cyberpunk .blob.b {
+        background: linear-gradient(45deg, var(--accent-b), #ffd66b);
+      }
+
+      .theme-space .blob.a {
+        background: linear-gradient(45deg, #6b46c1, #805ad5);
+      }
+
+      .theme-space .blob.b {
+        background: linear-gradient(45deg, #d53f8c, #ed64a6);
+      }
+
+      .theme-forest .blob.a {
+        background: linear-gradient(45deg, #38a169, #48bb78);
+      }
+
+      .theme-forest .blob.b {
+        background: linear-gradient(45deg, #2f855a, #68d391);
+      }
+
+      .theme-sunset .blob.a {
+        background: linear-gradient(45deg, #dd6b20, #ed8936);
+      }
+
+      .theme-sunset .blob.b {
+        background: linear-gradient(45deg, #c05621, #f6ad55);
+      }
+
+      .theme-ocean .blob.a {
+        background: linear-gradient(45deg, #3182ce, #4299e1);
+      }
+
+      .theme-ocean .blob.b {
+        background: linear-gradient(45deg, #2b6cb0, #63b3ed);
+      }
+
+      .title-neon {
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: -0.02em;
+        text-transform: none;
+        transition: text-shadow 0.5s ease;
+      }
+
+      .theme-cyberpunk .title-neon {
+        text-shadow: 0 0 8px rgba(0, 240, 255, 0.14),
+          0 0 24px rgba(255, 75, 214, 0.08);
+      }
+
+      .theme-space .title-neon {
+        text-shadow: 0 0 8px rgba(107, 70, 193, 0.14),
+          0 0 24px rgba(213, 63, 140, 0.08);
+      }
+
+      .theme-forest .title-neon {
+        text-shadow: 0 0 8px rgba(56, 161, 105, 0.14),
+          0 0 24px rgba(72, 187, 120, 0.08);
+      }
+
+      .theme-sunset .title-neon {
+        text-shadow: 0 0 8px rgba(221, 107, 32, 0.14),
+          0 0 24px rgba(237, 137, 54, 0.08);
+      }
+
+      .theme-ocean .title-neon {
+        text-shadow: 0 0 8px rgba(49, 130, 206, 0.14),
+          0 0 24px rgba(66, 153, 225, 0.08);
+      }
+
+      .glass {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(8px) saturate(1.1);
+        box-shadow: 0 8px 40px rgba(3, 6, 23, 0.6),
+          inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        border-radius: 14px;
+        transition: all 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-10px) scale(1.01) rotateX(2deg);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(0, 240, 255, 0.06);
+      }
+
+      .card {
+        transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1),
+          box-shadow 0.35s, filter 0.35s;
+      }
+
+      .theme-space .card:hover {
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(107, 70, 193, 0.06);
+      }
+
+      .theme-forest .card:hover {
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(56, 161, 105, 0.06);
+      }
+
+      .theme-sunset .card:hover {
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(221, 107, 32, 0.06);
+      }
+
+      .theme-ocean .card:hover {
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(49, 130, 206, 0.06);
+      }
+
+      .tilt {
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+
+      .accent-line {
+        height: 4px;
+        border-radius: 999px;
+        transition: background 0.5s ease;
+      }
+
+      .theme-cyberpunk .accent-line {
+        background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+      }
+
+      .theme-space .accent-line {
+        background: linear-gradient(90deg, #6b46c1, #d53f8c);
+      }
+
+      .theme-forest .accent-line {
+        background: linear-gradient(90deg, #38a169, #48bb78);
+      }
+
+      .theme-sunset .accent-line {
+        background: linear-gradient(90deg, #dd6b20, #ed8936);
+      }
+
+      .theme-ocean .accent-line {
+        background: linear-gradient(90deg, #3182ce, #4299e1);
+      }
+
+      .search-box {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .tiny-badge {
+        font-size: 11px;
+        padding: 6px 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .pill {
+        transition: transform 0.22s, box-shadow 0.22s;
+      }
+
+      .pill:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(3, 6, 23, 0.6);
+      }
+
+      .theme-btn {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .theme-btn:hover {
+        transform: scale(1.05);
+      }
+
+      .theme-btn.active {
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+
+      .theme-cyberpunk .theme-btn.active {
+        border-color: var(--accent-a);
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+      }
+
+      .theme-space .theme-btn.active {
+        border-color: #6b46c1;
+        box-shadow: 0 0 10px rgba(107, 70, 193, 0.5);
+      }
+
+      .theme-forest .theme-btn.active {
+        border-color: #38a169;
+        box-shadow: 0 0 10px rgba(56, 161, 105, 0.5);
+      }
+
+      .theme-sunset .theme-btn.active {
+        border-color: #dd6b20;
+        box-shadow: 0 0 10px rgba(221, 107, 32, 0.5);
+      }
+
+      .theme-ocean .theme-btn.active {
+        border-color: #3182ce;
+        box-shadow: 0 0 10px rgba(49, 130, 206, 0.5);
+      }
+
+      .category-btn {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(0, 247, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .category-btn.active,
+      .category-btn:hover {
+        background: rgba(0, 247, 255, 0.2);
+        box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+        border-color: rgba(0, 247, 255, 0.7);
+      }
+
+      .theme-space .category-btn.active,
+      .theme-space .category-btn:hover {
+        background: rgba(107, 70, 193, 0.2);
+        box-shadow: 0 0 10px rgba(107, 70, 193, 0.5);
+        border-color: rgba(107, 70, 193, 0.7);
+      }
+
+      .theme-forest .category-btn.active,
+      .theme-forest .category-btn:hover {
+        background: rgba(56, 161, 105, 0.2);
+        box-shadow: 0 0 10px rgba(56, 161, 105, 0.5);
+        border-color: rgba(56, 161, 105, 0.7);
+      }
+
+      .theme-sunset .category-btn.active,
+      .theme-sunset .category-btn:hover {
+        background: rgba(221, 107, 32, 0.2);
+        box-shadow: 0 0 10px rgba(221, 107, 32, 0.5);
+        border-color: rgba(221, 107, 32, 0.7);
+      }
+
+      .theme-ocean .category-btn.active,
+      .theme-ocean .category-btn:hover {
+        background: rgba(49, 130, 206, 0.2);
+        box-shadow: 0 0 10px rgba(49, 130, 206, 0.5);
+        border-color: rgba(49, 130, 206, 0.7);
+      }
+
+      .site-link {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .site-link:hover {
+        transform: scale(1.05);
+      }
+
+      .icon-container {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        margin-right: 12px;
+      }
+
+      .google-search-btn {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(66, 133, 244, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .google-search-btn:hover {
+        background: rgba(66, 133, 244, 0.2);
+        box-shadow: 0 0 10px rgba(66, 133, 244, 0.5);
+        border-color: rgba(66, 133, 244, 0.7);
+      }
+
+      /* Category-specific colors for each theme */
+      /* Cyberpunk Theme */
+      .theme-cyberpunk .category-movies .icon-container {
+        background: rgba(0, 240, 255, 0.15);
+      }
+      .theme-cyberpunk .category-tv .icon-container {
+        background: rgba(255, 75, 214, 0.15);
+      }
+      .theme-cyberpunk .category-both .icon-container {
+        background: rgba(255, 214, 107, 0.15);
+      }
+      .theme-cyberpunk .category-movies .category-badge {
+        background: rgba(0, 240, 255, 0.2);
+        border-color: rgba(0, 240, 255, 0.4);
+      }
+      .theme-cyberpunk .category-tv .category-badge {
+        background: rgba(255, 75, 214, 0.2);
+        border-color: rgba(255, 75, 214, 0.4);
+      }
+      .theme-cyberpunk .category-both .category-badge {
+        background: rgba(255, 214, 107, 0.2);
+        border-color: rgba(255, 214, 107, 0.4);
+      }
+      .theme-cyberpunk .category-movies .category-icon {
+        color: #00f0ff;
+      }
+      .theme-cyberpunk .category-tv .category-icon {
+        color: #ff4bd6;
+      }
+      .theme-cyberpunk .category-both .category-icon {
+        color: #ffd66b;
+      }
+
+      /* Space Theme */
+      .theme-space .category-movies .icon-container {
+        background: rgba(107, 70, 193, 0.15);
+      }
+      .theme-space .category-tv .icon-container {
+        background: rgba(213, 63, 140, 0.15);
+      }
+      .theme-space .category-both .icon-container {
+        background: rgba(66, 153, 225, 0.15);
+      }
+      .theme-space .category-movies .category-badge {
+        background: rgba(107, 70, 193, 0.2);
+        border-color: rgba(107, 70, 193, 0.4);
+      }
+      .theme-space .category-tv .category-badge {
+        background: rgba(213, 63, 140, 0.2);
+        border-color: rgba(213, 63, 140, 0.4);
+      }
+      .theme-space .category-both .category-badge {
+        background: rgba(66, 153, 225, 0.2);
+        border-color: rgba(66, 153, 225, 0.4);
+      }
+      .theme-space .category-movies .category-icon {
+        color: #6b46c1;
+      }
+      .theme-space .category-tv .category-icon {
+        color: #d53f8c;
+      }
+      .theme-space .category-both .category-icon {
+        color: #4299e1;
+      }
+
+      /* Forest Theme */
+      .theme-forest .category-movies .icon-container {
+        background: rgba(56, 161, 105, 0.15);
+      }
+      .theme-forest .category-tv .icon-container {
+        background: rgba(72, 187, 120, 0.15);
+      }
+      .theme-forest .category-both .icon-container {
+        background: rgba(154, 230, 180, 0.15);
+      }
+      .theme-forest .category-movies .category-badge {
+        background: rgba(56, 161, 105, 0.2);
+        border-color: rgba(56, 161, 105, 0.4);
+      }
+      .theme-forest .category-tv .category-badge {
+        background: rgba(72, 187, 120, 0.2);
+        border-color: rgba(72, 187, 120, 0.4);
+      }
+      .theme-forest .category-both .category-badge {
+        background: rgba(154, 230, 180, 0.2);
+        border-color: rgba(154, 230, 180, 0.4);
+      }
+      .theme-forest .category-movies .category-icon {
+        color: #38a169;
+      }
+      .theme-forest .category-tv .category-icon {
+        color: #48bb78;
+      }
+      .theme-forest .category-both .category-icon {
+        color: #9ae6b4;
+      }
+
+      /* Sunset Theme */
+      .theme-sunset .category-movies .icon-container {
+        background: rgba(221, 107, 32, 0.15);
+      }
+      .theme-sunset .category-tv .icon-container {
+        background: rgba(237, 137, 54, 0.15);
+      }
+      .theme-sunset .category-both .icon-container {
+        background: rgba(246, 173, 85, 0.15);
+      }
+      .theme-sunset .category-movies .category-badge {
+        background: rgba(221, 107, 32, 0.2);
+        border-color: rgba(221, 107, 32, 0.4);
+      }
+      .theme-sunset .category-tv .category-badge {
+        background: rgba(237, 137, 54, 0.2);
+        border-color: rgba(237, 137, 54, 0.4);
+      }
+      .theme-sunset .category-both .category-badge {
+        background: rgba(246, 173, 85, 0.2);
+        border-color: rgba(246, 173, 85, 0.4);
+      }
+      .theme-sunset .category-movies .category-icon {
+        color: #dd6b20;
+      }
+      .theme-sunset .category-tv .category-icon {
+        color: #ed8936;
+      }
+      .theme-sunset .category-both .category-icon {
+        color: #f6ad55;
+      }
+
+      /* Ocean Theme */
+      .theme-ocean .category-movies .icon-container {
+        background: rgba(49, 130, 206, 0.15);
+      }
+      .theme-ocean .category-tv .icon-container {
+        background: rgba(66, 153, 225, 0.15);
+      }
+      .theme-ocean .category-both .icon-container {
+        background: rgba(99, 179, 237, 0.15);
+      }
+      .theme-ocean .category-movies .category-badge {
+        background: rgba(49, 130, 206, 0.2);
+        border-color: rgba(49, 130, 206, 0.4);
+      }
+      .theme-ocean .category-tv .category-badge {
+        background: rgba(66, 153, 225, 0.2);
+        border-color: rgba(66, 153, 225, 0.4);
+      }
+      .theme-ocean .category-both .category-badge {
+        background: rgba(99, 179, 237, 0.2);
+        border-color: rgba(99, 179, 237, 0.4);
+      }
+      .theme-ocean .category-movies .category-icon {
+        color: #3182ce;
+      }
+      .theme-ocean .category-tv .category-icon {
+        color: #4299e1;
+      }
+      .theme-ocean .category-both .category-icon {
+        color: #63b3ed;
+      }
+
+      @media (max-width: 640px) {
         body {
-            font-family: 'Exo 2', sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-            color: #e2e8f0;
-            min-height: 100vh;
+          padding: 18px;
         }
-        
-        h1, h2 {
-            font-family: 'Orbitron', sans-serif;
-        }
-        
-        .neon-text {
-            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff, 0 0 20px #00ffff;
-        }
-        
-        .neon-card {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 247, 255, 0.2);
-            box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .neon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.3);
-            border-color: rgba(0, 247, 255, 0.5);
-        }
-        
-        .gradient-border {
-            position: relative;
-            background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
-            padding: 3px;
-            border-radius: 12px;
-        }
-        
-        .gradient-border::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 12px;
-            padding: 3px;
-            background: linear-gradient(135deg, #00ffff, #ff00ff, #ffff00);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0.7;
-        }
-        
-        .search-input {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(0, 247, 255, 0.3);
-            color: #e2e8f0;
-        }
-        
-        .search-input:focus {
-            box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
-            border-color: rgba(0, 247, 255, 0.7);
-        }
-        
-        .category-btn {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(0, 247, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .category-btn.active, .category-btn:hover {
-            background: rgba(0, 247, 255, 0.2);
-            box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
-            border-color: rgba(0, 247, 255, 0.7);
-        }
-        
-        .site-link {
-            transition: all 0.3s ease;
-        }
-        
-        .site-link:hover {
-            transform: scale(1.05);
-        }
-        
-        .icon-container {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: rgba(0, 247, 255, 0.1);
-            margin-right: 12px;
-        }
-        
-        .google-search-btn {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(66, 133, 244, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .google-search-btn:hover {
-            background: rgba(66, 133, 244, 0.2);
-            box-shadow: 0 0 10px rgba(66, 133, 244, 0.5);
-            border-color: rgba(66, 133, 244, 0.7);
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.4);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(0, 247, 255, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(0, 247, 255, 0);
-            }
-        }
+      }
     </style>
-</head>
-<body class="min-h-screen py-8 px-4">
-    <div class="max-w-6xl mx-auto">
-        <!-- Header -->
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold neon-text mb-4">Streaming Sites Directory</h1>
-            <p class="text-lg text-cyan-200 max-w-2xl mx-auto">Click on any site to search it on Google and find its current domain</p>
-            
-            <!-- Search Bar -->
-            <div class="mt-8 max-w-xl mx-auto">
-                <div class="relative">
-                    <input type="text" id="searchInput" placeholder="Search for a streaming site..." class="w-full py-3 px-4 pr-10 rounded-lg search-input focus:outline-none">
-                    <i class="fas fa-search absolute right-3 top-3 text-cyan-400"></i>
-                </div>
+  </head>
+  <body class="theme-cyberpunk">
+    <!-- Decorative blobs -->
+    <div class="blob a" aria-hidden></div>
+    <div class="blob b" aria-hidden></div>
+
+    <main class="max-w-6xl mx-auto">
+      <!-- Header -->
+      <header class="flex items-center justify-between gap-6 mb-8">
+        <div>
+          <div class="flex items-center gap-4">
+            <div
+              class="w-14 h-14 rounded-xl flex items-center justify-center glass"
+            >
+              <i class="fas fa-film text-2xl theme-icon"></i>
             </div>
-            
-            <!-- Category Filters -->
-            <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <button class="category-btn active px-4 py-2 rounded-lg" data-category="all">All Sites</button>
-                <button class="category-btn px-4 py-2 rounded-lg" data-category="movies">Movies</button>
-                <button class="category-btn px-4 py-2 rounded-lg" data-category="tv">TV Series</button>
-                <button class="category-btn px-4 py-2 rounded-lg" data-category="both">Movies & TV</button>
+            <div>
+              <h1 class="text-3xl md:text-4xl title-neon">
+                Streaming Sites Directory
+              </h1>
+              <p class="text-sm mt-1 text-slate-300">
+                Click on any site to search it on Google and find its current
+                domain
+              </p>
             </div>
-        </header>
-        
-        <!-- Sites Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="sitesContainer">
-            <!-- Sites will be dynamically inserted here -->
+          </div>
         </div>
-        
-        <!-- Footer -->
-        <footer class="mt-12 text-center text-cyan-200 text-sm">
-            <p class="mb-2">This directory is for informational purposes only. Always respect copyright laws and use streaming services responsibly.</p>
-            <p>Made with <i class="fas fa-heart text-red-500"></i> for movie enthusiasts</p>
-        </footer>
-    </div>
+
+        <!-- Desktop Theme Selector -->
+        <div class="hidden md:flex items-center gap-3">
+          <div class="flex gap-2">
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2 active"
+              data-theme="cyberpunk"
+            >
+              <i class="fas fa-robot"></i> Cyber
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="space"
+            >
+              <i class="fas fa-meteor"></i> Space
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="forest"
+            >
+              <i class="fas fa-tree"></i> Forest
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="sunset"
+            >
+              <i class="fas fa-sun"></i> Sunset
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="ocean"
+            >
+              <i class="fas fa-water"></i> Ocean
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Mobile Theme Selector -->
+      <div class="md:hidden mb-6">
+        <div class="glass p-4 rounded-xl">
+          <h3 class="text-sm font-semibold mb-2 text-center">Choose Theme:</h3>
+          <div class="flex flex-wrap justify-center gap-2">
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2 active"
+              data-theme="cyberpunk"
+            >
+              <i class="fas fa-robot"></i> Cyber
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="space"
+            >
+              <i class="fas fa-meteor"></i> Space
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="forest"
+            >
+              <i class="fas fa-tree"></i> Forest
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="sunset"
+            >
+              <i class="fas fa-sun"></i> Sunset
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="ocean"
+            >
+              <i class="fas fa-water"></i> Ocean
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero / Controls -->
+      <section class="glass p-6 rounded-xl mb-8">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+        >
+          <div class="flex-1">
+            <h2 class="text-xl font-semibold">
+              Find your favorite streaming sites ✨
+            </h2>
+            <p class="text-sm text-slate-300 mt-1">
+              Search movies, TV series, or both — click any site to search it on
+              Google.
+            </p>
+
+            <div class="mt-4 flex gap-3">
+              <div class="relative flex-1">
+                <input
+                  id="search"
+                  class="w-full rounded-lg py-3 px-4 search-box text-sm placeholder:text-slate-400 outline-none"
+                  placeholder="Search for a streaming site..."
+                />
+                <button
+                  id="clearSearch"
+                  class="absolute right-2 top-2 hidden p-2 rounded-md tiny-badge"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full md:w-64">
+            <div class="flex flex-wrap gap-2">
+              <button
+                data-cat="all"
+                class="category-btn px-3 py-2 rounded-lg text-sm active"
+                aria-pressed="true"
+              >
+                All Sites
+              </button>
+              <button
+                data-cat="movies"
+                class="category-btn px-3 py-2 rounded-lg text-sm"
+              >
+                Movies
+              </button>
+              <button
+                data-cat="tv"
+                class="category-btn px-3 py-2 rounded-lg text-sm"
+              >
+                TV Series
+              </button>
+              <button
+                data-cat="both"
+                class="category-btn px-3 py-2 rounded-lg text-sm"
+              >
+                Movies & TV
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <div class="accent-line w-40"></div>
+        </div>
+      </section>
+
+      <!-- Sites Grid -->
+      <section
+        id="sites"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      >
+        <!-- JS will inject cards here -->
+      </section>
+
+      <!-- Footer -->
+      <footer class="mt-12 text-sm text-slate-400">
+        <div
+          class="glass p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4"
+        >
+          <div class="text-center md:text-left">
+            This directory is for informational purposes only. Always respect
+            copyright laws and use streaming services responsibly.
+          </div>
+          <div class="flex items-center gap-3 text-slate-300">
+            <span
+              >Made with <i class="fas fa-heart text-red-500"></i> for movie
+              enthusiasts</span
+            >
+          </div>
+        </div>
+      </footer>
+    </main>
 
     <script>
-        // Streaming sites data
-        const streamingSites = [
-            { name: "123Chill", category: "both", icon: "fa-snowflake" },
-            { name: "123Movies", category: "both", icon: "fa-film" },
-            { name: "1HD", category: "both", icon: "fa-tv" },
-            { name: "AndyDay", category: "movies", icon: "fa-calendar-day" },
-            { name: "army_chinmay_440_v", category: "tv", icon: "fa-user" },
-            { name: "AZMovies", category: "movies", icon: "fa-desert" },
-            { name: "Cineb", category: "both", icon: "fa-clapperboard" },
-            { name: "Ddrmovies", category: "movies", icon: "fa-compact-disc" },
-            { name: "EuroPixHD", category: "both", icon: "fa-globe-europe" },
-            { name: "Extraflix", category: "both", icon: "fa-plus" },
-            { name: "Filmycab", category: "movies", icon: "fa-taxi" },
-            { name: "FMovies", category: "both", icon: "fa-play" },
-            { name: "Flixbaba", category: "both", icon: "fa-baby" },
-            { name: "GoMovies", category: "both", icon: "fa-arrow-right" },
-            { name: "Goojara", category: "both", icon: "fa-ghost" },
-            { name: "Hdhub4u", category: "both", icon: "fa-hdd" },
-            { name: "HdHub4u", category: "both", icon: "fa-hdd" },
-            { name: "HydraHD", category: "both", icon: "fa-dragon" },
-            { name: "Katmoviehd", category: "movies", icon: "fa-cat" },
-            { name: "ListCineb", category: "both", icon: "fa-list" },
-            { name: "LookMovie", category: "both", icon: "fa-eye" },
-            { name: "LosMovies", category: "both", icon: "fa-crown" },
-            { name: "Mkvcinemas", category: "movies", icon: "fa-video" },
-            { name: "Moviesdrive", category: "movies", icon: "fa-hard-drive" },
-            { name: "MoviesJoy", category: "both", icon: "fa-joy" },
-            { name: "Moviesmod", category: "movies", icon: "fa-mobile" },
-            { name: "nivanofficial", category: "both", icon: "fa-user-tie" },
-            { name: "olamovies", category: "movies", icon: "fa-language" },
-            { name: "Privatemoviez", category: "movies", icon: "fa-user-secret" },
-            { name: "ProjectFreeTV", category: "tv", icon: "fa-tv" },
-            { name: "SFIix", category: "both", icon: "fa-play-circle" },
-            { name: "SolarMovie", category: "both", icon: "fa-sun" },
-            { name: "Themoviesboss", category: "movies", icon: "fa-crown" },
-            { name: "Thenextplanet", category: "both", icon: "fa-globe" },
-            { name: "TinyZone", category: "both", icon: "fa-compress" },
-            { name: "Uhdmovies", category: "movies", icon: "fa-hd-video" },
-            { name: "uhdmoviea", category: "movies", icon: "fa-hd-video" },
-            { name: "vegamovies", category: "movies", icon: "fa-pepper-hot" },
-            { name: "VexMovies", category: "both", icon: "fa-angry" },
-            { name: "Vumoo", category: "both", icon: "fa-cow" },
-            { name: "WatchSeries", category: "tv", icon: "fa-tv-retro" },
-            { name: "Xdmovies", category: "movies", icon: "fa-bolt" },
-            { name: "Yarriist", category: "both", icon: "fa-ship" },
-            { name: "YesMovies", category: "both", icon: "fa-thumbs-up" },
-            { name: "YoMovies", category: "both", icon: "fa-yo" },
-            { name: "ZinkMovies", category: "both", icon: "fa-film" }
-        ];
+      // Streaming sites data
+      const STREAMING_SITES = [
+        { name: '123Chill', category: 'both', icon: 'fa-snowflake' },
+        { name: '123Movies', category: 'both', icon: 'fa-film' },
+        { name: '1HD', category: 'both', icon: 'fa-tv' },
+        { name: 'AndyDay', category: 'movies', icon: 'fa-calendar-day' },
+        { name: 'army_chinmay_440_v', category: 'tv', icon: 'fa-user' },
+        { name: 'AZMovies', category: 'movies', icon: 'fa-desert' },
+        { name: 'Cineb', category: 'both', icon: 'fa-clapperboard' },
+        { name: 'Ddrmovies', category: 'movies', icon: 'fa-compact-disc' },
+        { name: 'EuroPixHD', category: 'both', icon: 'fa-globe-europe' },
+        { name: 'Extraflix', category: 'both', icon: 'fa-plus' },
+        { name: 'Filmycab', category: 'movies', icon: 'fa-taxi' },
+        { name: 'FMovies', category: 'both', icon: 'fa-play' },
+        { name: 'Flixbaba', category: 'both', icon: 'fa-baby' },
+        { name: 'GoMovies', category: 'both', icon: 'fa-arrow-right' },
+        { name: 'Goojara', category: 'both', icon: 'fa-ghost' },
+        { name: 'Hdhub4u', category: 'both', icon: 'fa-hdd' },
+        { name: 'HdHub4u', category: 'both', icon: 'fa-hdd' },
+        { name: 'HydraHD', category: 'both', icon: 'fa-dragon' },
+        { name: 'Katmoviehd', category: 'movies', icon: 'fa-cat' },
+        { name: 'ListCineb', category: 'both', icon: 'fa-list' },
+        { name: 'LookMovie', category: 'both', icon: 'fa-eye' },
+        { name: 'LosMovies', category: 'both', icon: 'fa-crown' },
+        { name: 'Mkvcinemas', category: 'movies', icon: 'fa-video' },
+        { name: 'Moviesdrive', category: 'movies', icon: 'fa-hard-drive' },
+        { name: 'MoviesJoy', category: 'both', icon: 'fa-joy' },
+        { name: 'Moviesmod', category: 'movies', icon: 'fa-mobile' },
+        { name: 'nivanofficial', category: 'both', icon: 'fa-user-tie' },
+        { name: 'olamovies', category: 'movies', icon: 'fa-language' },
+        { name: 'Privatemoviez', category: 'movies', icon: 'fa-user-secret' },
+        { name: 'ProjectFreeTV', category: 'tv', icon: 'fa-tv' },
+        { name: 'SFIix', category: 'both', icon: 'fa-play-circle' },
+        { name: 'SolarMovie', category: 'both', icon: 'fa-sun' },
+        { name: 'Themoviesboss', category: 'movies', icon: 'fa-crown' },
+        { name: 'Thenextplanet', category: 'both', icon: 'fa-globe' },
+        { name: 'TinyZone', category: 'both', icon: 'fa-compress' },
+        { name: 'Uhdmovies', category: 'movies', icon: 'fa-hd-video' },
+        { name: 'uhdmoviea', category: 'movies', icon: 'fa-hd-video' },
+        { name: 'vegamovies', category: 'movies', icon: 'fa-pepper-hot' },
+        { name: 'VexMovies', category: 'both', icon: 'fa-angry' },
+        { name: 'Vumoo', category: 'both', icon: 'fa-cow' },
+        { name: 'WatchSeries', category: 'tv', icon: 'fa-tv-retro' },
+        { name: 'Xdmovies', category: 'movies', icon: 'fa-bolt' },
+        { name: 'Yarriist', category: 'both', icon: 'fa-ship' },
+        { name: 'YesMovies', category: 'both', icon: 'fa-thumbs-up' },
+        { name: 'YoMovies', category: 'both', icon: 'fa-yo' },
+        { name: 'ZinkMovies', category: 'both', icon: 'fa-film' },
+      ];
 
-        // Function to open Google search
-        function searchOnGoogle(siteName) {
-            const query = encodeURIComponent(siteName + " streaming site");
-            window.open(`https://www.google.com/search?q=${query}`, '_blank');
-        }
+      // Icon fallback mapping for FA names that are not regular
+      function faIconClass(name) {
+        if (!name) return 'fa-solid fa-film';
+        if (name.startsWith('fa-')) return 'fa-solid ' + name;
+        return 'fa-solid ' + name;
+      }
 
-        // Function to render sites
-        function renderSites(sites) {
-            const container = document.getElementById('sitesContainer');
-            container.innerHTML = '';
-            
-            sites.forEach(site => {
-                const siteElement = document.createElement('div');
-                siteElement.className = 'gradient-border';
-                
-                siteElement.innerHTML = `
-                    <div class="neon-card rounded-lg p-4 h-full">
-                        <div class="site-link block">
-                            <div class="flex items-center mb-3">
-                                <div class="icon-container">
-                                    <i class="fas ${site.icon} text-cyan-400"></i>
-                                </div>
-                                <h3 class="text-xl font-bold text-cyan-300">${site.name}</h3>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm px-2 py-1 rounded ${getCategoryColor(site.category)}">${getCategoryText(site.category)}</span>
-                                <button class="google-search-btn px-3 py-1 rounded-lg text-sm flex items-center" data-name="${site.name}">
-                                    <i class="fab fa-google mr-1 text-blue-400"></i>
-                                    Search
-                                </button>
-                            </div>
+      const container = document.querySelector('#sites');
+
+      function makeCard(item) {
+        const wrap = document.createElement('article');
+        wrap.className = `card glass p-4 rounded-xl tilt site-link category-${item.category}`;
+        wrap.setAttribute('data-name', item.name);
+        wrap.innerHTML = `
+            <div class="flex items-start gap-3">
+                <div class="w-16 h-16 rounded-xl flex-shrink-0 flex items-center justify-center icon-container">
+                    <i class="${faIconClass(
+                      item.icon,
+                    )} text-xl category-icon"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between gap-3">
+                        <h3 class="font-semibold">${item.name}</h3>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between gap-3">
+                        <div class="text-xs tiny-badge category-badge">${getCategoryText(
+                          item.category,
+                        )}</div>
+                        <div class="flex items-center gap-2">
+                            <button class="google-search-btn tiny-badge" data-name="${
+                              item.name
+                            }"><i class="fa-brands fa-google"></i> Search</button>
                         </div>
                     </div>
-                `;
-                
-                container.appendChild(siteElement);
-            });
-            
-            // Add click event to all search buttons
-            document.querySelectorAll('.google-search-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const siteName = button.getAttribute('data-name');
-                    searchOnGoogle(siteName);
-                });
-            });
-            
-            // Add click event to entire card
-            document.querySelectorAll('.neon-card').forEach((card, index) => {
-                card.addEventListener('click', () => {
-                    const siteName = sites[index].name;
-                    searchOnGoogle(siteName);
-                });
-            });
-        }
+                </div>
+            </div>
+            `;
 
-        // Helper functions for categories
-        function getCategoryColor(category) {
-            switch(category) {
-                case 'movies': return 'bg-purple-900 text-purple-200';
-                case 'tv': return 'bg-blue-900 text-blue-200';
-                case 'both': return 'bg-green-900 text-green-200';
-                default: return 'bg-gray-700 text-gray-200';
-            }
-        }
-
-        function getCategoryText(category) {
-            switch(category) {
-                case 'movies': return 'Movies';
-                case 'tv': return 'TV Series';
-                case 'both': return 'Movies & TV';
-                default: return 'Unknown';
-            }
-        }
-
-        // Filter sites by category
-        function filterSites(category) {
-            if (category === 'all') {
-                return streamingSites;
-            }
-            return streamingSites.filter(site => site.category === category);
-        }
-
-        // Search functionality
-        function searchSites(query) {
-            return streamingSites.filter(site => 
-                site.name.toLowerCase().includes(query.toLowerCase())
-            );
-        }
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', () => {
-            // Render all sites initially
-            renderSites(streamingSites);
-            
-            // Category filter buttons
-            document.querySelectorAll('.category-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    
-                    const category = button.getAttribute('data-category');
-                    const filteredSites = filterSites(category);
-                    renderSites(filteredSites);
-                });
-            });
-            
-            // Search functionality
-            document.getElementById('searchInput').addEventListener('input', (e) => {
-                const query = e.target.value;
-                if (query.length > 0) {
-                    const searchedSites = searchSites(query);
-                    renderSites(searchedSites);
-                } else {
-                    // If search is empty, show sites based on active category
-                    const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
-                    const filteredSites = filterSites(activeCategory);
-                    renderSites(filteredSites);
-                }
-            });
+        // simple tilt mouse effect
+        wrap.addEventListener('mousemove', (e) => {
+          const rect = wrap.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          wrap.style.transform = `perspective(900px) rotateX(${
+            -y * 6
+          }deg) rotateY(${x * 6}deg) translateY(-6px)`;
         });
+        wrap.addEventListener('mouseleave', () => {
+          wrap.style.transform = 'translateY(0)';
+        });
+
+        return wrap;
+      }
+
+      function render(list) {
+        container.innerHTML = '';
+        list.forEach((it) => container.appendChild(makeCard(it)));
+      }
+
+      // initial render
+      render(STREAMING_SITES);
+
+      // search and filters
+      const search = document.querySelector('#search');
+      const pills = document.querySelectorAll('[data-cat]');
+
+      function applyFilters() {
+        const q = search.value.trim().toLowerCase();
+        const activeCat =
+          Array.from(pills).find((p) => p.classList.contains('active'))?.dataset
+            .cat || 'all';
+        let filtered = STREAMING_SITES.filter((r) => {
+          const matchesQ = q.length === 0 || r.name.toLowerCase().includes(q);
+          const matchesCat = activeCat === 'all' || r.category === activeCat;
+          return matchesQ && matchesCat;
+        });
+
+        render(filtered);
+      }
+
+      search.addEventListener('input', applyFilters);
+
+      pills.forEach((p) => {
+        p.addEventListener('click', () => {
+          pills.forEach((x) => x.classList.remove('active'));
+          p.classList.add('active');
+          applyFilters();
+        });
+      });
+
+      // Function to open Google search
+      function searchOnGoogle(siteName) {
+        const query = encodeURIComponent(siteName + ' streaming site');
+        window.open(`https://www.google.com/search?q=${query}`, '_blank');
+      }
+
+      // buttons delegation
+      document.body.addEventListener('click', (e) => {
+        const s = e.target.closest('.google-search-btn');
+        if (s) {
+          e.stopPropagation();
+          const siteName = s.getAttribute('data-name');
+          searchOnGoogle(siteName);
+        }
+
+        const card = e.target.closest('.site-link');
+        if (card && !e.target.closest('button')) {
+          const siteName = card.getAttribute('data-name');
+          searchOnGoogle(siteName);
+        }
+      });
+
+      // small UX: clear button show/hide
+      const clear = document.getElementById('clearSearch');
+      search.addEventListener('input', () => {
+        clear.classList.toggle('hidden', search.value.trim().length === 0);
+      });
+      clear.addEventListener('click', () => {
+        search.value = '';
+        applyFilters();
+        clear.classList.add('hidden');
+        search.focus();
+      });
+
+      // Helper functions for categories
+      function getCategoryText(category) {
+        switch (category) {
+          case 'movies':
+            return 'Movies';
+          case 'tv':
+            return 'TV Series';
+          case 'both':
+            return 'Movies & TV';
+          default:
+            return 'Unknown';
+        }
+      }
+
+      // Theme switching functionality
+      const themeButtons = document.querySelectorAll('.theme-btn');
+
+      themeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const theme = button.getAttribute('data-theme');
+
+          // Update active button
+          themeButtons.forEach((btn) => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          // Update body class
+          document.body.className = `theme-${theme}`;
+        });
+      });
     </script>
-</body>
+  </body>
 </html>

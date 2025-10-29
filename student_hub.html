@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Resources Hub - Multi-Theme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Orbitron:wght@600;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-1: #070617;
+        --bg-2: #0f1026;
+        --accent-a: #00f0ff;
+        --accent-b: #ff4bd6;
+        --glass: rgba(255, 255, 255, 0.04);
+
+        /* Category colors */
+        --textbooks-color: #ff6b6b;
+        --study-color: #4dabf7;
+        --career-color: #ffd93d;
+        --mental-color: #6bcf7f;
+        --tech-color: #9f7aea;
+        --language-color: #ff8787;
+        --fitness-color: #20c997;
+        --design-color: #f783ac;
+        --productivity-color: #748ffc;
+      }
+
+      body {
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
+          'Helvetica Neue', Arial;
+        color: #e6eef6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        padding: 36px;
+        transition: all 0.5s ease;
+      }
+
+      /* Theme 1: Cyberpunk (Default) */
+      .theme-cyberpunk {
+        background: radial-gradient(
+            1200px 600px at 10% 10%,
+            rgba(0, 240, 255, 0.06),
+            transparent 8%
+          ),
+          radial-gradient(
+            900px 500px at 90% 90%,
+            rgba(255, 75, 214, 0.05),
+            transparent 10%
+          ),
+          linear-gradient(180deg, #070617 0%, #0f1026 100%);
+      }
+
+      /* Theme 2: Dark Space */
+      .theme-space {
+        background: radial-gradient(
+            ellipse at 20% 20%,
+            rgba(30, 30, 70, 0.8) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(70, 20, 100, 0.6) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #0a0a2e 0%, #1a1a4a 50%, #0f0f23 100%);
+      }
+
+      /* Theme 3: Forest */
+      .theme-forest {
+        background: radial-gradient(
+            ellipse at 10% 20%,
+            rgba(20, 80, 60, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 90% 80%,
+            rgba(30, 100, 80, 0.3) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #0a2e1a 0%, #1a4a2e 50%, #0f2318 100%);
+      }
+
+      /* Theme 4: Sunset */
+      .theme-sunset {
+        background: radial-gradient(
+            ellipse at 20% 20%,
+            rgba(255, 100, 50, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(255, 150, 50, 0.3) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #2e0a0a 0%, #4a1a1a 50%, #230f0f 100%);
+      }
+
+      /* Theme 5: Ocean */
+      .theme-ocean {
+        background: radial-gradient(
+            ellipse at 20% 20%,
+            rgba(0, 150, 200, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(0, 100, 180, 0.3) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #0a1a2e 0%, #1a2e4a 50%, #0f1823 100%);
+      }
+
+      .blob {
+        position: fixed;
+        filter: blur(60px);
+        opacity: 0.5;
+        pointer-events: none;
+        transition: all 0.5s ease;
+      }
+
+      .blob.a {
+        left: 6%;
+        top: 10%;
+        width: 360px;
+        height: 360px;
+      }
+
+      .blob.b {
+        right: 6%;
+        bottom: 8%;
+        width: 420px;
+        height: 420px;
+      }
+
+      .theme-cyberpunk .blob.a {
+        background: linear-gradient(45deg, var(--accent-a), var(--accent-b));
+      }
+
+      .theme-cyberpunk .blob.b {
+        background: linear-gradient(45deg, var(--accent-b), #ffd66b);
+      }
+
+      .theme-space .blob.a {
+        background: linear-gradient(45deg, #6b46c1, #805ad5);
+      }
+
+      .theme-space .blob.b {
+        background: linear-gradient(45deg, #d53f8c, #ed64a6);
+      }
+
+      .theme-forest .blob.a {
+        background: linear-gradient(45deg, #38a169, #48bb78);
+      }
+
+      .theme-forest .blob.b {
+        background: linear-gradient(45deg, #2f855a, #68d391);
+      }
+
+      .theme-sunset .blob.a {
+        background: linear-gradient(45deg, #dd6b20, #ed8936);
+      }
+
+      .theme-sunset .blob.b {
+        background: linear-gradient(45deg, #c05621, #f6ad55);
+      }
+
+      .theme-ocean .blob.a {
+        background: linear-gradient(45deg, #3182ce, #4299e1);
+      }
+
+      .theme-ocean .blob.b {
+        background: linear-gradient(45deg, #2b6cb0, #63b3ed);
+      }
+
+      .title-neon {
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: -0.02em;
+        text-transform: none;
+        transition: text-shadow 0.5s ease;
+      }
+
+      .theme-cyberpunk .title-neon {
+        text-shadow: 0 0 8px rgba(0, 240, 255, 0.14),
+          0 0 24px rgba(255, 75, 214, 0.08);
+      }
+
+      .theme-space .title-neon {
+        text-shadow: 0 0 8px rgba(107, 70, 193, 0.14),
+          0 0 24px rgba(213, 63, 140, 0.08);
+      }
+
+      .theme-forest .title-neon {
+        text-shadow: 0 0 8px rgba(56, 161, 105, 0.14),
+          0 0 24px rgba(72, 187, 120, 0.08);
+      }
+
+      .theme-sunset .title-neon {
+        text-shadow: 0 0 8px rgba(221, 107, 32, 0.14),
+          0 0 24px rgba(237, 137, 54, 0.08);
+      }
+
+      .theme-ocean .title-neon {
+        text-shadow: 0 0 8px rgba(49, 130, 206, 0.14),
+          0 0 24px rgba(66, 153, 225, 0.08);
+      }
+
+      .glass {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(8px) saturate(1.1);
+        box-shadow: 0 8px 40px rgba(3, 6, 23, 0.6),
+          inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        border-radius: 14px;
+        transition: all 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-10px) scale(1.01) rotateX(2deg);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(0, 240, 255, 0.06);
+      }
+
+      .card {
+        transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1),
+          box-shadow 0.35s, filter 0.35s;
+      }
+
+      .theme-space .card:hover {
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(107, 70, 193, 0.06);
+      }
+
+      .theme-forest .card:hover {
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(56, 161, 105, 0.06);
+      }
+
+      .theme-sunset .card:hover {
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(221, 107, 32, 0.06);
+      }
+
+      .theme-ocean .card:hover {
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(49, 130, 206, 0.06);
+      }
+
+      .tilt {
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+
+      .accent-line {
+        height: 4px;
+        border-radius: 999px;
+        transition: background 0.5s ease;
+      }
+
+      .theme-cyberpunk .accent-line {
+        background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+      }
+
+      .theme-space .accent-line {
+        background: linear-gradient(90deg, #6b46c1, #d53f8c);
+      }
+
+      .theme-forest .accent-line {
+        background: linear-gradient(90deg, #38a169, #48bb78);
+      }
+
+      .theme-sunset .accent-line {
+        background: linear-gradient(90deg, #dd6b20, #ed8936);
+      }
+
+      .theme-ocean .accent-line {
+        background: linear-gradient(90deg, #3182ce, #4299e1);
+      }
+
+      .search-box {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .tiny-badge {
+        font-size: 11px;
+        padding: 6px 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .pill {
+        transition: transform 0.22s, box-shadow 0.22s;
+      }
+
+      .pill:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(3, 6, 23, 0.6);
+      }
+
+      .free-badge {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-weight: bold;
+      }
+
+      .theme-btn {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .theme-btn:hover {
+        transform: scale(1.05);
+      }
+
+      .theme-btn.active {
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+
+      .theme-cyberpunk .theme-btn.active {
+        border-color: var(--accent-a);
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+      }
+
+      .theme-space .theme-btn.active {
+        border-color: #6b46c1;
+        box-shadow: 0 0 10px rgba(107, 70, 193, 0.5);
+      }
+
+      .theme-forest .theme-btn.active {
+        border-color: #38a169;
+        box-shadow: 0 0 10px rgba(56, 161, 105, 0.5);
+      }
+
+      .theme-sunset .theme-btn.active {
+        border-color: #dd6b20;
+        box-shadow: 0 0 10px rgba(221, 107, 32, 0.5);
+      }
+
+      .theme-ocean .theme-btn.active {
+        border-color: #3182ce;
+        box-shadow: 0 0 10px rgba(49, 130, 206, 0.5);
+      }
+
+      /* Category-specific styles */
+      .category-textbooks .icon-container {
+        background: rgba(255, 107, 107, 0.1);
+      }
+
+      .category-study .icon-container {
+        background: rgba(77, 171, 247, 0.1);
+      }
+
+      .category-career .icon-container {
+        background: rgba(255, 217, 61, 0.1);
+      }
+
+      .category-mental .icon-container {
+        background: rgba(107, 207, 127, 0.1);
+      }
+
+      .category-tech .icon-container {
+        background: rgba(159, 122, 234, 0.1);
+      }
+
+      .category-language .icon-container {
+        background: rgba(255, 135, 135, 0.1);
+      }
+
+      .category-fitness .icon-container {
+        background: rgba(32, 201, 151, 0.1);
+      }
+
+      .category-design .icon-container {
+        background: rgba(247, 131, 172, 0.1);
+      }
+
+      .category-productivity .icon-container {
+        background: rgba(116, 143, 252, 0.1);
+      }
+
+      .category-textbooks .category-badge {
+        background: rgba(255, 107, 107, 0.15);
+        border: 1px solid rgba(255, 107, 107, 0.3);
+        color: #ff6b6b;
+      }
+
+      .category-study .category-badge {
+        background: rgba(77, 171, 247, 0.15);
+        border: 1px solid rgba(77, 171, 247, 0.3);
+        color: #4dabf7;
+      }
+
+      .category-career .category-badge {
+        background: rgba(255, 217, 61, 0.15);
+        border: 1px solid rgba(255, 217, 61, 0.3);
+        color: #ffd93d;
+      }
+
+      .category-mental .category-badge {
+        background: rgba(107, 207, 127, 0.15);
+        border: 1px solid rgba(107, 207, 127, 0.3);
+        color: #6bcf7f;
+      }
+
+      .category-tech .category-badge {
+        background: rgba(159, 122, 234, 0.15);
+        border: 1px solid rgba(159, 122, 234, 0.3);
+        color: #9f7aea;
+      }
+
+      .category-language .category-badge {
+        background: rgba(255, 135, 135, 0.15);
+        border: 1px solid rgba(255, 135, 135, 0.3);
+        color: #ff8787;
+      }
+
+      .category-fitness .category-badge {
+        background: rgba(32, 201, 151, 0.15);
+        border: 1px solid rgba(32, 201, 151, 0.3);
+        color: #20c997;
+      }
+
+      .category-design .category-badge {
+        background: rgba(247, 131, 172, 0.15);
+        border: 1px solid rgba(247, 131, 172, 0.3);
+        color: #f783ac;
+      }
+
+      .category-productivity .category-badge {
+        background: rgba(116, 143, 252, 0.15);
+        border: 1px solid rgba(116, 143, 252, 0.3);
+        color: #748ffc;
+      }
+
+      .category-textbooks .icon-container i {
+        color: #ff6b6b;
+      }
+
+      .category-study .icon-container i {
+        color: #4dabf7;
+      }
+
+      .category-career .icon-container i {
+        color: #ffd93d;
+      }
+
+      .category-mental .icon-container i {
+        color: #6bcf7f;
+      }
+
+      .category-tech .icon-container i {
+        color: #9f7aea;
+      }
+
+      .category-language .icon-container i {
+        color: #ff8787;
+      }
+
+      .category-fitness .icon-container i {
+        color: #20c997;
+      }
+
+      .category-design .icon-container i {
+        color: #f783ac;
+      }
+
+      .category-productivity .icon-container i {
+        color: #748ffc;
+      }
+
+      /* Category filter buttons */
+      .category-textbooks-btn.active,
+      .category-textbooks-btn:hover {
+        background: rgba(255, 107, 107, 0.2);
+        box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        border-color: rgba(255, 107, 107, 0.7);
+      }
+
+      .category-study-btn.active,
+      .category-study-btn:hover {
+        background: rgba(77, 171, 247, 0.2);
+        box-shadow: 0 0 10px rgba(77, 171, 247, 0.5);
+        border-color: rgba(77, 171, 247, 0.7);
+      }
+
+      .category-career-btn.active,
+      .category-career-btn:hover {
+        background: rgba(255, 217, 61, 0.2);
+        box-shadow: 0 0 10px rgba(255, 217, 61, 0.5);
+        border-color: rgba(255, 217, 61, 0.7);
+      }
+
+      .category-mental-btn.active,
+      .category-mental-btn:hover {
+        background: rgba(107, 207, 127, 0.2);
+        box-shadow: 0 0 10px rgba(107, 207, 127, 0.5);
+        border-color: rgba(107, 207, 127, 0.7);
+      }
+
+      .category-tech-btn.active,
+      .category-tech-btn:hover {
+        background: rgba(159, 122, 234, 0.2);
+        box-shadow: 0 0 10px rgba(159, 122, 234, 0.5);
+        border-color: rgba(159, 122, 234, 0.7);
+      }
+
+      .category-language-btn.active,
+      .category-language-btn:hover {
+        background: rgba(255, 135, 135, 0.2);
+        box-shadow: 0 0 10px rgba(255, 135, 135, 0.5);
+        border-color: rgba(255, 135, 135, 0.7);
+      }
+
+      .category-fitness-btn.active,
+      .category-fitness-btn:hover {
+        background: rgba(32, 201, 151, 0.2);
+        box-shadow: 0 0 10px rgba(32, 201, 151, 0.5);
+        border-color: rgba(32, 201, 151, 0.7);
+      }
+
+      .category-design-btn.active,
+      .category-design-btn:hover {
+        background: rgba(247, 131, 172, 0.2);
+        box-shadow: 0 0 10px rgba(247, 131, 172, 0.5);
+        border-color: rgba(247, 131, 172, 0.7);
+      }
+
+      .category-productivity-btn.active,
+      .category-productivity-btn:hover {
+        background: rgba(116, 143, 252, 0.2);
+        box-shadow: 0 0 10px rgba(116, 143, 252, 0.5);
+        border-color: rgba(116, 143, 252, 0.7);
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body class="theme-cyberpunk">
+    <!-- Decorative blobs -->
+    <div class="blob a" aria-hidden></div>
+    <div class="blob b" aria-hidden></div>
+
+    <main class="max-w-7xl mx-auto">
+      <!-- Header -->
+      <header class="flex items-center justify-between gap-6 mb-8">
+        <div>
+          <div class="flex items-center gap-4">
+            <div
+              class="w-14 h-14 rounded-xl flex items-center justify-center glass"
+            >
+              <i class="fas fa-book-open text-2xl theme-icon"></i>
+            </div>
+            <div>
+              <h1 class="text-3xl md:text-4xl title-neon">
+                Student Resources Hub
+              </h1>
+              <p class="text-sm mt-1 text-slate-300">
+                A gorgeous collection of free tools, learning platforms and
+                student discounts — with multiple themes.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-3">
+          <div class="flex gap-2">
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2 active"
+              data-theme="cyberpunk"
+            >
+              <i class="fas fa-robot"></i> Cyber
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="space"
+            >
+              <i class="fas fa-meteor"></i> Space
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="forest"
+            >
+              <i class="fas fa-tree"></i> Forest
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="sunset"
+            >
+              <i class="fas fa-sun"></i> Sunset
+            </button>
+            <button
+              class="theme-btn tiny-badge flex items-center gap-2"
+              data-theme="ocean"
+            >
+              <i class="fas fa-water"></i> Ocean
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero / Controls -->
+      <section class="glass p-6 rounded-xl mb-8">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+        >
+          <div class="flex-1">
+            <h2 class="text-xl font-semibold">Find exactly what you need ✨</h2>
+            <p class="text-sm text-slate-300 mt-1">
+              Search textbooks, productivity apps, mental health tools, design
+              software and career resources — filtered with style.
+            </p>
+
+            <div class="mt-4 flex gap-3">
+              <div class="relative flex-1">
+                <input
+                  id="search"
+                  class="w-full rounded-lg py-3 px-4 search-box text-sm placeholder:text-slate-400 outline-none"
+                  placeholder="Search resources, descriptions, types..."
+                />
+                <button
+                  id="clearSearch"
+                  class="absolute right-2 top-2 hidden p-2 rounded-md tiny-badge"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+
+              <div class="w-44 flex items-center gap-2">
+                <select
+                  id="sortSelect"
+                  class="w-full rounded-lg py-3 px-3 search-box text-sm"
+                >
+                  <option value="relevance">Sort: Relevance</option>
+                  <option value="alpha">Sort: A → Z</option>
+                  <option value="category">Sort: Category</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full md:w-64">
+            <div class="flex flex-wrap gap-2">
+              <button
+                data-cat="all"
+                class="pill px-3 py-2 tiny-badge active"
+                aria-pressed="true"
+              >
+                All
+              </button>
+              <button
+                data-cat="textbooks"
+                class="pill px-3 py-2 tiny-badge category-textbooks-btn"
+              >
+                Textbooks
+              </button>
+              <button
+                data-cat="study"
+                class="pill px-3 py-2 tiny-badge category-study-btn"
+              >
+                Study
+              </button>
+              <button
+                data-cat="career"
+                class="pill px-3 py-2 tiny-badge category-career-btn"
+              >
+                Career
+              </button>
+              <button
+                data-cat="mental"
+                class="pill px-3 py-2 tiny-badge category-mental-btn"
+              >
+                Mental
+              </button>
+              <button
+                data-cat="tech"
+                class="pill px-3 py-2 tiny-badge category-tech-btn"
+              >
+                Tech
+              </button>
+              <button
+                data-cat="language"
+                class="pill px-3 py-2 tiny-badge category-language-btn"
+              >
+                Lang
+              </button>
+              <button
+                data-cat="fitness"
+                class="pill px-3 py-2 tiny-badge category-fitness-btn"
+              >
+                Fitness
+              </button>
+              <button
+                data-cat="design"
+                class="pill px-3 py-2 tiny-badge category-design-btn"
+              >
+                Design
+              </button>
+              <button
+                data-cat="productivity"
+                class="pill px-3 py-2 tiny-badge category-productivity-btn"
+              >
+                Productivity
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <div class="accent-line w-40"></div>
+        </div>
+      </section>
+
+      <!-- Resource Grid -->
+      <section
+        id="resources"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      >
+        <!-- JS will inject cards here -->
+      </section>
+
+      <!-- Footer -->
+      <footer class="mt-12 text-sm text-slate-400">
+        <div class="glass p-4 rounded-lg flex items-center justify-between">
+          <div>
+            Made for students • Check licensing and availability before use
+          </div>
+          <div class="flex items-center gap-3 text-slate-300">
+            <a class="tiny-badge" href="#">Share</a>
+            <a class="tiny-badge" href="#">Feedback</a>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      // --- Data: Complete resource list ---
+      const RESOURCES = [
+        // Free Textbooks & PDFs
+        {
+          name: 'Library Genesis',
+          cat: 'textbooks',
+          icon: 'fa-book',
+          desc: 'Massive collection of free textbooks and academic papers',
+          tag: 'Textbook Library',
+        },
+        {
+          name: 'Z-Library',
+          cat: 'textbooks',
+          icon: 'fa-file-pdf',
+          desc: 'Extensive digital library with millions of books',
+          tag: 'Digital Library',
+        },
+        {
+          name: 'Project Gutenberg',
+          cat: 'textbooks',
+          icon: 'fa-download',
+          desc: 'Free eBooks of public domain works',
+          tag: 'eBook Library',
+        },
+        {
+          name: 'OpenStax',
+          cat: 'textbooks',
+          icon: 'fa-university',
+          desc: 'Free peer-reviewed textbooks from Rice University',
+          tag: 'Academic Textbooks',
+        },
+        {
+          name: 'Google Books',
+          cat: 'textbooks',
+          icon: 'fa-search',
+          desc: 'Search and preview millions of books',
+          tag: 'Book Search',
+        },
+        {
+          name: 'PDF Drive',
+          cat: 'textbooks',
+          icon: 'fa-file-alt',
+          desc: 'Large collection of free PDF documents and books',
+          tag: 'PDF Library',
+        },
+        {
+          name: 'Internet Archive',
+          cat: 'textbooks',
+          icon: 'fa-archive',
+          desc: 'Digital library with books, videos, and websites',
+          tag: 'Digital Archive',
+        },
+        {
+          name: 'Sci-Hub',
+          cat: 'textbooks',
+          icon: 'fa-flask',
+          desc: 'Access to scientific research papers',
+          tag: 'Research Papers',
+        },
+        {
+          name: 'Bookboon',
+          cat: 'textbooks',
+          icon: 'fa-graduation-cap',
+          desc: 'Free textbooks and business books',
+          tag: 'Textbook Platform',
+        },
+        {
+          name: 'ManyBooks',
+          cat: 'textbooks',
+          icon: 'fa-book-open',
+          desc: 'Free eBooks in various formats',
+          tag: 'eBook Library',
+        },
+
+        // Study Apps
+        {
+          name: 'Notion',
+          cat: 'study',
+          icon: 'fa-sticky-note',
+          desc: 'All-in-one workspace for notes, tasks, and databases',
+          tag: 'Study Organization',
+        },
+        {
+          name: 'Anki',
+          cat: 'study',
+          icon: 'fa-brain',
+          desc: 'Spaced repetition flashcard app for efficient learning',
+          tag: 'Flashcard App',
+        },
+        {
+          name: 'Quizlet',
+          cat: 'study',
+          icon: 'fa-question-circle',
+          desc: 'Digital flashcards and study games',
+          tag: 'Study Tools',
+        },
+        {
+          name: 'Forest',
+          cat: 'study',
+          icon: 'fa-tree',
+          desc: 'Focus timer that grows virtual trees',
+          tag: 'Focus App',
+        },
+        {
+          name: 'Grammarly',
+          cat: 'study',
+          icon: 'fa-spell-check',
+          desc: 'AI writing assistant for grammar and style',
+          tag: 'Writing Tool',
+        },
+        {
+          name: 'Wolfram Alpha',
+          cat: 'study',
+          icon: 'fa-calculator',
+          desc: 'Computational knowledge engine for math and science',
+          tag: 'Computational Tool',
+        },
+        {
+          name: 'Khan Academy',
+          cat: 'study',
+          icon: 'fa-chalkboard-teacher',
+          desc: 'Free online courses and educational videos',
+          tag: 'Learning Platform',
+        },
+        {
+          name: 'Microsoft OneNote',
+          cat: 'study',
+          icon: 'fa-notebook',
+          desc: 'Digital note-taking with organization features',
+          tag: 'Note Taking',
+        },
+        {
+          name: 'Coursera',
+          cat: 'study',
+          icon: 'fa-laptop-code',
+          desc: 'Online courses from top universities',
+          tag: 'Online Learning',
+        },
+        {
+          name: 'Google Keep',
+          cat: 'study',
+          icon: 'fa-lightbulb',
+          desc: 'Simple note-taking and organization app',
+          tag: 'Note Taking',
+        },
+
+        // Career & Job Search Tools
+        {
+          name: 'Zety',
+          cat: 'career',
+          icon: 'fa-file-contract',
+          desc: 'Free resume builder with professional templates',
+          tag: 'Resume Builder',
+        },
+        {
+          name: 'Resume-Now',
+          cat: 'career',
+          icon: 'fa-bolt',
+          desc: 'AI-powered resume generation tool',
+          tag: 'Resume Builder',
+        },
+        {
+          name: 'WayUp',
+          cat: 'career',
+          icon: 'fa-briefcase',
+          desc: 'Internship and graduate job search platform',
+          tag: 'Job Search',
+        },
+        {
+          name: 'Forage',
+          cat: 'career',
+          icon: 'fa-user-graduate',
+          desc: 'Free virtual work experience programs',
+          tag: 'Career Experience',
+        },
+        {
+          name: 'Handshake',
+          cat: 'career',
+          icon: 'fa-handshake',
+          desc: 'Campus-connected job and internship platform',
+          tag: 'Job Search',
+        },
+        {
+          name: 'LinkedIn Learning',
+          cat: 'career',
+          icon: 'fa-linkedin',
+          desc: 'Free access through educational institutions',
+          tag: 'Skill Development',
+        },
+
+        // Mental Health Apps
+        {
+          name: 'Insight Timer',
+          cat: 'mental',
+          icon: 'fa-clock',
+          desc: 'Free meditation timer with guided sessions',
+          tag: 'Meditation App',
+        },
+        {
+          name: 'Smiling Mind',
+          cat: 'mental',
+          icon: 'fa-smile',
+          desc: 'Mindfulness and meditation program',
+          tag: 'Mindfulness App',
+        },
+        {
+          name: 'MyLife Meditation',
+          cat: 'mental',
+          icon: 'fa-heart',
+          desc: 'Personalized meditation and mindfulness',
+          tag: 'Meditation App',
+        },
+        {
+          name: 'Sanvello',
+          cat: 'mental',
+          icon: 'fa-cloud',
+          desc: 'Therapy and mental health support',
+          tag: 'Mental Health',
+        },
+        {
+          name: 'MindShift CBT',
+          cat: 'mental',
+          icon: 'fa-cogs',
+          desc: 'Cognitive behavioral therapy for anxiety',
+          tag: 'Therapy App',
+        },
+        {
+          name: 'Headspace',
+          cat: 'mental',
+          icon: 'fa-head-side-virus',
+          desc: 'Free student program for meditation',
+          tag: 'Meditation App',
+        },
+
+        // Tech & Software Discounts
+        {
+          name: 'UNIDAYS',
+          cat: 'tech',
+          icon: 'fa-percentage',
+          desc: 'Student discounts on tech brands and more',
+          tag: 'Student Discounts',
+        },
+        {
+          name: 'Dell University',
+          cat: 'tech',
+          icon: 'fa-laptop',
+          desc: 'Student discounts on laptops and accessories',
+          tag: 'Tech Discounts',
+        },
+        {
+          name: 'Microsoft Education',
+          cat: 'tech',
+          icon: 'fa-windows',
+          desc: 'Free Office 365 and software discounts',
+          tag: 'Software Discounts',
+        },
+        {
+          name: 'Apple Education',
+          cat: 'tech',
+          icon: 'fa-apple',
+          desc: 'Student pricing on Apple products',
+          tag: 'Tech Discounts',
+        },
+        {
+          name: 'Logitech Student',
+          cat: 'tech',
+          icon: 'fa-keyboard',
+          desc: 'Student discounts on computer accessories',
+          tag: 'Tech Discounts',
+        },
+
+        // Language Learning Apps
+        {
+          name: 'Duolingo',
+          cat: 'language',
+          icon: 'fa-language',
+          desc: 'Gamified language learning for 40+ languages',
+          tag: 'Language Learning',
+        },
+        {
+          name: 'Memrise',
+          cat: 'language',
+          icon: 'fa-brain',
+          desc: 'Vocabulary building with native speaker videos',
+          tag: 'Language Learning',
+        },
+        {
+          name: 'Busuu',
+          cat: 'language',
+          icon: 'fa-comments',
+          desc: 'Language courses with speaking practice',
+          tag: 'Language Learning',
+        },
+        {
+          name: 'HelloTalk',
+          cat: 'language',
+          icon: 'fa-globe',
+          desc: 'Language exchange with native speakers',
+          tag: 'Language Exchange',
+        },
+        {
+          name: 'Clozemaster',
+          cat: 'language',
+          icon: 'fa-gamepad',
+          desc: 'Vocabulary learning through context',
+          tag: 'Language Learning',
+        },
+
+        // Wellness & Fitness Apps
+        {
+          name: 'Nike Training Club',
+          cat: 'fitness',
+          icon: 'fa-running',
+          desc: 'Free workout programs and training plans',
+          tag: 'Fitness App',
+        },
+        {
+          name: 'MyFitnessPal',
+          cat: 'fitness',
+          icon: 'fa-apple-alt',
+          desc: 'Calorie tracking and nutrition logging',
+          tag: 'Nutrition App',
+        },
+        {
+          name: 'Freeletics',
+          cat: 'fitness',
+          icon: 'fa-dumbbell',
+          desc: 'AI-powered personalized workouts',
+          tag: 'Fitness App',
+        },
+        {
+          name: 'Daily Yoga',
+          cat: 'fitness',
+          icon: 'fa-spa',
+          desc: 'Yoga practices and meditation sessions',
+          tag: 'Yoga App',
+        },
+        {
+          name: 'ClassPass',
+          cat: 'fitness',
+          icon: 'fa-users',
+          desc: 'Free trial for fitness classes',
+          tag: 'Fitness Classes',
+        },
+
+        // Design Apps
+        {
+          name: 'Canva',
+          cat: 'design',
+          icon: 'fa-palette',
+          desc: 'Free graphic design tool for presentations',
+          tag: 'Design Tool',
+        },
+        {
+          name: 'Figma',
+          cat: 'design',
+          icon: 'fa-pen-fancy',
+          desc: 'Collaborative interface design tool',
+          tag: 'Design Tool',
+        },
+        {
+          name: 'GIMP',
+          cat: 'design',
+          icon: 'fa-image',
+          desc: 'Free open-source image editor',
+          tag: 'Photo Editing',
+        },
+        {
+          name: 'Inkscape',
+          cat: 'design',
+          icon: 'fa-draw-polygon',
+          desc: 'Free vector graphics editor',
+          tag: 'Vector Design',
+        },
+        {
+          name: 'Blender',
+          cat: 'design',
+          icon: 'fa-cube',
+          desc: 'Free 3D modeling and animation software',
+          tag: '3D Design',
+        },
+
+        // Productivity Apps
+        {
+          name: 'Todoist',
+          cat: 'productivity',
+          icon: 'fa-tasks',
+          desc: 'Task management with student discount',
+          tag: 'Task Manager',
+        },
+        {
+          name: 'Trello',
+          cat: 'productivity',
+          icon: 'fa-columns',
+          desc: 'Visual project management boards',
+          tag: 'Project Management',
+        },
+        {
+          name: 'Google Calendar',
+          cat: 'productivity',
+          icon: 'fa-calendar',
+          desc: 'Free calendar and scheduling tool',
+          tag: 'Calendar App',
+        },
+        {
+          name: 'Habitica',
+          cat: 'productivity',
+          icon: 'fa-gamepad',
+          desc: 'RPG-style habit tracking app',
+          tag: 'Habit Tracker',
+        },
+        {
+          name: 'YNAB',
+          cat: 'productivity',
+          icon: 'fa-chart-line',
+          desc: 'Free budgeting for college students',
+          tag: 'Budgeting App',
+        },
+      ];
+
+      // Icon fallback mapping for FA names that are not regular
+      function faIconClass(name) {
+        if (!name) return 'fa-solid fa-book';
+        if (name.startsWith('fa-')) return 'fa-solid ' + name;
+        return 'fa-solid ' + name;
+      }
+
+      const container = document.querySelector('#resources');
+
+      function makeCard(item) {
+        const wrap = document.createElement('article');
+        wrap.className = `card glass p-4 rounded-xl tilt category-${item.cat}`;
+        wrap.innerHTML = `
+            <div class="flex items-start gap-3">
+                <div class="icon-container w-16 h-16 rounded-xl flex-shrink-0 flex items-center justify-center">
+                    <i class="${faIconClass(item.icon)} text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between gap-3">
+                        <h3 class="font-semibold">${item.name}</h3>
+                        <div class="free-badge">FREE</div>
+                    </div>
+                    <p class="mt-2 text-sm text-slate-300">${item.desc}</p>
+                    <div class="mt-4 flex items-center justify-between gap-3">
+                        <div class="text-xs tiny-badge category-badge">${
+                          item.tag
+                        }</div>
+                        <div class="flex items-center gap-2">
+                            <button class="openBtn tiny-badge" data-name="${
+                              item.name
+                            }"><i class="fa-solid fa-globe"></i> Open</button>
+                            <button class="searchBtn tiny-badge" data-name="${
+                              item.name
+                            }"><i class="fa-brands fa-google"></i> Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
+
+        // simple tilt mouse effect
+        wrap.addEventListener('mousemove', (e) => {
+          const rect = wrap.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          wrap.style.transform = `perspective(900px) rotateX(${
+            -y * 6
+          }deg) rotateY(${x * 6}deg) translateY(-6px)`;
+        });
+        wrap.addEventListener('mouseleave', () => {
+          wrap.style.transform = 'translateY(0)';
+        });
+
+        return wrap;
+      }
+
+      function render(list) {
+        container.innerHTML = '';
+        list.forEach((it) => container.appendChild(makeCard(it)));
+      }
+
+      // initial render
+      render(RESOURCES);
+
+      // search and filters
+      const search = document.querySelector('#search');
+      const pills = document.querySelectorAll('[data-cat]');
+      const sortSelect = document.querySelector('#sortSelect');
+
+      function applyFilters() {
+        const q = search.value.trim().toLowerCase();
+        const activeCat =
+          Array.from(pills).find((p) => p.classList.contains('active'))?.dataset
+            .cat || 'all';
+        let filtered = RESOURCES.filter((r) => {
+          const matchesQ =
+            q.length === 0 ||
+            r.name.toLowerCase().includes(q) ||
+            r.desc.toLowerCase().includes(q) ||
+            r.tag.toLowerCase().includes(q);
+          const matchesCat = activeCat === 'all' || r.cat === activeCat;
+          return matchesQ && matchesCat;
+        });
+
+        const sort = sortSelect.value;
+        if (sort === 'alpha')
+          filtered.sort((a, b) => a.name.localeCompare(b.name));
+        if (sort === 'category')
+          filtered.sort((a, b) => a.cat.localeCompare(b.cat));
+
+        render(filtered);
+      }
+
+      search.addEventListener('input', applyFilters);
+      sortSelect.addEventListener('change', applyFilters);
+
+      pills.forEach((p) => {
+        p.addEventListener('click', () => {
+          pills.forEach((x) => x.classList.remove('active'));
+          p.classList.add('active');
+          applyFilters();
+        });
+      });
+
+      // buttons delegation
+      document.body.addEventListener('click', (e) => {
+        const o = e.target.closest('.openBtn');
+        if (o) {
+          window.open(
+            'https://www.google.com/search?q=' +
+              encodeURIComponent(o.dataset.name),
+          );
+        }
+        const s = e.target.closest('.searchBtn');
+        if (s) {
+          window.open(
+            'https://www.google.com/search?q=' +
+              encodeURIComponent(s.dataset.name),
+          );
+        }
+      });
+
+      // small UX: clear button show/hide
+      const clear = document.getElementById('clearSearch');
+      search.addEventListener('input', () => {
+        clear.classList.toggle('hidden', search.value.trim().length === 0);
+      });
+      clear.addEventListener('click', () => {
+        search.value = '';
+        applyFilters();
+        clear.classList.add('hidden');
+        search.focus();
+      });
+
+      // Theme switching functionality
+      const themeButtons = document.querySelectorAll('.theme-btn');
+
+      themeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const theme = button.getAttribute('data-theme');
+
+          // Update active button
+          themeButtons.forEach((btn) => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          // Update body class
+          document.body.className = `theme-${theme}`;
+        });
+      });
+    </script>
+  </body>
+</html>

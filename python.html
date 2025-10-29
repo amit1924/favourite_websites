@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Python Revision Manual — Complete</title>
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<!-- Tailwind config -->
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          dark: '#0f172a',
+          neon: {
+            cyan: '#00f7ff',
+            magenta: '#ff00ff',
+            amber: '#ffbd00',
+            green: '#00ff88',
+            pink: '#ff0080'
+          }
+        },
+        boxShadow: {
+          'neon-cyan': '0 0 6px #00f7ff, 0 0 12px #00f7ff, 0 0 20px #00f7ff',
+          'neon-magenta': '0 0 6px #ff00ff, 0 0 12px #ff00ff, 0 0 20px #ff00ff',
+          'neon-amber': '0 0 6px #ffbd00, 0 0 12px #ffbd00, 0 0 20px #ffbd00',
+        }
+      }
+    }
+  }
+</script>
+
+<!-- Fonts + styles -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0f172a; --muted: #94a3b8; }
+  html,body { height:100%; }
+  body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:#e6eef6; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+  .glass { background: rgba(16, 24, 39, 0.6); backdrop-filter: blur(8px); border:1px solid rgba(100,116,139,0.18); }
+  .text-neon-cyan { text-shadow: 0 0 6px #00f7ff; color: #e6ffff; }
+  .text-neon-magenta { text-shadow: 0 0 6px #ff00ff; color: #ffd6ff; }
+  .border-neon-cyan { box-shadow: 0 0 6px #00f7ff; border:1px solid #00f7ff; }
+  .neon-btn { box-shadow: 0 0 8px rgba(255,255,255,0.02), 0 0 12px #00f7ff; }
+  .code-block { background:#0b1220; border:1px solid rgba(148,163,184,0.06); color:#e6eef6; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace; font-size:0.92rem; }
+  .highlight { background: rgba(0,247,255,0.12); border-left:3px solid #00f7ff; padding-left:0.45rem; }
+  .flashcard { transform-style: preserve-3d; transition: transform 0.6s; }
+  .flipped { transform: rotateY(180deg); }
+  .flash-face { backface-visibility: hidden; position: absolute; inset: 0; }
+  .flash-back { transform: rotateY(180deg); }
+  /* basic syntax colors for JS highlighter */
+  .kw { color: #ff79c6; } .str { color: #f1fa8c } .com { color: #6272a4; font-style: italic } .num { color: #bd93f9 } .fn { color: #50fa7b } .cls { color:#8be9fd }
+  /* Responsive adjustments */
+  @media (max-width:640px) {
+    .sidebar { display:none; }
+    .mobile-toc-btn { display:block; }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Page layout: header + left sidebar (desktop) + content -->
+<header class="sticky top-0 z-50 glass border-b border-slate-700">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <i class="fab fa-python text-3xl text-neon-amber" aria-hidden="true"></i>
+      <div>
+        <h1 class="font-bold text-lg text-white">Python Revision Manual</h1>
+        <p class="text-sm text-slate-400">Beginner → Advanced → Interview-ready</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <div id="clock" class="font-mono text-sm text-neon-cyan" aria-live="polite">00:00:00</div>
+      <button id="menu-toggle" class="p-2 rounded-md text-neon-magenta focus:outline-none focus:ring-2 focus:ring-offset-1" aria-label="Open navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="max-w-5xl mx-auto grid grid-cols-12 gap-6 px-4 py-6">
+  <!-- Sidebar (desktop) -->
+  <nav class="col-span-3 sidebar glass rounded-2xl p-4 sticky top-20 h-[75vh] overflow-auto" aria-label="Table of contents">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-neon-cyan font-semibold">Contents</h2>
+      <button id="toc-close" class="hidden md:inline text-slate-400" aria-hidden="true"> </button>
+    </div>
+    <input id="toc-search" type="search" placeholder="Jump to topic..." class="w-full p-2 rounded-md bg-slate-900 text-sm mb-3 border border-slate-800" />
+    <ul id="toc" class="space-y-1 text-sm" role="navigation">
+      <!-- Populated by JS -->
+    </ul>
+
+    <div class="mt-6 border-t border-slate-800 pt-4 text-xs text-slate-400">
+      <p><strong>Tips:</strong></p>
+      <ul class="mt-2 list-disc list-inside">
+        <li>Use the search box to filter notes.</li>
+        <li>Tap a code block's copy icon to copy quickly.</li>
+        <li>Use the lightning bulb for quick flashcards.</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main id="content" class="col-span-9 space-y-6" role="main">
+    <!-- Quick revision button -->
+    <button id="quick-revision-toggle" class="mobile-toc-btn fixed right-4 bottom-6 md:static md:mr-0 z-40 w-14 h-14 rounded-full neon-btn bg-neon-magenta text-dark flex items-center justify-center text-xl" title="Quick revision (flashcards)">
+      <i class="fas fa-lightbulb"></i>
+    </button>
+
+    <!-- Quick revision panel (hidden by default) -->
+    <div id="quick-panel" class="fixed right-4 bottom-20 z-50 hidden w-80 glass rounded-2xl p-4 border-neon-cyan">
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="text-neon-cyan font-bold">Quick Revision</h3>
+        <button id="close-quick" class="text-slate-400"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="flashcard-area" class="relative h-48">
+        <!-- flashcard will be injected -->
+      </div>
+      <div class="flex justify-between mt-3">
+        <button id="prev-card" class="text-neon-amber"><i class="fas fa-chevron-left"></i> Prev</button>
+        <button id="next-card" class="text-neon-amber">Next <i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Search bar for content -->
+    <div class="glass rounded-2xl p-4 border-neon-cyan">
+      <label for="site-search" class="sr-only">Search notes</label>
+      <div class="relative">
+        <input id="site-search" type="search" placeholder="Search notes (title, content, code)..." class="w-full p-3 rounded-md bg-slate-900 border border-slate-800" />
+        <i class="fas fa-search absolute right-4 top-3 text-slate-400"></i>
+      </div>
+    </div>
+
+    <!-- Large intro -->
+    <article id="intro" class="glass rounded-2xl p-6 border-neon-amber" tabindex="0">
+      <h2 class="text-2xl font-bold text-neon-amber">Welcome — How to use this manual</h2>
+      <p class="mt-2 text-slate-300">This single-file reference covers Python from basics to advanced topics and interview questions. It's optimized for smartphone reading with large, legible text, code examples, and quick flashcards. Use the TOC to jump between sections, the search to find keywords, and the copy buttons on code blocks to copy samples.</p>
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h3 class="font-semibold text-neon-cyan">What you'll find</h3>
+          <ul class="mt-2 text-sm list-disc list-inside text-slate-300">
+            <li>Core language concepts</li>
+            <li>Modules, packaging, testing</li>
+            <li>Concurrency, networking, DB</li>
+            <li>Interview Qs & cheatsheets</li>
+          </ul>
+        </div>
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h3 class="font-semibold text-neon-cyan">Accessibility</h3>
+          <p class="text-sm text-slate-300 mt-2">Semantic headings, ARIA where appropriate, high contrast colors, and keyboard focusable interactive elements.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- === START CONTENT SECTIONS === -->
+    <!-- Each section uses: id, heading, short theory, examples, pitfalls, quick flashcard data in data-* attr -->
+    
+    <!-- 1. Python Basics -->
+    <section id="python-basics" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Python Basics","front":["Interpreted, dynamically typed","Everything is an object","Indentation significant"],"back":["Use == vs is for equality/identity","Falsy: False,None,0,\"\",[],{},set()","LEGB scope rule"]}'>
+      <h2 class="text-xl font-bold text-neon-cyan flex items-center gap-2"><i class="fas fa-code mr-2"></i> Python Basics</h2>
+      <p class="mt-2 text-slate-300">Python is high-level, interpreted, and dynamically typed. Code executes line-by-line under an interpreter (CPython, PyPy, etc.).</p>
+
+      <h3 class="mt-4 font-semibold text-neon-amber">Primitive Examples</h3>
+      <div class="code-block p-3 rounded-md relative">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs text-slate-400">Basic syntax</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan" title="Copy code"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code># Variables, types, printing
+x = 42
+pi = 3.14159
+name = "Amit"
+
+print(f"Hello {name}, x={x}, pi={pi}")
+</code></pre>
+      </div>
+
+      <h4 class="mt-4 font-semibold text-neon-cyan">Pitfalls</h4>
+      <ul class="list-disc list-inside mt-2 text-slate-300">
+        <li>Mutable default arguments in functions (use None).</li>
+        <li>Don't mix tabs and spaces.</li>
+      </ul>
+    </section>
+
+    <!-- 2. Data Types & Built-ins -->
+    <section id="data-types" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Data Types","front":["Mutable vs Immutable","Common built-ins: list, dict, set, tuple, str"],"back":["Use tuples for fixed collections","dict preserves insertion order (3.7+)","Use copy() for shallow copies"]}'>
+      <h2 class="text-xl font-bold text-neon-amber flex items-center gap-2"><i class="fas fa-cubes mr-2"></i> Data Types & Built-ins</h2>
+      <p class="mt-2 text-slate-300">Python types are objects. Some are immutable (int, str, tuple) and others mutable (list, dict, set).</p>
+
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold text-neon-cyan">List / Tuple / Dict / Set</h4>
+          <pre class="overflow-x-auto text-sm"><code># list (mutable, ordered)
+fruits = ['apple','banana']
+fruits.append('mango')
+
+# tuple (immutable)
+t = (1,2,3)
+a,b,c = t
+
+# dict
+person = {'name':'Alice','age':30}
+person['city']='London'
+
+# set
+s = {1,2,3}
+</code></pre>
+        </div>
+
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold text-neon-cyan">Comprehensions</h4>
+          <pre class="overflow-x-auto text-sm"><code># list comprehension
+squares = [x*x for x in range(10)]
+# dict comprehension
+d = {x: x*x for x in range(5)}
+# set comprehension
+s2 = {x for x in range(5) if x%2==0}
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Control Flow -->
+    <section id="control-flow" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Control Flow","front":["if/elif/else","for/while loops"],"back":["for-else and while-else exist","break/continue to control flow"]}'>
+      <h2 class="text-xl font-bold text-neon-cyan flex items-center gap-2"><i class="fas fa-stream mr-2"></i> Control Flow</h2>
+      <div class="mt-2 text-slate-300">
+        <p><strong>if / elif / else</strong> and <strong>for / while</strong> loops are fundamental. Python also supports the <code>match</code> statement (structural pattern matching) in modern versions.</p>
+      </div>
+
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs text-slate-400">Examples</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code># if / elif / else
+x = 5
+if x < 0:
+    print("neg")
+elif x == 0:
+    print("zero")
+else:
+    print("pos")
+
+# for / else
+for i in range(3):
+    print(i)
+else:
+    print("done")
+
+# while
+i = 0
+while i < 3:
+    print(i); i += 1
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 4. Functions -->
+    <section id="functions" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Functions","front":["First-class objects","args/kwargs","closures & decorators"],"back":["Avoid mutable defaults","Use functools.wraps for decorators"]}'>
+      <h2 class="text-xl font-bold text-neon-magenta flex items-center gap-2"><i class="fas fa-cogs mr-2"></i> Functions</h2>
+      <p class="mt-2 text-slate-300">Functions are first-class. They can be passed, returned, and assigned.</p>
+
+      <div class="mt-3 grid md:grid-cols-2 gap-4">
+        <div class="p-3 bg-slate-900 rounded-md code-block">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs text-slate-400">Definition, args</span>
+            <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+          </div>
+          <pre class="overflow-x-auto"><code>def greet(name="friend"):
+    return f"Hello, {name}"
+
+def varargs(*args, **kwargs):
+    print(args, kwargs)
+
+# lambda
+add = lambda a,b: a+b
+</code></pre>
+        </div>
+
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold text-neon-amber">Decorators (short)</h4>
+          <pre class="overflow-x-auto text-sm code-block p-2 rounded"><code>import functools
+
+def mydecorator(fn):
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        print("before")
+        res = fn(*args, **kwargs)
+        print("after")
+        return res
+    return wrapper
+
+@mydecorator
+def f(): pass
+</code></pre>
+        </div>
+      </div>
+
+      <h4 class="mt-3 font-semibold text-neon-cyan">Common pitfalls</h4>
+      <ul class="list-disc list-inside mt-2 text-slate-300">
+        <li>Mutable default arguments — use <code>None</code> then set inside.</li>
+        <li>Shadowing builtins (e.g., don't name a variable <code>list</code>).</li>
+      </ul>
+    </section>
+
+    <!-- 5. Modules & Packages -->
+    <section id="modules" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Modules & Packages","front":["import mechanics","pip and venv"],"back":["Use __init__.py for packages (py3.3+ implicit nspkg)","Prefer relative imports inside packages"]}'>
+      <h2 class="text-xl font-bold text-neon-amber flex items-center gap-2"><i class="fas fa-folder-open mr-2"></i> Modules & Packages</h2>
+      <p class="mt-2 text-slate-300">Use modules to organize code. Create virtual environments with <code>python -m venv venv</code> and install with <code>pip</code>.</p>
+
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs text-slate-400">Import styles</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code># absolute import
+from package.module import MyClass
+
+# relative import within package
+from .submodule import helper
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 6. File I/O & Context Managers -->
+    <section id="file-io" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"File I/O","front":["open/read/write modes","use with for safety"],"back":["Binary vs text mode","use encoding='utf-8'"]}'>
+      <h2 class="text-xl font-bold text-neon-cyan flex items-center gap-2"><i class="fas fa-file mr-2"></i> File I/O & Context Managers</h2>
+
+      <div class="mt-3 grid md:grid-cols-2 gap-4">
+        <div class="code-block p-3 rounded-md">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">Read / Write</span>
+            <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+          </div>
+          <pre class="overflow-x-auto"><code>with open('data.txt','r', encoding='utf-8') as f:
+    text = f.read()
+
+with open('out.txt','w', encoding='utf-8') as f:
+    f.write("hello")
+</code></pre>
+        </div>
+
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold text-neon-amber">CSV / JSON quick</h4>
+          <pre class="overflow-x-auto text-sm"><code>import csv, json
+
+# CSV
+with open('file.csv') as f:
+    reader = csv.DictReader(f)
+    for row in reader: ...
+
+# JSON
+with open('file.json') as f:
+    data = json.load(f)
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Exceptions & Error Handling -->
+    <section id="exceptions" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Exceptions","front":["try/except/finally","raise custom exceptions"],"back":["Use specific exceptions","cleanup in finally / context managers"]}'>
+      <h2 class="text-xl font-bold text-neon-magenta flex items-center gap-2"><i class="fas fa-exclamation-triangle mr-2"></i> Exceptions & Error Handling</h2>
+      <p class="mt-2 text-slate-300">Handle errors to make programs robust. Catch specific exceptions rather than bare <code>except:</code>.</p>
+
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">Pattern</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code>try:
+    risky()
+except ValueError as e:
+    handle(e)
+except (OSError, IOError):
+    fallback()
+else:
+    # runs if no exception
+    pass
+finally:
+    # always runs
+    cleanup()
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 8. Iterators & Generators -->
+    <section id="iterators" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Iterators & Generators","front":["__iter__ and __next__","yield to create generators"],"back":["Generators are lazy and memory efficient","use itertools for efficient iteration"]}'>
+      <h2 class="text-xl font-bold text-neon-amber flex items-center gap-2"><i class="fas fa-sync mr-2"></i> Iterators & Generators</h2>
+
+      <div class="mt-3 grid md:grid-cols-2 gap-4">
+        <div class="code-block p-3 rounded-md">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">Generator example</span>
+            <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+          </div>
+          <pre class="overflow-x-auto"><code>def gen():
+    for i in range(5):
+        yield i
+
+g = gen()
+next(g)  # 0
+</code></pre>
+        </div>
+
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold text-neon-cyan">Itertools</h4>
+          <pre class="overflow-x-auto text-sm"><code>import itertools
+
+for a,b in itertools.product([1,2],[3,4]): ...
+for i in itertools.count(10): ...
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Decorators & Context Managers -->
+    <section id="decorators" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Decorators & Context Managers","front":["@decorator syntax","context manager protocol"],"back":["use functools.wraps","use contextlib.contextmanager for simple managers"]}'>
+      <h2 class="text-xl font-bold text-neon-cyan flex items-center gap-2"><i class="fas fa-tools mr-2"></i> Decorators & Context Managers</h2>
+
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">Context manager (classic)</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code>class MyCtx:
+    def __enter__(self):
+        return self
+    def __exit__(self, exc_type, exc, tb):
+        pass
+
+with MyCtx() as c:
+    ...
+</code></pre>
+      </div>
+
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">contextlib helper</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code>from contextlib import contextmanager
+
+@contextmanager
+def myctx():
+    setup()
+    try:
+        yield
+    finally:
+        teardown()
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 10. Concurrency & Parallelism -->
+    <section id="concurrency" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Concurrency & Parallelism","front":["threading vs multiprocessing","asyncio basics"],"back":["GIL affects CPU-bound threads","use multiprocessing for CPU-bound tasks"]}'>
+      <h2 class="text-xl font-bold text-neon-magenta flex items-center gap-2"><i class="fas fa-tachometer-alt mr-2"></i> Concurrency & Parallelism</h2>
+      <p class="text-slate-300">Python supports threads, processes, and async. The GIL in CPython means threads are limited for CPU-bound work; use multiprocessing or native extensions for true parallel CPU utilization.</p>
+
+      <div class="mt-3 grid md:grid-cols-2 gap-4">
+        <div class="p-3 bg-slate-900 rounded-md code-block">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">asyncio example</span>
+            <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+          </div>
+          <pre class="overflow-x-auto"><code>import asyncio
+
+async def say(n):
+    await asyncio.sleep(n)
+    return n
+
+async def main():
+    res = await asyncio.gather(say(1), say(2))
+    print(res)
+
+asyncio.run(main())
+</code></pre>
+        </div>
+
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold text-neon-amber">Threading / Multiprocessing</h4>
+          <pre class="overflow-x-auto text-sm"><code>import threading, multiprocessing
+
+def task(): pass
+
+t = threading.Thread(target=task); t.start()
+
+p = multiprocessing.Process(target=task); p.start()
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Networking & Web -->
+    <section id="networking" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Networking & Web","front":["requests for HTTP","sockets basics"],"back":["Use requests for simple HTTP calls","use aiohttp for async HTTP"]}'>
+      <h2 class="text-xl font-bold text-neon-amber flex items-center gap-2"><i class="fas fa-network-wired mr-2"></i> Networking & Web</h2>
+
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">requests example</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code>import requests
+r = requests.get('https://httpbin.org/get', params={'q':'python'})
+print(r.status_code, r.json())
+</code></pre>
+      </div>
+
+      <div class="mt-3 p-3 bg-slate-900 rounded-md">
+        <h4 class="font-semibold text-neon-cyan">Web frameworks</h4>
+        <p class="text-sm text-slate-300">Flask: microframework. Django: batteries included. FastAPI: async-first, great for APIs.</p>
+      </div>
+    </section>
+
+    <!-- 12. Databases -->
+    <section id="databases" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Databases","front":["sqlite3 for local","ORM basics"],"back":["Use parameterized queries to avoid SQL injection","Prefer ORM for productivity in larger apps"]}'>
+      <h2 class="text-xl font-bold text-neon-cyan flex items-center gap-2"><i class="fas fa-database mr-2"></i> Databases</h2>
+
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">sqlite3 quick</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code>import sqlite3
+conn = sqlite3.connect('db.sqlite3')
+cur = conn.cursor()
+cur.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)')
+cur.execute('INSERT INTO users (name) VALUES (?)', ('Alice',))
+conn.commit()
+conn.close()
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 13. Testing & Debugging -->
+    <section id="testing" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Testing & Debugging","front":["unittest & pytest basics","assertions"],"back":["Use pytest fixtures for setup/teardown","run tests with -q for concise output"]}'>
+      <h2 class="text-xl font-bold text-neon-magenta flex items-center gap-2"><i class="fas fa-vial mr-2"></i> Testing & Debugging</h2>
+
+      <div class="mt-3 grid md:grid-cols-2 gap-4">
+        <div class="code-block p-3 rounded-md">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">pytest sample</span>
+            <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+          </div>
+          <pre class="overflow-x-auto"><code>def add(a,b): return a+b
+
+def test_add():
+    assert add(2,3) == 5
+</code></pre>
+        </div>
+
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold text-neon-amber">Debugging</h4>
+          <p class="text-sm text-slate-300">Use <code>pdb</code> or <code>breakpoint()</code>. Use logging instead of print for production debugging.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. Collections & Stdlib -->
+    <section id="collections" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Collections & Stdlib","front":["Counter, defaultdict, deque, namedtuple"],"back":["Use collections for concise code","check stdlib before external libs"]}'>
+      <h2 class="text-xl font-bold text-neon-amber flex items-center gap-2"><i class="fas fa-archive mr-2"></i> Collections & Stdlib</h2>
+
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">Counter example</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code>from collections import Counter, defaultdict, deque, namedtuple
+
+c = Counter("abracadabra")
+d = defaultdict(int)
+dq = deque([1,2,3])
+Point = namedtuple('Point','x y')
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 15. Regex -->
+    <section id="regex" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Regex","front":["re module basics","search, match, findall"],"back":["Use raw strings r''","compile for repeated use"]}'>
+      <h2 class="text-xl font-bold text-neon-cyan flex items-center gap-2"><i class="fas fa-magnifying-glass mr-2"></i> Regular Expressions</h2>
+
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">Example</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code>import re
+m = re.search(r'(\d{4})-(\d{2})-(\d{2})','2025-10-28')
+if m:
+    year,mon,day = m.groups()
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 16. Typing & Static Analysis -->
+    <section id="typing" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Typing & Static Analysis","front":["type hints with typing module","mypy for checks"],"back":["Hints are optional but beneficial","use typing.AsyncIterator, Callable, Protocol etc"]}'>
+      <h2 class="text-xl font-bold text-neon-amber flex items-center gap-2"><i class="fas fa-check-double mr-2"></i> Typing & Static Analysis</h2>
+
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">Example</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code>from typing import List, Dict
+
+def greet_all(names: List[str]) -> None:
+    for n in names:
+        print(n)
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 17. Functional Tools -->
+    <section id="functional" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Functional Tools","front":["map/filter/reduce","itertools functions"],"back":["Prefer list/dict comprehensions for readability","use generator expressions for memory efficiency"]}'>
+      <h2 class="text-xl font-bold text-neon-cyan flex items-center gap-2"><i class="fas fa-stream mr-2"></i> Functional Tools</h2>
+      <div class="mt-3 code-block p-3 rounded-md">
+        <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">Examples</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code>from functools import reduce
+from operator import add
+
+evens = list(filter(lambda x: x%2==0, range(10)))
+squares = list(map(lambda x: x*x, range(10)))
+sum_all = reduce(add, [1,2,3], 0)
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 18. Performance & Profiling -->
+    <section id="performance" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Performance & Profiling","front":["timeit and cProfile","algorithmic complexity"],"back":["Measure before optimizing","use efficient data structures"]}'>
+      <h2 class="text-xl font-bold text-neon-amber flex items-center gap-2"><i class="fas fa-rocket mr-2"></i> Performance & Profiling</h2>
+
+      <div class="mt-3 grid md:grid-cols-2 gap-4">
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold text-neon-cyan">timeit</h4>
+          <pre class="overflow-x-auto text-sm"><code>import timeit
+timeit.timeit("sum(range(100))", number=1000)
+</code></pre>
+        </div>
+
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold text-neon-amber">cProfile</h4>
+          <pre class="overflow-x-auto text-sm"><code>import cProfile
+cProfile.run('main()')
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 19. Packaging & Deployment -->
+    <section id="packaging" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Packaging & Deployment","front":["setup.cfg / pyproject.toml","pip, wheel"],"back":["Use pyproject.toml for modern packaging","use virtualenv for isolation"]}'>
+      <h2 class="text-xl font-bold text-neon-cyan flex items-center gap-2"><i class="fas fa-box mr-2"></i> Packaging & Deployment</h2>
+      <p class="text-slate-300 mt-2">Use <code>pyproject.toml</code> and build tools (poetry, flit, setuptools). Create wheels for distribution and use CI/CD for deployment.</p>
+    </section>
+
+    <!-- 20. Security & Best Practices -->
+    <section id="security" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Security & Best Practices","front":["avoid eval/exec","handle secrets safely"],"back":["Use parameterized SQL queries","store secrets in env vars or vaults"]}'>
+      <h2 class="text-xl font-bold text-neon-magenta flex items-center gap-2"><i class="fas fa-shield-alt mr-2"></i> Security & Best Practices</h2>
+      <ul class="list-disc list-inside mt-2 text-slate-300">
+        <li>Never use <code>eval</code> on untrusted input</li>
+        <li>Sanitize inputs in web apps; use CSRF protections</li>
+        <li>Use HTTPS and secure headers for web services</li>
+      </ul>
+    </section>
+
+    <!-- 21. Data Science Intro -->
+    <section id="data-science" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Data Science & ML","front":["numpy/pandas basics","matplotlib quick"],"back":["Focus on vectorized operations for speed","use scikit-learn for classical ML"]}'>
+      <h2 class="text-xl font-bold text-neon-amber flex items-center gap-2"><i class="fas fa-chart-line mr-2"></i> Data Science & ML (Intro)</h2>
+
+      <div class="mt-3 p-3 bg-slate-900 rounded-md code-block">
+        <div class="flex justify-between items-center mb-2"><span class="text-xs text-slate-400">numpy / pandas sample</span>
+          <button class="copy-btn px-2 py-1 text-neon-cyan"><i class="fas fa-copy"></i></button>
+        </div>
+        <pre class="overflow-x-auto"><code>import numpy as np
+import pandas as pd
+
+a = np.array([1,2,3])
+df = pd.DataFrame({'a':[1,2,3], 'b':[4,5,6]})
+print(df.describe())
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 22. Developer Tools -->
+    <section id="developer-tools" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Developer Tools","front":["venv, pip, git, linters"],"back":["Use black/flake8/isort for consistency","CI to run tests & linters"]}'>
+      <h2 class="text-xl font-bold text-neon-cyan flex items-center gap-2"><i class="fas fa-tools mr-2"></i> Developer Tools</h2>
+      <ul class="list-disc list-inside mt-2 text-slate-300">
+        <li>Use <code>venv</code> or <code>pipx</code> for environment isolation</li>
+        <li>Use linters & formatters: <code>black</code>, <code>flake8</code>, <code>isort</code></li>
+        <li>CI: GitHub Actions / GitLab CI / CircleCI</li>
+      </ul>
+    </section>
+
+    <!-- 23. Interview Preparation (questions & answers) -->
+    <section id="interview-prep" class="glass rounded-2xl p-6" tabindex="0" data-flash='{"title":"Interview Prep","front":["Big O basics","common pitfalls"],"back":["Explain difference between list and tuple","Explain GIL briefly"]}'>
+      <h2 class="text-xl font-bold text-neon-amber flex items-center gap-2"><i class="fas fa-user-tie mr-2"></i> Interview Preparation</h2>
+      <div class="mt-2 grid md:grid-cols-2 gap-4">
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold">Common Questions</h4>
+          <ol class="list-decimal list-inside mt-2 text-slate-300">
+            <li>Difference between <code>==</code> and <code>is</code>.</li>
+            <li>Explain list vs tuple vs set vs dict.</li>
+            <li>Explain decorators and closures.</li>
+            <li>Explain the GIL and its impact.</li>
+          </ol>
+        </div>
+
+        <div class="p-3 bg-slate-900 rounded-md">
+          <h4 class="font-semibold">Answer Tips</h4>
+          <p class="text-sm text-slate-300 mt-2">Be concise, give complexity (Big-O) when asked, show sample code or diagrams if needed. Mention trade-offs and alternatives.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cheatsheet and printable -->
+    <section id="cheatsheet" class="glass rounded-2xl p-6 print:break-before-page" tabindex="0">
+      <h2 class="text-xl font-bold text-neon-magenta">Cheatsheet</h2>
+      <div class="mt-3 grid md:grid-cols-3 gap-4">
+        <div class="p-3 bg-slate-900 rounded-md text-sm">
+          <h4 class="font-semibold text-neon-amber">Control Flow</h4>
+          <ul class="list-disc list-inside mt-2 text-slate-300">
+            <li><code>if/elif/else</code></li>
+            <li><code>for i in iterable</code></li>
+            <li><code>while condition</code></li>
+          </ul>
+        </div>
+        <div class="p-3 bg-slate-900 rounded-md text-sm">
+          <h4 class="font-semibold text-neon-amber">Collections</h4>
+          <ul class="list-disc list-inside mt-2 text-slate-300">
+            <li><code>list, tuple, dict, set</code></li>
+            <li><code>collections.Counter, defaultdict, deque</code></li>
+          </ul>
+        </div>
+        <div class="p-3 bg-slate-900 rounded-md text-sm">
+          <h4 class="font-semibold text-neon-amber">Common funcs</h4>
+          <ul class="list-disc list-inside mt-2 text-slate-300">
+            <li><code>len(), range(), enumerate(), zip(), map(), filter()</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Further reading -->
+    <section id="further-reading" class="glass rounded-2xl p-6" tabindex="0">
+      <h2 class="text-xl font-bold text-neon-cyan">Further Reading</h2>
+      <ul class="mt-3 list-disc list-inside text-slate-300">
+        <li>Official docs: python.org</li>
+        <li>PEP 8 — Style guide</li>
+        <li>Fluent Python, Effective Python, Python Cookbook</li>
+      </ul>
+    </section>
+
+    <!-- Footer / small print -->
+    <footer class="text-xs text-slate-500 py-6">Generated for revision. Save as PDF (print) for offline reading. Last updated: <span id="updated-date"></span></footer>
+  </main>
+</div>
+
+<!-- Mobile overlay menu -->
+<div id="mobile-menu" class="fixed inset-0 z-60 bg-black bg-opacity-60 hidden">
+  <div class="absolute left-0 top-0 bottom-0 w-80 glass p-4 overflow-auto">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-neon-cyan font-semibold">Contents</h3>
+      <button id="mobile-close" class="text-slate-400"><i class="fas fa-times"></i></button>
+    </div>
+    <ul id="mobile-toc" class="space-y-2 text-sm"></ul>
+  </div>
+</div>
+
+<!-- Scripts: TOC, Search, Flashcards, Copy, Clock, Highlighting -->
+<script>
+  // Data for TOC (id, title, icon)
+  const tocData = [
+    {id:'intro', title:'Intro', icon:'fa-info-circle'},
+    {id:'python-basics', title:'Python Basics', icon:'fa-code'},
+    {id:'data-types', title:'Data Types & Built-ins', icon:'fa-cubes'},
+    {id:'control-flow', title:'Control Flow', icon:'fa-stream'},
+    {id:'functions', title:'Functions', icon:'fa-cogs'},
+    {id:'modules', title:'Modules & Packages', icon:'fa-folder-open'},
+    {id:'file-io', title:'File I/O & Context Managers', icon:'fa-file'},
+    {id:'exceptions', title:'Exceptions & Error Handling', icon:'fa-exclamation-triangle'},
+    {id:'iterators', title:'Iterators & Generators', icon:'fa-sync'},
+    {id:'decorators', title:'Decorators & Context Managers', icon:'fa-tools'},
+    {id:'concurrency', title:'Concurrency & Parallelism', icon:'fa-tachometer-alt'},
+    {id:'networking', title:'Networking & Web', icon:'fa-network-wired'},
+    {id:'databases', title:'Databases', icon:'fa-database'},
+    {id:'testing', title:'Testing & Debugging', icon:'fa-vial'},
+    {id:'collections', title:'Collections & Stdlib', icon:'fa-archive'},
+    {id:'regex', title:'Regex', icon:'fa-magnifying-glass'},
+    {id:'typing', title:'Typing & Static Analysis', icon:'fa-check-double'},
+    {id:'functional', title:'Functional Tools', icon:'fa-stream'},
+    {id:'performance', title:'Performance & Profiling', icon:'fa-rocket'},
+    {id:'packaging', title:'Packaging & Deployment', icon:'fa-box'},
+    {id:'security', title:'Security & Best Practices', icon:'fa-shield-alt'},
+    {id:'data-science', title:'Data Science & ML', icon:'fa-chart-line'},
+    {id:'developer-tools', title:'Developer Tools', icon:'fa-tools'},
+    {id:'interview-prep', title:'Interview Preparation', icon:'fa-user-tie'},
+    {id:'cheatsheet', title:'Cheatsheet', icon:'fa-list'},
+    {id:'further-reading', title:'Further Reading', icon:'fa-book'}
+  ];
+
+  const tocEl = document.getElementById('toc');
+  const mobileToc = document.getElementById('mobile-toc');
+  const tocSearch = document.getElementById('toc-search');
+
+  // Populate TOC
+  tocData.forEach(item => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <a href="#${item.id}" class="flex items-center gap-2 p-2 rounded-md hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-1" data-target="${item.id}">
+        <i class="fas ${item.icon} text-neon-cyan w-5"></i>
+        <span>${item.title}</span>
+      </a>
+    `;
+    tocEl.appendChild(li);
+
+    // mobile
+    const mli = li.cloneNode(true);
+    mobileToc.appendChild(mli);
+  });
+
+  // Smooth scrolling for TOC links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e){
+      const target = document.getElementById(this.getAttribute('href').substring(1));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+        // close mobile menu if open
+        document.getElementById('mobile-menu').classList.add('hidden');
+      }
+    });
+  });
+
+  // TOC search filter
+  tocSearch.addEventListener('input', function(){
+    const q = this.value.trim().toLowerCase();
+    document.querySelectorAll('#toc li').forEach(li=>{
+      const txt = li.textContent.toLowerCase();
+      li.style.display = txt.includes(q) ? '' : 'none';
+    });
+  });
+
+  // Mobile menu toggle
+  document.getElementById('menu-toggle').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.remove('hidden');
+  });
+  document.getElementById('mobile-close').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.add('hidden');
+  });
+
+  // Site search - naive highlight & show / hide
+  const siteSearch = document.getElementById('site-search');
+  siteSearch.addEventListener('input', function(){
+    const q = this.value.trim().toLowerCase();
+    document.querySelectorAll('main section, main article').forEach(sec=>{
+      const text = sec.textContent.toLowerCase();
+      if (!q) { sec.style.display=''; sec.innerHTML = sec.getAttribute('data-original') || sec.innerHTML; return; }
+      if (text.includes(q)) {
+        sec.style.display='';
+        // highlight occurrences (simple replace; safe because we store original)
+        if (!sec.getAttribute('data-original')) sec.setAttribute('data-original', sec.innerHTML);
+        const reg = new RegExp(q, 'gi');
+        sec.innerHTML = sec.getAttribute('data-original').replace(reg, s => `<span class="highlight">${s}</span>`);
+      } else {
+        sec.style.display='none';
+      }
+    });
+  });
+
+  // Code copy buttons
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    const block = btn.closest('.code-block') || btn.closest('pre');
+    const codeEl = block.querySelector('code');
+    if (!codeEl) return;
+    const text = codeEl.textContent;
+    navigator.clipboard.writeText(text).then(()=>{
+      const old = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check"></i>';
+      btn.classList.remove('text-neon-cyan');
+      btn.classList.add('text-neon-green');
+      setTimeout(()=>{ btn.innerHTML = old; btn.classList.remove('text-neon-green'); btn.classList.add('text-neon-cyan'); }, 1500);
+    }).catch(()=> {
+      alert('Copy failed — permission denied.');
+    });
+  });
+
+  // Clock
+  function updateClock(){
+    const now = new Date();
+    const s = now.toLocaleTimeString('en-GB', {hour12:false});
+    document.getElementById('clock').textContent = s;
+    document.getElementById('updated-date').textContent = now.toISOString().split('T')[0];
+  }
+  updateClock(); setInterval(updateClock, 1000);
+
+  // Flashcards: collect from sections data-flash and quick manual ones
+  const flashcards = [];
+  document.querySelectorAll('main section[data-flash]').forEach(sec=>{
+    try {
+      const obj = JSON.parse(sec.getAttribute('data-flash'));
+      flashcards.push(obj);
+    } catch(e){}
+  });
+
+  // Add some global flashcards (interview oriented)
+  flashcards.push({
+    title: 'Big-O Basics',
+    front: ['O(1), O(n), O(log n), O(n log n)','Explain best/avg/worst-case'],
+    back: ['Describe with examples: lookup vs traversal','Mention when amortized applies (e.g., list append)']
+  });
+
+  // Flashcard UI logic
+  const flashArea = document.getElementById('flashcard-area');
+  let cardIndex = 0;
+
+  function renderCard(i){
+    if (!flashcards.length) return;
+    if (i < 0) i = flashcards.length-1;
+    if (i >= flashcards.length) i = 0;
+    cardIndex = i;
+    const c = flashcards[i];
+    flashArea.innerHTML = `
+      <div class="relative h-full">
+        <div class="absolute inset-0 flashcard card-front transition-transform rounded-lg glass border border-slate-700 p-4" id="card-${i}" style="transform-style:preserve-3d;">
+          <div class="flash-face p-2">
+            <h4 class="text-neon-cyan font-bold text-center mb-2">${escapeHtml(c.title)}</h4>
+            <ul class="list-disc list-inside text-sm text-slate-200">
+              ${c.front.map(pt=>`<li>${escapeHtml(pt)}</li>`).join('')}
+            </ul>
+            <p class="mt-2 text-xs text-slate-400 text-center">Tap to flip</p>
+          </div>
+          <div class="flash-face flash-back p-2" style="transform:rotateY(180deg);">
+            <h4 class="text-neon-amber font-bold text-center mb-2">Answer</h4>
+            <ul class="list-disc list-inside text-sm text-slate-200">
+              ${c.back.map(pt=>`<li>${escapeHtml(pt)}</li>`).join('')}
+            </ul>
+            <p class="mt-2 text-xs text-slate-400 text-center">Tap to flip back</p>
+          </div>
+        </div>
+      </div>
+    `;
+    // attach flip handler
+    const cardEl = document.querySelector('#card-'+i);
+    cardEl.style.position='relative';
+    cardEl.style.height='100%';
+    cardEl.addEventListener('click', function(){
+      if (cardEl.classList.contains('flipped')) cardEl.classList.remove('flipped');
+      else cardEl.classList.add('flipped');
+    });
+  }
+
+  function escapeHtml(s){ return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+  document.getElementById('quick-revision-toggle').addEventListener('click', ()=>{
+    const panel = document.getElementById('quick-panel');
+    panel.classList.toggle('hidden');
+    if (!panel.classList.contains('hidden')) renderCard(cardIndex);
+  });
+  document.getElementById('close-quick').addEventListener('click', ()=> document.getElementById('quick-panel').classList.add('hidden'));
+  document.getElementById('prev-card').addEventListener('click', ()=> renderCard(cardIndex-1));
+  document.getElementById('next-card').addEventListener('click', ()=> renderCard(cardIndex+1));
+
+  // initialize first card
+  if (flashcards.length) renderCard(0);
+
+  // Populate mobile TOC click handlers already set via <a> anchor handlers above.
+
+  // Accessibility: focus outlines for interactive elements
+  document.querySelectorAll('a, button, input').forEach(el=>{
+    el.addEventListener('keydown', (e)=>{
+      if (e.key === 'Enter') el.click();
+    });
+  });
+
+  // Basic syntax "highlighting" for code blocks: apply simple regex replacements within <code> tags
+  document.addEventListener('DOMContentLoaded', ()=>{
+    document.querySelectorAll('pre code').forEach(block=>{
+      let code = block.textContent;
+      // store original for search resets if needed
+      block.setAttribute('data-original', code);
+      // simple highlight substitutions (non-destructive for copy)
+      code = code
+        .replace(/\b(def|class|if|else|elif|for|while|try|except|finally|with|import|from|as|return|yield|async|await|and|or|not|in|is|None|True|False)\b/g, '<span class="kw">$1</span>')
+        .replace(/\b(print|len|range|enumerate|zip|map|filter|reduce|super|type|isinstance|open|json|csv)\b/g, '<span class="fn">$1</span>')
+        .replace(/("([^"\\]|\\.)*"|'([^'\\]|\\.)*')/g, '<span class="str">$1</span>')
+        .replace(/#.*$/gm, '<span class="com">$&</span>')
+        .replace(/\b(\d+\.?\d*)\b/g, '<span class="num">$1</span>');
+      block.innerHTML = code;
+    });
+  });
+
+  // keyboard shortcut: "f" to open flashcards
+  document.addEventListener('keydown', (e)=>{
+    if (e.key.toLowerCase() === 'f') {
+      document.getElementById('quick-panel').classList.toggle('hidden');
+      if (!document.getElementById('quick-panel').classList.contains('hidden')) renderCard(cardIndex);
+    }
+  });
+
+  // Ensure sections have tabindex for keyboard navigation
+  document.querySelectorAll('main section, main article, main footer').forEach(s => s.setAttribute('tabindex','0'));
+</script>
+
+</body>
+</html>
