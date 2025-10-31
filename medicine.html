@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PharmaFinder — Medicine Database</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'neon-blue': '#00f3ff',
+              'neon-pink': '#ff00ff',
+              'neon-green': '#00ff9d',
+              'neon-purple': '#9d00ff',
+              'neon-orange': '#ff9500',
+              'neon-yellow': '#ffea00',
+              'dark-bg': '#0f0f23',
+            },
+            animation: {
+              'pulse-glow': 'pulse-glow 2s infinite',
+              float: 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              'pulse-glow': {
+                '0%, 100%': {
+                  boxShadow:
+                    '0 0 5px #00f3ff, 0 0 10px #00f3ff, 0 0 15px #00f3ff',
+                },
+                '50%': {
+                  boxShadow:
+                    '0 0 10px #00f3ff, 0 0 20px #00f3ff, 0 0 30px #00f3ff',
+                },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          #0f0f23 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        min-height: 100vh;
+      }
+
+      .category-badge {
+        transition: all 0.3s ease;
+      }
+
+      .category-badge:hover {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+      }
+
+      .search-container {
+        background: rgba(15, 15, 35, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 243, 255, 0.2);
+      }
+
+      .table-container {
+        background: rgba(15, 15, 35, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 243, 255, 0.2);
+      }
+
+      .medicine-card {
+        background: rgba(26, 26, 46, 0.7);
+        border: 1px solid rgba(0, 243, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .medicine-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 243, 255, 0.2);
+        border-color: rgba(0, 243, 255, 0.4);
+      }
+
+      .glow-text {
+        text-shadow: 0 0 10px currentColor;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(15, 15, 35, 0.5);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 243, 255, 0.5);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 243, 255, 0.8);
+      }
+    </style>
+  </head>
+  <body class="text-gray-100 font-sans">
+    <div class="max-w-7xl mx-auto px-4 py-6">
+      <!-- Header -->
+      <header class="mb-8 text-center">
+        <div class="flex items-center justify-center mb-4">
+          <i
+            class="fas fa-pills text-4xl text-neon-blue mr-4 animate-float"
+          ></i>
+          <h1
+            class="text-4xl md:text-5xl font-extrabold tracking-tight glow-text text-neon-blue"
+          >
+            PharmaFinder
+          </h1>
+        </div>
+        <p class="mt-2 text-lg text-gray-300 max-w-3xl mx-auto">
+          Search, filter and explore our comprehensive medicine database.
+          <span class="text-neon-pink font-semibold">Important:</span> This is
+          for informational purposes only — always consult a healthcare
+          professional before taking any medication.
+        </p>
+      </header>
+
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div
+          class="bg-gradient-to-r from-purple-900/50 to-neon-purple/20 rounded-xl p-4 border border-neon-purple/30 shadow-lg"
+        >
+          <div class="flex items-center">
+            <i class="fas fa-capsules text-2xl text-neon-purple mr-3"></i>
+            <div>
+              <p class="text-gray-400 text-sm">Total Medicines</p>
+              <p class="text-2xl font-bold text-white">300</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bg-gradient-to-r from-blue-900/50 to-neon-blue/20 rounded-xl p-4 border border-neon-blue/30 shadow-lg"
+        >
+          <div class="flex items-center">
+            <i class="fas fa-tags text-2xl text-neon-blue mr-3"></i>
+            <div>
+              <p class="text-gray-400 text-sm">Categories</p>
+              <p class="text-2xl font-bold text-white" id="categoryCount">0</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bg-gradient-to-r from-pink-900/50 to-neon-pink/20 rounded-xl p-4 border border-neon-pink/30 shadow-lg"
+        >
+          <div class="flex items-center">
+            <i class="fas fa-search text-2xl text-neon-pink mr-3"></i>
+            <div>
+              <p class="text-gray-400 text-sm">Search Results</p>
+              <p class="text-2xl font-bold text-white" id="resultsCount">300</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search and Filter Section -->
+      <div class="search-container rounded-xl p-6 mb-6 shadow-xl">
+        <div class="flex flex-col md:flex-row gap-4 mb-6">
+          <div class="flex-1 relative">
+            <i class="fas fa-search absolute left-3 top-3 text-neon-blue"></i>
+            <input
+              id="search"
+              type="search"
+              placeholder="Search medicine name, category, or usage (e.g., cough, antibiotic, pain)"
+              class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-800/70 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-neon-blue focus:border-transparent text-white"
+            />
+          </div>
+          <select
+            id="filter"
+            class="px-4 py-3 rounded-lg bg-gray-800/70 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-neon-green focus:border-transparent text-white"
+          >
+            <option value="all">All Categories</option>
+          </select>
+          <button
+            id="reset"
+            class="px-6 py-3 rounded-lg bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-blue text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+          >
+            <i class="fas fa-redo-alt mr-2"></i> Reset
+          </button>
+        </div>
+
+        <!-- Category Quick Filters -->
+        <div class="mb-4 hidden md:block">
+          <h3 class="text-lg font-semibold mb-3 text-neon-green glow-text">
+            Quick Categories:
+          </h3>
+          <div id="categoryFilters" class="flex flex-wrap gap-2">
+            <!-- Category badges will be injected here -->
+          </div>
+        </div>
+
+        <div
+          id="counts"
+          class="text-sm text-gray-400 flex justify-between items-center"
+        >
+          <span
+            >Showing
+            <span class="text-neon-yellow font-bold" id="showingCount"
+              >300</span
+            >
+            of 300 medicines</span
+          >
+          <div class="flex items-center">
+            <span class="mr-2">View:</span>
+            <button
+              id="viewToggle"
+              class="px-3 py-1 rounded-lg bg-gray-800/70 border border-gray-700 text-sm transition-all duration-300 hover:bg-gray-700"
+            >
+              <i class="fas fa-table mr-1"></i> Table
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medicine Cards/Table -->
+      <div
+        id="medicineView"
+        class="table-container rounded-xl shadow-xl overflow-hidden"
+      >
+        <!-- Table View -->
+        <div id="tableView" class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-900/80 text-left text-gray-300 sticky top-0">
+              <tr>
+                <th class="p-4 w-16 text-center">
+                  <i class="fas fa-hashtag text-neon-blue"></i>
+                </th>
+                <th class="p-4">
+                  <i class="fas fa-pills mr-2 text-neon-blue"></i>Medicine Name
+                </th>
+                <th class="p-4">
+                  <i class="fas fa-tag mr-2 text-neon-blue"></i>Category
+                </th>
+                <th class="p-4">
+                  <i class="fas fa-info-circle mr-2 text-neon-blue"></i>Usage
+                  Information
+                </th>
+              </tr>
+            </thead>
+            <tbody id="tbody" class="divide-y divide-gray-700/50">
+              <!-- Rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Card View (Hidden by default) -->
+        <div
+          id="cardView"
+          class="hidden p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          <!-- Cards injected by JS -->
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="mt-8 text-center text-gray-500 text-sm">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-2 md:mb-0">
+            <i class="fas fa-exclamation-triangle text-neon-orange mr-1"></i>
+            <span
+              >This is an educational resource only — not a prescription
+              guide.</span
+            >
+          </div>
+          <div>
+            <span>Made by <span class="text-neon-blue">@mit</span></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Medicine data
+      const meds = [
+        [1, 'Paracetamol', 'Fever / Pain', 'Fever, Pain relief'],
+        [2, 'Ibuprofen', 'Pain / Anti-inflammatory', 'Pain, Inflammation'],
+        [3, 'Cetirizine', 'Allergy', 'Allergy, Sneezing'],
+        [4, 'Levocetirizine', 'Allergy', 'Runny nose, Allergy'],
+        [5, 'Domperidone', 'Antiemetic', 'Prevents vomiting'],
+        [6, 'Ondansetron', 'Antiemetic', 'Nausea, Vomiting'],
+        [7, 'Pantoprazole', 'Antacid / PPI', 'Gas, Acidity'],
+        [8, 'Rabeprazole', 'Antacid / PPI', 'Stomach burning'],
+        [9, 'Ranitidine', 'Antacid / H2 blocker', 'Acidity'],
+        [10, 'Omeprazole', 'Antacid / PPI', 'Gas, Stomach pain'],
+        [11, 'Amoxicillin', 'Antibiotic (Penicillin)', 'Bacterial infections'],
+        [
+          12,
+          'Azithromycin',
+          'Antibiotic (Macrolide)',
+          'Throat, Chest infections',
+        ],
+        [
+          13,
+          'Ciprofloxacin',
+          'Antibiotic (Fluoroquinolone)',
+          'Urinary, Dental infections',
+        ],
+        [14, 'Doxycycline', 'Antibiotic (Tetracycline)', 'Fever, Infections'],
+        [
+          15,
+          'Metronidazole',
+          'Antiprotozoal / Antibiotic',
+          'Diarrhea, Abscess',
+        ],
+        [16, 'Tinidazole', 'Antiprotozoal', 'Stomach infections'],
+        [17, 'Norfloxacin', 'Antibiotic', 'Diarrhea, Urinary infections'],
+        [18, 'Ofloxacin', 'Antibiotic', 'Infections'],
+        [19, 'Clindamycin', 'Antibiotic', 'Skin infections'],
+        [20, 'Erythromycin', 'Antibiotic (Macrolide)', 'Sore throat'],
+        [21, 'Nimesulide', 'Pain / Anti-inflammatory', 'Fever, Pain'],
+        [22, 'Mefenamic Acid', 'Analgesic', 'Menstrual pain'],
+        [23, 'Aspirin', 'Analgesic / Antiplatelet', 'Pain, Blood thinner'],
+        [24, 'Tramadol', 'Opioid Analgesic', 'Severe pain (prescription)'],
+        [25, 'Diclofenac', 'NSAID', 'Joint pain'],
+        [26, 'Aceclofenac', 'NSAID', 'Inflammation, Pain'],
+        [27, 'Chlorpheniramine', 'Antihistamine', 'Cold, Allergy'],
+        [28, 'Phenylephrine', 'Decongestant', 'Nasal congestion'],
+        [29, 'Betadine (ointment)', 'Antiseptic topical', 'Apply on wounds'],
+        [30, 'Neomycin Cream', 'Topical antibiotic', 'Skin infections'],
+        [31, 'Silver Sulfadiazine', 'Topical for burns', 'Burns treatment'],
+        [32, 'Hydrocortisone', 'Topical steroid', 'Itching, Allergy'],
+        [33, 'Clobetasol', 'Topical steroid (potent)', 'Skin inflammation'],
+        [34, 'Miconazole', 'Antifungal topical', 'Fungal infections'],
+        [35, 'Clotrimazole', 'Antifungal topical', 'Itching, Fungal'],
+        [36, 'Ketoconazole', 'Antifungal', 'Dandruff, Fungal'],
+        [37, 'Loratadine', 'Antihistamine', 'Allergy'],
+        [38, 'Montelukast', 'Respiratory / Anti-asthma', 'Breathing, Allergy'],
+        [39, 'Salbutamol', 'Bronchodilator', 'Asthma, Breathlessness'],
+        [40, 'Ipratropium', 'Bronchodilator', 'Breathing difficulty'],
+        [41, 'Theophylline', 'Respiratory bronchodilator', 'Asthma'],
+        [42, 'Budesonide', 'Inhaled steroid', 'Respiratory inflammation'],
+        [43, 'Fluticasone', 'Steroid (inhaled/nasal)', 'Allergy, Cold'],
+        [44, 'Formoterol', 'Long-acting bronchodilator', 'Asthma/COPD'],
+        [45, 'Beclomethasone', 'Nasal steroid', 'Nasal allergy'],
+        [46, 'Sodium Chloride Nasal Spray', 'Nasal saline', 'Dry nose'],
+        [
+          47,
+          'Xylometazoline',
+          'Nasal decongestant',
+          'Nasal congestion (short-term)',
+        ],
+        [48, 'Ambroxol', 'Mucolytic', 'Loosens mucus'],
+        [49, 'Guaifenesin', 'Expectorant', 'Cough relief'],
+        [50, 'Dextromethorphan', 'Cough suppressent', 'Dry cough'],
+        [51, 'Codeine', 'Antitussive / Opioid', 'Severe cough (prescription)'],
+        [52, 'Chlorzoxazone', 'Muscle relaxant', 'Muscle pain'],
+        [53, 'Tizanidine', 'Muscle relaxant', 'Muscle stiffness'],
+        [54, 'Thiocolchicoside', 'Muscle relaxant', 'Back pain'],
+        [55, 'Cyclobenzaprine', 'Muscle relaxant', 'Back pain'],
+        [56, 'Albendazole', 'Anti-helminthic', 'Intestinal worms'],
+        [57, 'Mebendazole', 'Anti-helminthic', 'Worms'],
+        [
+          58,
+          'Levamisole',
+          'Anti-helminthic / Immunomodulator',
+          'Worms in children',
+        ],
+        [59, 'Diethylcarbamazine', 'Anti-filarial', 'Filariasis'],
+        [60, 'Ivermectin', 'Anti-parasitic', 'Parasites/Worms'],
+        [61, 'Zinc Tablet', 'Supplement', 'Weakness, Wound healing'],
+        [62, 'ORS Powder', 'Rehydration', 'Dehydration'],
+        [63, 'Vitamin C', 'Vitamin / Immunity', 'Immunity booster'],
+        [64, 'Vitamin D3', 'Supplement', 'Bone strength'],
+        [65, 'Calcium', 'Supplement', 'Bones, Teeth'],
+        [66, 'Iron Folic Acid', 'Hematinic', 'Anemia'],
+        [67, 'Multivitamins', 'Supplement', 'Weakness'],
+        [68, 'Biotin', 'Supplement', 'Hair, Skin'],
+        [69, 'B-Complex', 'Vitamin', 'Fatigue'],
+        [70, 'Cyanocobalamin', 'Vitamin B12', 'Nerve weakness'],
+        [71, 'Metformin', 'Antidiabetic', 'Sugar control'],
+        [72, 'Glibenclamide', 'Antidiabetic', 'Diabetes'],
+        [73, 'Gliclazide', 'Antidiabetic', 'Sugar'],
+        [74, 'Insulin', 'Antidiabetic', 'Sugar control (injection)'],
+        [75, 'Pioglitazone', 'Antidiabetic', 'Sugar control'],
+        [76, 'Amlodipine', 'Antihypertensive', 'Blood pressure control'],
+        [77, 'Telmisartan', 'Antihypertensive', 'High BP'],
+        [78, 'Losartan', 'Antihypertensive', 'BP control'],
+        [79, 'Atenolol', 'Beta blocker', 'Heart, BP'],
+        [80, 'Metoprolol', 'Beta blocker', 'Heart rate'],
+        [81, 'Furosemide', 'Diuretic', 'Increases urination'],
+        [
+          82,
+          'Spironolactone',
+          'Diuretic / K-sparing',
+          'Swelling, Water retention',
+        ],
+        [83, 'Digoxin', 'Cardiac glycoside', 'Increases heart strength'],
+        [84, 'Nitroglycerin', 'Anti-anginal', 'Chest pain'],
+        [85, 'Isosorbide Dinitrate', 'Anti-anginal', 'Heart disease'],
+        [86, 'Atorvastatin', 'Lipid-lowering', 'Lowers cholesterol'],
+        [87, 'Rosuvastatin', 'Lipid-lowering', 'Reduces fat'],
+        [88, 'Clopidogrel', 'Antiplatelet', 'Prevents blood clotting'],
+        [89, 'Warfarin', 'Anticoagulant', 'Blood thinner'],
+        [90, 'Heparin', 'Anticoagulant (injectable)', 'Prevents clots'],
+        [91, 'Tadalafil', 'Erectile dysfunction', 'Male sexual weakness'],
+        [92, 'Sildenafil', 'Erectile dysfunction', 'Impotence'],
+        [93, 'Dapoxetine', 'Premature ejaculation', 'Premature ejaculation'],
+        [94, 'Finasteride', 'Androgen inhibitor', 'Hair loss, Prostate'],
+        [95, 'Tamsulosin', 'Urology / BPH', 'Urinary difficulty'],
+        [96, 'Fluoxetine', 'Antidepressant (SSRI)', 'Depression'],
+        [97, 'Sertraline', 'Antidepressant (SSRI)', 'Stress/Depression'],
+        [98, 'Alprazolam', 'Anxiolytic (Benzodiazepine)', 'Sleep, Anxiety'],
+        [99, 'Diazepam', 'Benzodiazepine', 'Muscle relaxant, Anxiety'],
+        [100, 'Haloperidol', 'Antipsychotic', 'Mental disorders'],
+        [101, 'Desloratadine', 'Antihistamine', 'Allergy, Sneezing'],
+        [102, 'Fexofenadine', 'Antihistamine', 'Allergy, Itching'],
+        [103, 'Bilastine', 'Antihistamine', 'Allergy'],
+        [104, 'Ebastine', 'Antihistamine', 'Runny nose'],
+        [
+          105,
+          'Levamisole (listed again)',
+          'Immunomodulator',
+          'Boosts immunity',
+        ],
+        [
+          106,
+          'Serratiopeptidase',
+          'Proteolytic enzyme',
+          'Reduces inflammation',
+        ],
+        [
+          107,
+          'Trypsin-Chymotrypsin',
+          'Proteolytic enzyme',
+          'Inflammation, Injury',
+        ],
+        [108, 'Alpha Beta Arteether', 'Antimalarial', 'Malaria fever'],
+        [109, 'Artemether + Lumefantrine', 'Antimalarial', 'Malaria'],
+        [110, 'Quinine', 'Antimalarial', 'Severe malaria'],
+        [111, 'Primaquine', 'Antimalarial prophylaxis', 'Malaria prevention'],
+        [112, 'Chloroquine', 'Antimalarial', 'Malaria, Joint pain'],
+        [113, 'Nitrofurantoin', 'Antibiotic (UTI)', 'Urinary infection'],
+        [
+          114,
+          'Linezolid',
+          'Antibiotic (MRSA/serious)',
+          'Serious bacterial infections',
+        ],
+        [115, 'Vancomycin', 'Antibiotic (IV)', 'MRSA infections'],
+        [116, 'Meropenem', 'Carbapenem antibiotic', 'Serious infections'],
+        [117, 'Piperacillin + Tazobactam', 'Antibiotic (broad)', 'Infections'],
+        [
+          118,
+          'Cefixime',
+          'Cephalosporin antibiotic',
+          'Fever, Throat infection',
+        ],
+        [119, 'Ceftriaxone', 'Cephalosporin (IM/IV)', 'Typhoid, Pneumonia'],
+        [120, 'Cefuroxime', 'Cephalosporin', 'Cough/Chest infection'],
+        [121, 'Cefotaxime', 'Cephalosporin (IV)', 'Intravenous infections'],
+        [
+          122,
+          'Cefepime',
+          'Fourth gen Cephalosporin',
+          'Serious bacterial infections',
+        ],
+        [123, 'Amikacin', 'Aminoglycoside', 'Serious infections'],
+        [124, 'Gentamicin', 'Aminoglycoside', 'Eye, Ear infection'],
+        [125, 'Tobramycin', 'Aminoglycoside', 'Lung disease'],
+        [126, 'Chloramphenicol', 'Antibiotic (reserved)', 'Eye medicine'],
+        [127, 'Tetracycline', 'Antibiotic', 'Skin infections'],
+        [128, 'Minocycline', 'Antibiotic', 'Acne'],
+        [129, 'Rifampicin', 'Anti-TB', 'TB'],
+        [130, 'Isoniazid', 'Anti-TB', 'TB medicine'],
+        [131, 'Ethambutol', 'Anti-TB', 'TB'],
+        [132, 'Pyrazinamide', 'Anti-TB', 'TB'],
+        [133, 'Streptomycin', 'Anti-TB (injectable)', 'TB injection'],
+        [
+          134,
+          'Albendazole Suspension',
+          'Anti-helminthic (pediatric)',
+          'Worms in children',
+        ],
+        [135, 'Permethrin Cream', 'Scabicide / pediculicide', 'Lice/Scabies'],
+        [136, 'Lindane Lotion', 'Scabicide', 'Scabies/Itching'],
+        [137, 'Isotretinoin', 'Oral retinoid', 'Severe acne'],
+        [138, 'Adapalene', 'Topical retinoid', 'For acne'],
+        [139, 'Clindamycin Gel', 'Topical antibiotic', 'Apply on acne'],
+        [140, 'Tretinoin', 'Topical retinoid', 'For face'],
+        [141, 'Hydroquinone', 'Skin lightening topical', 'Stains, Spots'],
+        [142, 'Kojic Acid', 'Skin lightening', 'Skin lightening'],
+        [143, 'Calamine Lotion', 'Soothing topical', 'Itching, Rashes'],
+        [144, 'Luliconazole Cream', 'Antifungal topical', 'Fungal'],
+        [145, 'Terbinafine Cream', 'Antifungal topical', 'Fungal'],
+        [146, 'Fluconazole Tablet', 'Antifungal systemic', 'Fungal infections'],
+        [147, 'Itraconazole', 'Antifungal systemic', 'Nail/Skin infections'],
+        [
+          148,
+          'Voriconazole',
+          'Antifungal (serious)',
+          'Serious fungal infections',
+        ],
+        [149, 'Betamethasone', 'Topical steroid', 'Inflammation, Itching'],
+        [150, 'Mometasone', 'Topical steroid', 'Skin allergy'],
+        [151, 'Desonide Cream', 'Mild topical steroid', 'Children allergy'],
+        [152, 'Torsemide', 'Diuretic', 'Increases urination'],
+        [153, 'Tacrolimus Ointment', 'Topical immunomodulator', 'Eczema'],
+        [
+          154,
+          'Pimecrolimus Cream',
+          'Topical immunomodulator',
+          'Atopic dermatitis',
+        ],
+        [155, 'Coal Tar Shampoo', 'Dermatologic shampoo', 'Dryness/Itching'],
+        [156, 'Selenium Sulfide Shampoo', 'Anti-dandruff', 'Dandruff'],
+        [157, 'Minoxidil Solution', 'Topical for hair', 'Hair growth'],
+        [158, 'Finasteride Tablet', 'Oral for hair loss', 'Hair loss'],
+        [159, 'Propranolol', 'Beta blocker', 'Thyroid anxiety'],
+        [160, 'Thyroxine', 'Thyroid replacement', 'Hypothyroidism'],
+        [161, 'Carbimazole', 'Antithyroid', 'Hyperthyroidism'],
+        [162, 'Methimazole', 'Antithyroid', 'Thyroid'],
+        [
+          163,
+          'Insulin Glargine',
+          'Long-acting insulin',
+          'Long-term sugar control',
+        ],
+        [
+          164,
+          'Insulin Lispro',
+          'Rapid-acting insulin',
+          'Pre-meal sugar control',
+        ],
+        [165, 'Insulin Aspart', 'Rapid-acting insulin', 'Before meals'],
+        [166, 'Glibenclamide (listed)', 'Antidiabetic', 'Sugar'],
+        [167, 'Glimipiride', 'Antidiabetic', 'Diabetes'],
+        [168, 'Sitagliptin', 'Antidiabetic (DPP-4)', 'Sugar control'],
+        [169, 'Teneligliptin', 'Antidiabetic', 'Type-2 sugar'],
+        [170, 'Vildagliptin', 'Antidiabetic', 'Sugar'],
+        [171, 'Dapagliflozin', 'SGLT2 inhibitor', 'Removes sugar via urine'],
+        [172, 'Empagliflozin', 'SGLT2 inhibitor', 'Weight + sugar reduction'],
+        [173, 'Canagliflozin', 'SGLT2 inhibitor', 'Sugar control'],
+        [174, 'Hydrochlorothiazide', 'Diuretic', 'BP, Swelling'],
+        [175, 'Chlorthalidone', 'Diuretic', 'BP control'],
+        [176, 'Indapamide', 'Diuretic', 'BP'],
+        [177, 'Eplerenone', 'Aldosterone antagonist', 'Heart failure'],
+        [178, 'Ivabradine', 'Heart rate lowering', 'Heart rate'],
+        [179, 'Amiodarone', 'Antiarrhythmic', 'Heart rhythm'],
+        [180, 'Verapamil', 'Calcium channel blocker', 'Heart disease'],
+        [181, 'Diltiazem', 'Calcium channel blocker', 'BP, Chest pain'],
+        [182, 'Lisinopril', 'ACE inhibitor', 'BP'],
+        [183, 'Ramipril', 'ACE inhibitor', 'Heart failure'],
+        [184, 'Enalapril', 'ACE inhibitor', 'High BP'],
+        [185, 'Perindopril', 'ACE inhibitor', 'High blood pressure'],
+        [186, 'Olmesartan', 'ARB', 'BP'],
+        [187, 'Valsartan', 'ARB', 'High BP'],
+        [188, 'Irbesartan', 'ARB', 'BP'],
+        [189, 'Hydralazine', 'Vasodilator', 'Blood pressure'],
+        [
+          190,
+          'Methyldopa',
+          'Antihypertensive (pregnancy)',
+          'BP during pregnancy',
+        ],
+        [191, 'Clonidine', 'Antihypertensive', 'High BP'],
+        [192, 'Nitrofurantoin SR', 'Antibiotic (UTI)', 'Urinary infection'],
+        [193, 'Phenazopyridine', 'Urinary analgesic', 'Urinary burning'],
+        [194, 'Alfacalcidol', 'Vitamin D analog', 'For bones'],
+        [195, 'Calcitriol', 'Active vitamin D', 'Vitamin D'],
+        [196, 'Sevelamer', 'Phosphate binder', 'In kidney disease'],
+        [197, 'Sodium Bicarbonate', 'Antacid', 'Acidity'],
+        [
+          198,
+          'Potassium Chloride',
+          'Electrolyte supplement',
+          'Potassium deficiency',
+        ],
+        [
+          199,
+          'Magnesium Sulfate',
+          'Various / obstetrics',
+          'Pain relief, Magnesium',
+        ],
+        [200, 'Folic Acid', 'Supplement', 'Blood formation'],
+        [201, 'Sucralfate', 'Gastric protectant', 'Stomach ulcers'],
+        [202, 'Oxetacaine', 'Local analgesic (GI)', 'Gastric pain'],
+        [203, 'Magaldrate', 'Antacid', 'Acidity'],
+        [204, 'Simethicone', 'Antiflatulent', 'Gas'],
+        [205, 'Dicyclomine', 'Antispasmodic', 'Stomach pain'],
+        [206, 'Hyoscine Butylbromide', 'Antispasmodic', 'Stomach pain'],
+        [207, 'Loperamide', 'Antidiarrheal', 'Stops diarrhea'],
+        [
+          208,
+          'Racecadotril',
+          'Antisecretory for diarrhea',
+          'Frequent diarrhea',
+        ],
+        [209, 'Lactulose', 'Osmotic laxative', 'Constipation'],
+        [
+          210,
+          'Sodium Picosulfate',
+          'Stimulant laxative',
+          'For bowel clearance',
+        ],
+        [211, 'Bisacodyl', 'Stimulant laxative', 'Constipation'],
+        [
+          212,
+          'Psyllium Husk (Isabgol)',
+          'Fiber supplement',
+          'Fiber, Constipation',
+        ],
+        [
+          213,
+          'Glycerin Suppository',
+          'Pediatric laxative',
+          'Children constipation',
+        ],
+        [214, 'Enema', 'Mechanical bowel clearance', 'For stool removal'],
+        [215, 'Mesalamine', 'IBD therapy', 'Intestinal inflammation'],
+        [
+          216,
+          'Sulfasalazine',
+          'IBD / anti-inflammatory',
+          'Large intestine inflammation',
+        ],
+        [
+          217,
+          'Budesonide Capsule',
+          'Steroid for gut',
+          'Intestinal inflammation',
+        ],
+        [218, 'Ursodeoxycholic Acid', 'Liver therapy', 'For liver'],
+        [219, 'Silymarin', 'Liver tonic', 'Liver tonic'],
+        [220, 'Pancreatin', 'Digestive enzyme', 'Digestive aid'],
+        [
+          221,
+          'Cyproheptadine',
+          'Appetite stimulant / antihistamine',
+          'Increases appetite',
+        ],
+        [222, 'Chlorpromazine', 'Antipsychotic', 'Mental disorders'],
+        [223, 'Olanzapine', 'Antipsychotic', 'Psychosis'],
+        [224, 'Risperidone', 'Antipsychotic', 'Mental imbalance'],
+        [
+          225,
+          'Quetiapine',
+          'Antipsychotic / sleep aid',
+          'Sleep, Mental disorders',
+        ],
+        [226, 'Aripiprazole', 'Antipsychotic', 'Mental disorders'],
+        [
+          227,
+          'Haloperidol (listed again)',
+          'Antipsychotic',
+          'Mental disorders',
+        ],
+        [228, 'Lithium Carbonate', 'Mood stabilizer', 'Mood stabilizing'],
+        [229, 'Valproic Acid', 'Antiepileptic / mood', 'Migraine, Bipolar'],
+        [230, 'Carbamazepine', 'Antiepileptic', 'Seizures'],
+        [231, 'Phenytoin', 'Antiepileptic', 'Prevents seizures'],
+        [232, 'Levetiracetam', 'Antiepileptic', 'Epilepsy'],
+        [233, 'Phenobarbital', 'Anticonvulsant', 'Children epilepsy'],
+        [234, 'Clobazam', 'Adjunct for seizures', 'With epilepsy medication'],
+        [235, 'Midazolam', 'Emergency anticonvulsant', 'Emergency seizures'],
+        [236, 'Lorazepam', 'Anxiolytic / sedative', 'Anxiety, Nervousness'],
+        [
+          237,
+          'Diazepam Injection',
+          'Emergency anticonvulsant',
+          'Prevents seizures',
+        ],
+        [238, 'Zolpidem', 'Hypnotic', 'Induces sleep'],
+        [239, 'Eszopiclone', 'Hypnotic', 'Sleep'],
+        [240, 'Melatonin', 'Sleep aid', 'For sleep'],
+        [
+          241,
+          'S-Adenosyl Methionine',
+          'Supplement / mood',
+          'Mood, Liver support',
+        ],
+        [242, 'Methylcobalamin', 'Vitamin B12', 'Nerve weakness'],
+        [243, 'Pregabalin', 'Neuropathic pain', 'Nerve pain'],
+        [244, 'Gabapentin', 'Neuropathic pain', 'Diabetic neuropathy'],
+        [245, 'Nortriptyline', 'TCA / neuropathic pain', 'Depression, Pain'],
+        [246, 'Amitriptyline', 'TCA / pain & sleep', 'Stress, Sleep'],
+        [247, 'Flunarizine', 'Migraine prevention', 'Migraine'],
+        [
+          248,
+          'Propranolol (listed)',
+          'Migraine prophylaxis',
+          'Prevents migraine',
+        ],
+        [249, 'Topiramate', 'Migraine prevention / antiepileptic', 'Migraine'],
+        [250, 'Sumatriptan', 'Migraine acute therapy', 'Migraine pain'],
+        [251, 'Betahistine', 'Vertigo treatment', 'Dizziness'],
+        [
+          252,
+          'Cinnarizine',
+          'Motion sickness / vertigo',
+          'Motion sickness, Dizziness',
+        ],
+        [253, 'Meclizine', 'Antiemetic / motion sickness', 'Travel sickness'],
+        [254, 'Prochlorperazine', 'Antiemetic', 'Nausea, Vomiting'],
+        [255, 'Dimenhydrinate', 'Antiemetic', 'Travel sickness'],
+        [256, 'Sodium Valproate', 'Antiepileptic / mood', 'Epilepsy, Mood'],
+        [257, 'Baclofen', 'Muscle relaxant', 'Muscle stiffness'],
+        [258, 'Ropinirole', 'Parkinsons agent', 'Parkinsons'],
+        [259, 'Pramipexole', 'Parkinsons agent', 'Tremors, Parkinsons'],
+        [260, 'Levodopa + Carbidopa', 'Parkinsons combination', 'Parkinsons'],
+        [261, 'Selegiline', 'Parkinsons adjunct', 'Parkinsons'],
+        [262, 'Entacapone', 'Parkinsons adjunct', 'Parkinsons'],
+        [263, 'Donepezil', 'Alzheimers agent', 'Memory loss disease'],
+        [264, 'Memantine', 'Alzheimers agent', 'Alzheimers'],
+        [
+          265,
+          'Piracetam',
+          'Cognitive enhancer (off-label)',
+          'Memory enhancement',
+        ],
+        [266, 'Citicoline', 'Stroke recovery / cognitive', 'Stroke, Memory'],
+        [267, 'Nimodipine', 'Cerebral vasospasm', 'Stroke follow-up'],
+        [268, 'Acetylcysteine', 'Mucolytic / antidote', 'Loosens phlegm'],
+        [269, 'Bromhexine', 'Expectorant', 'Removes mucus'],
+        [
+          270,
+          'Levocetirizine + Montelukast',
+          'Combo allergy/asthma',
+          'Allergy, Breathing',
+        ],
+        [271, 'Doxofylline', 'Bronchodilator', 'Breathlessness'],
+        [272, 'Acebrophylline', 'Mucolytic bronchodilator', 'Cough, Breathing'],
+        [273, 'Tiotropium Inhaler', 'Long-acting anticholinergic', 'COPD'],
+        [274, 'Formoterol + Budesonide', 'Combo inhaler', 'Asthma'],
+        [
+          275,
+          'Salbutamol Inhaler',
+          'Short-acting bronchodilator',
+          'Breathing relief',
+        ],
+        [
+          276,
+          'Ipratropium + Levosalbutamol',
+          'Combo inhaler',
+          'Respiratory disease',
+        ],
+        [277, 'Magnesium Hydroxide', 'Antacid / laxative', 'Antacid'],
+        [
+          278,
+          'Activated Charcoal',
+          'Gastric decontaminant',
+          'Poisoning/Overdosing (hospital)',
+        ],
+        [279, 'Lignocaine Gel', 'Topical anesthetic', 'Burning, Pain'],
+        [280, 'Benzocaine', 'Topical anesthetic/lozenges', 'Sore throat'],
+        [281, 'Chlorhexidine Mouthwash', 'Oral antiseptic', 'Mouth cleaning'],
+        [282, 'Hexidine (Chlorhexidine)', 'Oral antiseptic', 'Oral infection'],
+        [283, 'Povidone-Iodine Gargle', 'Antiseptic gargle', 'Throat medicine'],
+        [284, 'Zinc Gluconate', 'Supplement', 'Immunity'],
+        [285, 'Sodium Fluoride', 'Dental care', 'Teeth protection'],
+        [286, 'Clotrimazole Lozenges', 'Antifungal lozenges', 'Throat fungal'],
+        [287, 'Acyclovir', 'Antiviral', 'Herpes virus'],
+        [288, 'Valacyclovir', 'Antiviral', 'Viral infection'],
+        [289, 'Famciclovir', 'Antiviral', 'Viral treatment'],
+        [290, 'Oseltamivir', 'Antiviral (flu)', 'Flu medicine'],
+        [291, 'Remdesivir', 'Antiviral (IV)', 'Covid virus (hospital)'],
+        [292, 'Favipiravir', 'Antiviral', 'Viral fever'],
+        [293, 'Molnupiravir', 'Antiviral', 'Covid-19'],
+        [294, 'Interferon Alpha', 'Antiviral / immunotherapy', 'Hepatitis'],
+        [295, 'Lamivudine', 'Antiviral (HBV)', 'Hepatitis B'],
+        [296, 'Tenofovir', 'Antiviral (HBV/HIV)', 'Hepatitis'],
+        [297, 'Ribavirin', 'Antiviral', 'Viral hepatitis'],
+        [298, 'Zidovudine', 'Antiretroviral (HIV)', 'HIV'],
+        [299, 'Efavirenz', 'Antiretroviral (HIV)', 'HIV'],
+        [300, 'Nevirapine', 'Antiretroviral (HIV)', 'HIV treatment'],
+      ];
+
+      // Category color mapping
+      const categoryColors = {
+        'Fever / Pain': 'neon-orange',
+        'Pain / Anti-inflammatory': 'neon-orange',
+        Allergy: 'neon-pink',
+        Antiemetic: 'neon-purple',
+        'Antacid / PPI': 'neon-green',
+        'Antacid / H2 blocker': 'neon-green',
+        'Antibiotic (Penicillin)': 'neon-blue',
+        'Antibiotic (Macrolide)': 'neon-blue',
+        'Antibiotic (Fluoroquinolone)': 'neon-blue',
+        'Antibiotic (Tetracycline)': 'neon-blue',
+        'Antiprotozoal / Antibiotic': 'neon-blue',
+        Antiprotozoal: 'neon-blue',
+        Antibiotic: 'neon-blue',
+        Analgesic: 'neon-orange',
+        'Analgesic / Antiplatelet': 'neon-orange',
+        'Opioid Analgesic': 'neon-orange',
+        NSAID: 'neon-orange',
+        Antihistamine: 'neon-pink',
+        Decongestant: 'neon-green',
+        'Antiseptic topical': 'neon-green',
+        'Topical antibiotic': 'neon-blue',
+        'Topical for burns': 'neon-orange',
+        'Topical steroid': 'neon-yellow',
+        'Topical steroid (potent)': 'neon-yellow',
+        'Antifungal topical': 'neon-purple',
+        Antifungal: 'neon-purple',
+        'Respiratory / Anti-asthma': 'neon-blue',
+        Bronchodilator: 'neon-blue',
+        'Inhaled steroid': 'neon-yellow',
+        'Steroid (inhaled/nasal)': 'neon-yellow',
+        'Long-acting bronchodilator': 'neon-blue',
+        'Nasal steroid': 'neon-yellow',
+        'Nasal saline': 'neon-green',
+        'Nasal decongestant': 'neon-green',
+        Mucolytic: 'neon-blue',
+        Expectorant: 'neon-blue',
+        'Cough suppressent': 'neon-blue',
+        'Antitussive / Opioid': 'neon-blue',
+        'Muscle relaxant': 'neon-purple',
+        'Anti-helminthic': 'neon-green',
+        'Anti-helminthic / Immunomodulator': 'neon-green',
+        'Anti-filarial': 'neon-green',
+        'Anti-parasitic': 'neon-green',
+        Supplement: 'neon-yellow',
+        Rehydration: 'neon-green',
+        'Vitamin / Immunity': 'neon-yellow',
+        Hematinic: 'neon-pink',
+        Vitamin: 'neon-yellow',
+        Antidiabetic: 'neon-purple',
+        Antihypertensive: 'neon-pink',
+        'Beta blocker': 'neon-pink',
+        Diuretic: 'neon-green',
+        'Diuretic / K-sparing': 'neon-green',
+        'Cardiac glycoside': 'neon-pink',
+        'Anti-anginal': 'neon-pink',
+        'Lipid-lowering': 'neon-green',
+        Antiplatelet: 'neon-pink',
+        Anticoagulant: 'neon-pink',
+        'Erectile dysfunction': 'neon-purple',
+        'Premature ejaculation': 'neon-purple',
+        'Androgen inhibitor': 'neon-purple',
+        'Urology / BPH': 'neon-purple',
+        'Antidepressant (SSRI)': 'neon-blue',
+        'Anxiolytic (Benzodiazepine)': 'neon-blue',
+        Benzodiazepine: 'neon-blue',
+        Antipsychotic: 'neon-blue',
+        Immunomodulator: 'neon-yellow',
+        'Proteolytic enzyme': 'neon-green',
+        Antimalarial: 'neon-orange',
+        'Antimalarial prophylaxis': 'neon-orange',
+        'Antibiotic (UTI)': 'neon-blue',
+        'Antibiotic (MRSA/serious)': 'neon-blue',
+        'Antibiotic (IV)': 'neon-blue',
+        'Carbapenem antibiotic': 'neon-blue',
+        'Cephalosporin antibiotic': 'neon-blue',
+        'Cephalosporin (IM/IV)': 'neon-blue',
+        Cephalosporin: 'neon-blue',
+        'Fourth gen Cephalosporin': 'neon-blue',
+        Aminoglycoside: 'neon-blue',
+        'Antibiotic (reserved)': 'neon-blue',
+        'Anti-TB': 'neon-orange',
+        'Anti-TB (injectable)': 'neon-orange',
+        'Anti-helminthic (pediatric)': 'neon-green',
+        'Scabicide / pediculicide': 'neon-green',
+        Scabicide: 'neon-green',
+        'Oral retinoid': 'neon-yellow',
+        'Topical retinoid': 'neon-yellow',
+        'Skin lightening topical': 'neon-yellow',
+        'Skin lightening': 'neon-yellow',
+        'Soothing topical': 'neon-green',
+        'Antifungal systemic': 'neon-purple',
+        'Antifungal (serious)': 'neon-purple',
+        'Mild topical steroid': 'neon-yellow',
+        'Topical immunomodulator': 'neon-yellow',
+        'Dermatologic shampoo': 'neon-yellow',
+        'Anti-dandruff': 'neon-yellow',
+        'Topical for hair': 'neon-yellow',
+        'Oral for hair loss': 'neon-yellow',
+        'Thyroid replacement': 'neon-yellow',
+        Antithyroid: 'neon-yellow',
+        'Long-acting insulin': 'neon-purple',
+        'Rapid-acting insulin': 'neon-purple',
+        'Antidiabetic (DPP-4)': 'neon-purple',
+        'SGLT2 inhibitor': 'neon-purple',
+        'Aldosterone antagonist': 'neon-pink',
+        'Heart rate lowering': 'neon-pink',
+        Antiarrhythmic: 'neon-pink',
+        'Calcium channel blocker': 'neon-pink',
+        'ACE inhibitor': 'neon-pink',
+        ARB: 'neon-pink',
+        Vasodilator: 'neon-pink',
+        'Antihypertensive (pregnancy)': 'neon-pink',
+        'Urinary analgesic': 'neon-purple',
+        'Vitamin D analog': 'neon-yellow',
+        'Active vitamin D': 'neon-yellow',
+        'Phosphate binder': 'neon-green',
+        'Electrolyte supplement': 'neon-yellow',
+        'Various / obstetrics': 'neon-yellow',
+        'Gastric protectant': 'neon-green',
+        'Local analgesic (GI)': 'neon-green',
+        Antiflatulent: 'neon-green',
+        Antispasmodic: 'neon-green',
+        Antidiarrheal: 'neon-green',
+        'Antisecretory for diarrhea': 'neon-green',
+        'Osmotic laxative': 'neon-green',
+        'Stimulant laxative': 'neon-green',
+        'Fiber supplement': 'neon-green',
+        'Pediatric laxative': 'neon-green',
+        'Mechanical bowel clearance': 'neon-green',
+        'IBD therapy': 'neon-green',
+        'IBD / anti-inflammatory': 'neon-green',
+        'Steroid for gut': 'neon-green',
+        'Liver therapy': 'neon-green',
+        'Liver tonic': 'neon-green',
+        'Digestive enzyme': 'neon-green',
+        'Appetite stimulant / antihistamine': 'neon-green',
+        'Mood stabilizer': 'neon-blue',
+        'Antiepileptic / mood': 'neon-blue',
+        Antiepileptic: 'neon-blue',
+        Anticonvulsant: 'neon-blue',
+        'Adjunct for seizures': 'neon-blue',
+        'Emergency anticonvulsant': 'neon-blue',
+        'Anxiolytic / sedative': 'neon-blue',
+        Hypnotic: 'neon-blue',
+        'Sleep aid': 'neon-blue',
+        'Supplement / mood': 'neon-yellow',
+        'Neuropathic pain': 'neon-orange',
+        'TCA / neuropathic pain': 'neon-blue',
+        'TCA / pain & sleep': 'neon-blue',
+        'Migraine prevention': 'neon-blue',
+        'Migraine prophylaxis': 'neon-blue',
+        'Migraine prevention / antiepileptic': 'neon-blue',
+        'Migraine acute therapy': 'neon-blue',
+        'Vertigo treatment': 'neon-blue',
+        'Motion sickness / vertigo': 'neon-blue',
+        'Antiemetic / motion sickness': 'neon-blue',
+        'Parkinsons agent': 'neon-blue',
+        'Parkinsons combination': 'neon-blue',
+        'Parkinsons adjunct': 'neon-blue',
+        'Alzheimers agent': 'neon-blue',
+        'Cognitive enhancer (off-label)': 'neon-blue',
+        'Stroke recovery / cognitive': 'neon-blue',
+        'Cerebral vasospasm': 'neon-blue',
+        'Combo allergy/asthma': 'neon-pink',
+        'Mucolytic bronchodilator': 'neon-blue',
+        'Long-acting anticholinergic': 'neon-blue',
+        'Combo inhaler': 'neon-blue',
+        'Short-acting bronchodilator': 'neon-blue',
+        'Antacid / laxative': 'neon-green',
+        'Gastric decontaminant': 'neon-green',
+        'Topical anesthetic': 'neon-green',
+        'Topical anesthetic/lozenges': 'neon-green',
+        'Oral antiseptic': 'neon-green',
+        'Antiseptic gargle': 'neon-green',
+        'Dental care': 'neon-green',
+        'Antifungal lozenges': 'neon-purple',
+        Antiviral: 'neon-orange',
+        'Antiviral (flu)': 'neon-orange',
+        'Antiviral (IV)': 'neon-orange',
+        'Antiviral / immunotherapy': 'neon-orange',
+        'Antiviral (HBV)': 'neon-orange',
+        'Antiviral (HBV/HIV)': 'neon-orange',
+        'Antiretroviral (HIV)': 'neon-orange',
+      };
+
+      // Get unique categories
+      const categories = Array.from(new Set(meds.map((m) => m[2]))).sort();
+
+      // Initialize UI
+      document.addEventListener('DOMContentLoaded', function () {
+        const filter = document.getElementById('filter');
+        const categoryFilters = document.getElementById('categoryFilters');
+        const tbody = document.getElementById('tbody');
+        const cardView = document.getElementById('cardView');
+        const viewToggle = document.getElementById('viewToggle');
+        const categoryCount = document.getElementById('categoryCount');
+
+        // Set category count
+        categoryCount.textContent = categories.length;
+
+        // Populate category filter dropdown
+        categories.forEach((cat) => {
+          const opt = document.createElement('option');
+          opt.value = cat;
+          opt.textContent = cat;
+          filter.appendChild(opt);
+        });
+
+        // Create category filter badges
+        categories.forEach((cat) => {
+          const badge = document.createElement('button');
+          const color = categoryColors[cat] || 'neon-blue';
+          badge.className = `category-badge px-3 py-1 rounded-full text-xs font-medium bg-${color}/20 text-${color} border border-${color}/30 hover:bg-${color}/30 transition-all duration-300`;
+          badge.textContent = cat;
+          badge.dataset.category = cat;
+          badge.addEventListener('click', () => {
+            filter.value = cat;
+            applyFilters();
+          });
+          categoryFilters.appendChild(badge);
+        });
+
+        // Initial render
+        renderTable(meds);
+        renderCards(meds);
+
+        // Search & filter functionality
+        document
+          .getElementById('search')
+          .addEventListener('input', applyFilters);
+        filter.addEventListener('change', applyFilters);
+        document
+          .getElementById('reset')
+          .addEventListener('click', resetFilters);
+
+        // View toggle functionality
+        viewToggle.addEventListener('click', toggleView);
+
+        function applyFilters() {
+          const q = document
+            .getElementById('search')
+            .value.trim()
+            .toLowerCase();
+          const cat = filter.value;
+
+          const filtered = meds.filter((m) => {
+            const matchQ = q
+              ? (String(m[0]) + ' ' + m[1] + ' ' + m[2] + ' ' + m[3])
+                  .toLowerCase()
+                  .includes(q)
+              : true;
+            const matchCat = cat === 'all' ? true : m[2] === cat;
+            return matchQ && matchCat;
+          });
+
+          updateResults(filtered);
+        }
+
+        function resetFilters() {
+          document.getElementById('search').value = '';
+          filter.value = 'all';
+          updateResults(meds);
+        }
+
+        function updateResults(filtered) {
+          renderTable(filtered);
+          renderCards(filtered);
+          document.getElementById('showingCount').textContent = filtered.length;
+          document.getElementById('resultsCount').textContent = filtered.length;
+        }
+
+        function renderTable(list) {
+          tbody.innerHTML = '';
+          list.forEach((row) => {
+            const tr = document.createElement('tr');
+            tr.className =
+              'hover:bg-gray-700/50 transition-colors duration-200';
+
+            const color = categoryColors[row[2]] || 'neon-blue';
+
+            tr.innerHTML = `
+            <td class="p-4 text-center font-mono text-gray-400">${row[0]}</td>
+            <td class="p-4 font-medium">${row[1]}</td>
+            <td class="p-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-${color}/20 text-${color} border border-${color}/30">
+                ${row[2]}
+              </span>
+            </td>
+            <td class="p-4 text-sm text-gray-300">${row[3]}</td>
+          `;
+            tbody.appendChild(tr);
+          });
+        }
+
+        function renderCards(list) {
+          cardView.innerHTML = '';
+          list.forEach((row) => {
+            const color = categoryColors[row[2]] || 'neon-blue';
+
+            const card = document.createElement('div');
+            card.className = 'medicine-card rounded-xl p-4';
+            card.innerHTML = `
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-xs font-mono text-gray-400">#${row[0]}</span>
+              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-${color}/20 text-${color} border border-${color}/30">
+                ${row[2]}
+              </span>
+            </div>
+            <h3 class="text-lg font-bold mb-2 text-white">${row[1]}</h3>
+            <p class="text-sm text-gray-300">${row[3]}</p>
+          `;
+            cardView.appendChild(card);
+          });
+        }
+
+        function toggleView() {
+          const tableView = document.getElementById('tableView');
+          const cardView = document.getElementById('cardView');
+          const isTableView = !tableView.classList.contains('hidden');
+
+          if (isTableView) {
+            tableView.classList.add('hidden');
+            cardView.classList.remove('hidden');
+            viewToggle.innerHTML = '<i class="fas fa-th-large mr-1"></i> Cards';
+          } else {
+            tableView.classList.remove('hidden');
+            cardView.classList.add('hidden');
+            viewToggle.innerHTML = '<i class="fas fa-table mr-1"></i> Table';
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

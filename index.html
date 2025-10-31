@@ -3,102 +3,384 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Favorite Websites ✨</title>
-    <script
-      src="https://kit.fontawesome.com/a076d05399.js"
-      crossorigin="anonymous"
-    ></script>
+    <title>WebHub | Curated Digital Resources</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
+      :root {
+        --primary: #6366f1;
+        --secondary: #8b5cf6;
+        --accent: #06b6d4;
+        --dark: #0f0f23;
+        --darker: #090913;
+        --light: #f0f4ff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       body {
         background: linear-gradient(
           135deg,
-          #0a0a0a 0%,
-          #1a1a2e 50%,
-          #16213e 100%
+          var(--darker) 0%,
+          var(--dark) 50%,
+          #1a1a2e 100%
         );
-        color: #e0e0e0;
+        color: var(--light);
         font-family: 'Poppins', sans-serif;
         overflow-x: hidden;
         min-height: 100vh;
-      }
-
-      /* ✨ Neon Glow */
-      .neon-text {
-        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
-      }
-
-      /* 💫 Glowing Card Animation */
-      .neon-card {
         position: relative;
-        background: rgba(20, 20, 20, 0.8);
-        transition: all 0.4s ease;
-        box-shadow: 0 0 15px #00ffff40;
-        overflow: hidden;
-        border-radius: 1rem;
-        animation: floatIn 0.8s ease-out forwards;
-        opacity: 0;
-        backdrop-filter: blur(10px);
       }
 
-      /* 🌀 Floating Entry Animation */
-      @keyframes floatIn {
-        0% {
-          transform: translateY(30px);
-          opacity: 0;
-        }
-        100% {
-          transform: translateY(0);
-          opacity: 1;
-        }
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(99, 102, 241, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(139, 92, 246, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(6, 182, 212, 0.05) 0%,
+            transparent 50%
+          );
+        z-index: -1;
       }
 
-      /* 🌈 Animated Neon Border */
-      .neon-card::before {
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(15, 15, 35, 0.8);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(
+          to bottom,
+          var(--primary),
+          var(--secondary)
+        );
+        border-radius: 10px;
+      }
+
+      /* Header & Navigation */
+      .header {
+        background: rgba(9, 9, 19, 0.85);
+        backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .logo {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+        font-size: 1.8rem;
+      }
+
+      .nav-link {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .nav-link::after {
         content: '';
         position: absolute;
-        inset: 0;
-        border-radius: 1rem;
-        padding: 2px;
-        background: linear-gradient(45deg, #0ff, #f0f, #0f0, #0ff);
-        background-size: 400%;
-        animation: neonGlow 6s linear infinite;
-        -webkit-mask: linear-gradient(#000 0 0) content-box,
-          linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        transition: width 0.3s ease;
       }
 
-      @keyframes neonGlow {
-        0% {
-          background-position: 0% 50%;
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .nav-link.active {
+        color: var(--accent);
+      }
+
+      .nav-link.active::after {
+        width: 100%;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: radial-gradient(
+            ellipse at top,
+            rgba(99, 102, 241, 0.15),
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse at bottom,
+            rgba(139, 92, 246, 0.1),
+            transparent 70%
+          );
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%236366f1' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        opacity: 0.5;
+      }
+
+      /* Cards */
+      .card {
+        background: rgba(15, 15, 35, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.1),
+          rgba(139, 92, 246, 0.05)
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+          0 0 80px rgba(99, 102, 241, 0.2);
+        border-color: rgba(99, 102, 241, 0.5);
+      }
+
+      .card:hover::before {
+        opacity: 1;
+      }
+
+      .card-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        margin-bottom: 1.5rem;
+        background: rgba(99, 102, 241, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-icon::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        opacity: 0.2;
+        border-radius: 20px;
+      }
+
+      .card:hover .card-icon {
+        transform: scale(1.1);
+        background: rgba(99, 102, 241, 0.2);
+      }
+
+      .card-title {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+      }
+
+      .card-explore {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.4s ease;
+      }
+
+      .card:hover .card-explore {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Color Variants */
+      .card-movies {
+        border-color: rgba(239, 68, 68, 0.3);
+      }
+
+      .card-movies .card-icon {
+        background: rgba(239, 68, 68, 0.1);
+      }
+
+      .card-movies .card-icon::before {
+        background: linear-gradient(135deg, #ef4444, #f97316);
+      }
+
+      .card-movies .card-title {
+        background: linear-gradient(135deg, #ef4444, #f97316);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .card-ai {
+        border-color: rgba(34, 197, 94, 0.3);
+      }
+
+      .card-ai .card-icon {
+        background: rgba(34, 197, 94, 0.1);
+      }
+
+      .card-ai .card-icon::before {
+        background: linear-gradient(135deg, #10b981, #06b6d4);
+      }
+
+      .card-ai .card-title {
+        background: linear-gradient(135deg, #10b981, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .card-tools {
+        border-color: rgba(168, 85, 247, 0.3);
+      }
+
+      .card-tools .card-icon {
+        background: rgba(168, 85, 247, 0.1);
+      }
+
+      .card-tools .card-icon::before {
+        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      }
+
+      .card-tools .card-title {
+        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .card-education {
+        border-color: rgba(6, 182, 212, 0.3);
+      }
+
+      .card-education .card-icon {
+        background: rgba(6, 182, 212, 0.1);
+      }
+
+      .card-education .card-icon::before {
+        background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+      }
+
+      .card-education .card-title {
+        background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .card-health {
+        border-color: rgba(6, 182, 212, 0.3);
+      }
+
+      .card-health .card-icon {
+        background: rgba(168, 85, 247, 0.1);
+      }
+
+      .card-health .card-icon::before {
+        background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      }
+
+      .card-health .card-title {
+        background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Floating Animation */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
         }
         50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
+          transform: translateY(-10px);
         }
       }
 
-      /* ✨ Hover Lift + Glow */
-      .neon-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 0 30px #00ffffa0;
+      .floating {
+        animation: float 6s ease-in-out infinite;
       }
 
-      /* 🧭 Navbar */
-      .nav-bg {
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(8px);
+      /* Page Transitions */
+      .page {
+        display: none;
+        animation: fadeIn 0.6s ease forwards;
       }
 
-      /* Floating particles background */
+      .active-page {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Footer */
+      .footer {
+        background: rgba(9, 9, 19, 0.8);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(99, 102, 241, 0.2);
+      }
+
+      /* Particles */
       .particles {
         position: fixed;
         top: 0;
@@ -112,75 +394,15 @@
       .particle {
         position: absolute;
         border-radius: 50%;
-        background: rgba(0, 255, 255, 0.3);
+        background: rgba(99, 102, 241, 0.3);
         animation: float 15s infinite linear;
       }
 
-      @keyframes float {
-        0% {
-          transform: translateY(0) translateX(0);
-          opacity: 0;
-        }
-        10% {
-          opacity: 1;
-        }
-        90% {
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(-100vh) translateX(100px);
-          opacity: 0;
-        }
-      }
-
-      /* Enhanced icons */
-      .icon-container {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        margin-bottom: 1.5rem;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(5px);
-        transition: all 0.3s ease;
-      }
-
-      .neon-card:hover .icon-container {
-        transform: scale(1.1);
-        box-shadow: 0 0 20px currentColor;
-      }
-
-      /* Gradient text */
-      .gradient-text {
-        background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      /* Enhanced footer */
-      .footer-text {
-        position: relative;
-        display: inline-block;
-      }
-
-      .footer-text::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        bottom: -5px;
-        left: 0;
-        background: linear-gradient(90deg, transparent, #00ffff, transparent);
-      }
-
-      /* Form styles */
+      /* Form Styles */
       .form-input {
-        background: rgba(20, 20, 20, 0.7);
-        border: 1px solid #00ffff;
-        border-radius: 0.5rem;
+        background: rgba(15, 15, 35, 0.7);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 12px;
         padding: 0.75rem 1rem;
         color: white;
         width: 100%;
@@ -190,613 +412,655 @@
 
       .form-input:focus {
         outline: none;
-        box-shadow: 0 0 10px #00ffff;
-        border-color: #00ffff;
-      }
-
-      .form-label {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: #00ffff;
-        font-weight: 500;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        border-color: var(--primary);
       }
 
       .submit-btn {
-        background: linear-gradient(45deg, #00ffff, #0080ff);
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
         border: none;
-        border-radius: 0.5rem;
+        border-radius: 12px;
         padding: 0.75rem 2rem;
         color: white;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 0 15px #00ffff80;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
       }
 
       .submit-btn:hover {
         transform: translateY(-3px);
-        box-shadow: 0 0 20px #00ffff;
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
       }
 
-      /* About page specific styles */
-      .profile-img {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #00ffff;
-        box-shadow: 0 0 20px #00ffff80;
-      }
-
+      /* Skill Bars */
       .skill-bar {
         height: 10px;
         background: rgba(255, 255, 255, 0.1);
-        border-radius: 5px;
+        border-radius: 10px;
         overflow: hidden;
         margin-top: 0.5rem;
       }
 
       .skill-progress {
         height: 100%;
-        background: linear-gradient(90deg, #00ffff, #0080ff);
-        border-radius: 5px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        border-radius: 10px;
       }
 
-      /* Page transition */
-      .page {
-        display: none;
-        animation: fadeIn 0.5s ease forwards;
-      }
-
-      .active-page {
-        display: block;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
+      /* Mobile Menu */
+      .mobile-menu {
+        background: rgba(9, 9, 19, 0.95);
+        backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(99, 102, 241, 0.2);
       }
     </style>
   </head>
 
-  <body
-    class="min-h-screen flex flex-col items-center justify-center text-center px-4"
-  >
+  <body>
     <!-- Floating Particles Background -->
     <div class="particles" id="particles"></div>
 
-    <!-- Navbar -->
-    <nav
-      class="w-full flex justify-between items-center py-4 px-6 nav-bg fixed top-0 left-0 shadow-lg border-b border-cyan-400 z-50"
-    >
-      <h1 class="text-2xl font-bold text-cyan-400 neon-text">
-        <i class="fas fa-star mr-2"></i>My Favorite Websites✨
-      </h1>
-      <button id="menu-btn" class="text-cyan-400 text-3xl md:hidden">
-        <i class="fas fa-bars"></i>
-      </button>
-      <ul id="menu" class="hidden md:flex space-x-6 text-lg">
-        <li>
+    <!-- Header -->
+    <header class="header fixed top-0 left-0 w-full z-50 py-4">
+      <div class="container mx-auto px-4 flex justify-between items-center">
+        <div class="logo flex items-center">
+          <i class="fas fa-cube mr-2"></i>
+          WebHub
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="#" class="nav-link active text-white" data-page="home">
+            <i class="fas fa-home mr-2"></i>Home
+          </a>
           <a
             href="#"
-            class="nav-link hover:text-pink-400 transition"
-            data-page="home"
-            ><i class="fas fa-home mr-1"></i>Home</a
+            class="nav-link text-gray-300 hover:text-white"
+            data-page="resources"
           >
-        </li>
-        <li>
+            <i class="fas fa-th-large mr-2"></i>Resources
+          </a>
           <a
             href="#"
-            class="nav-link hover:text-green-400 transition"
+            class="nav-link text-gray-300 hover:text-white"
             data-page="about"
-            ><i class="fas fa-info-circle mr-1"></i>About</a
           >
-        </li>
-        <li>
+            <i class="fas fa-user mr-2"></i>About
+          </a>
           <a
             href="#"
-            class="nav-link hover:text-purple-400 transition"
+            class="nav-link text-gray-300 hover:text-white"
             data-page="contact"
-            ><i class="fas fa-envelope mr-1"></i>Contact</a
           >
-        </li>
-      </ul>
-    </nav>
+            <i class="fas fa-envelope mr-2"></i>Contact
+          </a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="menu-btn" class="md:hidden text-white text-2xl">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
 
     <!-- Mobile Menu -->
     <div
       id="mobile-menu"
-      class="hidden flex-col space-y-4 mt-20 md:hidden text-xl fixed top-16 left-0 w-full bg-black bg-opacity-90 py-4 z-40 backdrop-blur-md"
+      class="mobile-menu fixed top-16 left-0 w-full hidden md:hidden py-4 z-40"
     >
-      <a href="#" class="nav-link hover:text-pink-400 py-2" data-page="home"
-        ><i class="fas fa-home mr-2"></i>Home</a
-      >
-      <a href="#" class="nav-link hover:text-green-400 py-2" data-page="about"
-        ><i class="fas fa-info-circle mr-2"></i>About</a
-      >
-      <a
-        href="#"
-        class="nav-link hover:text-purple-400 py-2"
-        data-page="contact"
-        ><i class="fas fa-envelope mr-2"></i>Contact</a
-      >
+      <div class="container mx-auto px-4 flex flex-col space-y-4">
+        <a href="#" class="nav-link active text-white py-2" data-page="home">
+          <i class="fas fa-home mr-3"></i>Home
+        </a>
+        <a
+          href="#"
+          class="nav-link text-gray-300 hover:text-white py-2"
+          data-page="resources"
+        >
+          <i class="fas fa-th-large mr-3"></i>Resources
+        </a>
+        <a
+          href="#"
+          class="nav-link text-gray-300 hover:text-white py-2"
+          data-page="about"
+        >
+          <i class="fas fa-user mr-3"></i>About
+        </a>
+        <a
+          href="#"
+          class="nav-link text-gray-300 hover:text-white py-2"
+          data-page="contact"
+        >
+          <i class="fas fa-envelope mr-3"></i>Contact
+        </a>
+      </div>
     </div>
 
+    <!-- Hero Section -->
+    <section class="hero pt-32 pb-20">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          Discover the
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500"
+            >Best Digital Resources</span
+          >
+        </h1>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
+          Curated collection of websites, tools, and platforms to boost your
+          productivity, creativity, and entertainment.
+        </p>
+        <div class="flex justify-center space-x-4">
+          <a href="#" class="submit-btn px-8 py-3" data-page="resources">
+            Explore Resources
+          </a>
+          <a
+            href="#"
+            class="px-8 py-3 border border-indigo-500 text-indigo-300 rounded-xl hover:bg-indigo-500 hover:text-white transition"
+            data-page="about"
+          >
+            Learn More
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- Home Page -->
-    <div id="home" class="page active-page mt-32 w-full max-w-6xl">
-      <h2 class="text-4xl font-bold mb-8 neon-text">
-        Discover Amazing Websites
-      </h2>
-      <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-        Explore my curated collection of the best websites for movies, AI tools,
-        coding resources, and more!
-      </p>
-
-      <!-- Links Section -->
-      <main
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 w-full font-[Inter]"
-      >
-        <!-- 🎬 Movies Websites -->
-        <a
-          href="/movie_websites.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-red-600 bg-gradient-to-br from-black via-gray-900 to-red-950 group shadow-lg hover:shadow-red-700/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-red-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i class="fas fa-film text-5xl drop-shadow-[0_0_10px_#ff3b3b]"></i>
-          </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-pink-500 to-yellow-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-video mr-2"></i>Best Movies Websites
+    <div id="home" class="page active-page">
+      <section class="py-16">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+            Featured Categories
           </h2>
-          <p class="text-gray-300 leading-relaxed">
-            Download and stream your favorite movies in HD quality 🎥
+          <p class="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+            Handpicked resources across different categories to meet all your
+            digital needs.
           </p>
-          <div
-            class="mt-5 text-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
-          >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
-          </div>
-        </a>
 
-        <!-- 🍿 46 Movie Websites -->
-        <a
-          href="/movieslink.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-orange-500 bg-gradient-to-br from-black via-gray-900 to-orange-950 group shadow-lg hover:shadow-orange-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-orange-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i
-              class="fas fa-ticket-alt text-5xl drop-shadow-[0_0_10px_#ff8a3b]"
-            ></i>
-          </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-500 to-yellow-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-film mr-2"></i>Best 46 Movie Websites
-          </h2>
-          <p class="text-gray-300 leading-relaxed">
-            Explore a handpicked collection of 46 top movie and web series
-            websites 🍿
-          </p>
-          <div
-            class="mt-5 text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
-          >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
-          </div>
-        </a>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Movies Card -->
+            <div
+              class="card card-movies p-8 text-center floating"
+              style="animation-delay: 0s"
+            >
+              <div class="card-icon mx-auto text-red-400">
+                <i class="fas fa-film text-3xl"></i>
+              </div>
+              <h3 class="card-title text-2xl font-bold mb-4">
+                Movies & Entertainment
+              </h3>
+              <p class="text-gray-300 mb-6">
+                Stream and download your favorite movies and shows in HD
+                quality.
+              </p>
+              <a
+                href="#"
+                class="card-explore inline-flex items-center text-red-400 font-semibold"
+                data-page="resources"
+              >
+                <i class="fas fa-external-link-alt mr-2"></i> Explore Now
+              </a>
+            </div>
 
-        <!-- 🤖 AI Tools -->
-        <a
-          href="/ai_tools.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-green-500 bg-gradient-to-br from-gray-900 via-black to-green-950 group shadow-lg hover:shadow-green-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-green-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i class="fas fa-robot text-5xl drop-shadow-[0_0_10px_#22c55e]"></i>
-          </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-tools mr-2"></i>Free AI Tools
-          </h2>
-          <p class="text-gray-300 leading-relaxed">
-            Discover top free AI tools to boost productivity and creativity ⚙️
-          </p>
-          <div
-            class="mt-5 text-green-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
-          >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
-          </div>
-        </a>
+            <!-- AI Card -->
+            <div
+              class="card card-ai p-8 text-center floating"
+              style="animation-delay: 0.2s"
+            >
+              <div class="card-icon mx-auto text-green-400">
+                <i class="fas fa-robot text-3xl"></i>
+              </div>
+              <h3 class="card-title text-2xl font-bold mb-4">
+                AI Tools & Resources
+              </h3>
+              <p class="text-gray-300 mb-6">
+                Discover cutting-edge AI tools to enhance productivity and
+                creativity.
+              </p>
+              <a
+                href="#"
+                class="card-explore inline-flex items-center text-green-400 font-semibold"
+                data-page="resources"
+              >
+                <i class="fas fa-external-link-alt mr-2"></i> Explore Now
+              </a>
+            </div>
 
-        <!-- 🧠 AI Websites -->
-        <a
-          href="/ai_website.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-purple-500 bg-gradient-to-br from-gray-900 via-black to-purple-950 group shadow-lg hover:shadow-purple-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-purple-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i class="fas fa-brain text-5xl drop-shadow-[0_0_10px_#c084fc]"></i>
+            <!-- Education Card -->
+            <div
+              class="card card-education p-8 text-center floating"
+              style="animation-delay: 0.4s"
+            >
+              <div class="card-icon mx-auto text-cyan-400">
+                <i class="fas fa-graduation-cap text-3xl"></i>
+              </div>
+              <h3 class="card-title text-2xl font-bold mb-4">
+                Education & Learning
+              </h3>
+              <p class="text-gray-300 mb-6">
+                Resources for students and lifelong learners to expand
+                knowledge.
+              </p>
+              <a
+                href="#"
+                class="card-explore inline-flex items-center text-cyan-400 font-semibold"
+                data-page="resources"
+              >
+                <i class="fas fa-external-link-alt mr-2"></i> Explore Now
+              </a>
+            </div>
           </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-globe mr-2"></i>Best AI Websites
-          </h2>
-          <p class="text-gray-300 leading-relaxed">
-            Stay updated with the latest AI trends, tools, and breakthroughs 💡
-          </p>
-          <div
-            class="mt-5 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
-          >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
-          </div>
-        </a>
+        </div>
+      </section>
+    </div>
 
-        <!-- 💻 46 AI Websites -->
-        <a
-          href="/aitools_46.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-pink-500 bg-gradient-to-br from-black via-gray-900 to-pink-950 group shadow-lg hover:shadow-pink-700/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-pink-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i
-              class="fas fa-microchip text-5xl drop-shadow-[0_0_10px_#ec4899]"
-            ></i>
-          </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-fuchsia-500 to-rose-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-robot mr-2"></i>Best 46 AI Websites
+    <!-- Resources Page -->
+    <div id="resources" class="page">
+      <section class="py-16">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+            All Resources
           </h2>
-          <p class="text-gray-300 leading-relaxed">
-            A comprehensive list of AI platforms for professionals and learners
-            🤖
+          <p class="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+            Browse our complete collection of curated websites and tools.
           </p>
-          <div
-            class="mt-5 text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
-          >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
-          </div>
-        </a>
 
-        <!-- 🧰 Misc Websites -->
-        <a
-          href="/illegal_websites.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-blue-500 bg-gradient-to-br from-gray-900 via-black to-blue-950 group shadow-lg hover:shadow-blue-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-blue-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i
-              class="fas fa-toolbox text-5xl drop-shadow-[0_0_10px_#3b82f6]"
-            ></i>
-          </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-500 to-sky-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-globe mr-2"></i>Miscellaneous Useful Websites
-          </h2>
-          <p class="text-gray-300 leading-relaxed">
-            Useful and lesser-known sites for daily needs and projects 🔧
-          </p>
-          <div
-            class="mt-5 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
-          >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
-          </div>
-        </a>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- 🎬 Movies Websites -->
+            <a
+              href="/movie_websites.html"
+              target="_blank"
+              class="card card-movies p-8 group"
+            >
+              <div
+                class="card-icon text-red-400 group-hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fas fa-film text-3xl"></i>
+              </div>
+              <h3 class="card-title text-xl font-bold mb-3">
+                Best Movies Websites
+              </h3>
+              <p class="text-gray-300 text-sm mb-4">
+                Download and stream your favorite movies in HD quality 🎥
+              </p>
+              <div
+                class="card-explore text-red-400 flex items-center space-x-2 font-semibold text-sm"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                <span>Explore Now</span>
+              </div>
+            </a>
 
-        <!-- 🎓 Student Hub -->
-        <a
-          href="/student_hub.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-cyan-500 bg-gradient-to-br from-gray-900 via-black to-cyan-950 group shadow-lg hover:shadow-cyan-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-cyan-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i
-              class="fas fa-graduation-cap text-5xl drop-shadow-[0_0_10px_#06b6d4]"
-            ></i>
+            <!-- 🍿 46 Movie Websites -->
+            <a
+              href="/movieslink.html"
+              target="_blank"
+              class="card card-movies p-8 group"
+            >
+              <div
+                class="card-icon text-orange-400 group-hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fas fa-ticket-alt text-3xl"></i>
+              </div>
+              <h3 class="card-title text-xl font-bold mb-3">
+                46 Movie Websites
+              </h3>
+              <p class="text-gray-300 text-sm mb-4">
+                Handpicked collection of top movie and web series websites 🍿
+              </p>
+              <div
+                class="card-explore text-orange-400 flex items-center space-x-2 font-semibold text-sm"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                <span>Explore Now</span>
+              </div>
+            </a>
+
+            <!-- 🤖 AI Tools -->
+            <a
+              href="/ai_tools.html"
+              target="_blank"
+              class="card card-ai p-8 group"
+            >
+              <div
+                class="card-icon text-green-400 group-hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fas fa-robot text-3xl"></i>
+              </div>
+              <h3 class="card-title text-xl font-bold mb-3">Free AI Tools</h3>
+              <p class="text-gray-300 text-sm mb-4">
+                Boost productivity and creativity with top AI tools ⚙️
+              </p>
+              <div
+                class="card-explore text-green-400 flex items-center space-x-2 font-semibold text-sm"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                <span>Explore Now</span>
+              </div>
+            </a>
+
+            <!-- 🧠 AI Websites -->
+            <a
+              href="/ai_website.html"
+              target="_blank"
+              class="card card-ai p-8 group"
+            >
+              <div
+                class="card-icon text-purple-400 group-hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fas fa-brain text-3xl"></i>
+              </div>
+              <h3 class="card-title text-xl font-bold mb-3">
+                Best AI Websites
+              </h3>
+              <p class="text-gray-300 text-sm mb-4">
+                Stay updated with the latest AI trends and breakthroughs 💡
+              </p>
+              <div
+                class="card-explore text-purple-400 flex items-center space-x-2 font-semibold text-sm"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                <span>Explore Now</span>
+              </div>
+            </a>
+
+            <!-- 💻 46 AI Websites -->
+            <a
+              href="/aitools_46.html"
+              target="_blank"
+              class="card card-ai p-8 group"
+            >
+              <div
+                class="card-icon text-pink-400 group-hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fas fa-microchip text-3xl"></i>
+              </div>
+              <h3 class="card-title text-xl font-bold mb-3">46 AI Websites</h3>
+              <p class="text-gray-300 text-sm mb-4">
+                Comprehensive list of AI platforms for professionals 🤖
+              </p>
+              <div
+                class="card-explore text-pink-400 flex items-center space-x-2 font-semibold text-sm"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                <span>Explore Now</span>
+              </div>
+            </a>
+
+            <!-- 🧰 Misc Websites -->
+            <a
+              href="/illegal_websites.html"
+              target="_blank"
+              class="card card-tools p-8 group"
+            >
+              <div
+                class="card-icon text-blue-400 group-hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fas fa-toolbox text-3xl"></i>
+              </div>
+              <h3 class="card-title text-xl font-bold mb-3">Useful Websites</h3>
+              <p class="text-gray-300 text-sm mb-4">
+                Lesser-known sites for daily needs and projects 🔧
+              </p>
+              <div
+                class="card-explore text-blue-400 flex items-center space-x-2 font-semibold text-sm"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                <span>Explore Now</span>
+              </div>
+            </a>
+
+            <!-- 🎓 Student Hub -->
+            <a
+              href="/student_hub.html"
+              target="_blank"
+              class="card card-education p-8 group"
+            >
+              <div
+                class="card-icon text-cyan-400 group-hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fas fa-graduation-cap text-3xl"></i>
+              </div>
+              <h3 class="card-title text-xl font-bold mb-3">
+                Student Resource Hub
+              </h3>
+              <p class="text-gray-300 text-sm mb-4">
+                Educational and productivity websites for students 🎓
+              </p>
+              <div
+                class="card-explore text-cyan-400 flex items-center space-x-2 font-semibold text-sm"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                <span>Explore Now</span>
+              </div>
+            </a>
+
+            <!-- Medicine Card -->
+            <a
+              href="/medicine.html"
+              target="_blank"
+              class="card card-health p-8 group"
+            >
+              <div
+                class="card-icon text-purple-400 group-hover:scale-110 transition-transform duration-300"
+              >
+                <i class="fas fa-medkit text-3xl"></i>
+              </div>
+              <h3 class="card-title text-xl font-bold mb-3">
+                Medicines Resource Hub
+              </h3>
+              <p class="text-gray-300 text-sm mb-4">
+                Medical and health-related websites for information 💊
+              </p>
+              <div
+                class="card-explore text-cyan-400 flex items-center space-x-2 font-semibold text-sm"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                <span>Explore Now</span>
+              </div>
+            </a>
           </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-500 to-teal-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-user-graduate mr-2"></i>Student Resource Hub
-          </h2>
-          <p class="text-gray-300 leading-relaxed">
-            A curated collection of educational and productivity websites 🎓
-          </p>
-          <div
-            class="mt-5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
-          >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
-          </div>
-        </a>
-      </main>
+        </div>
+      </section>
     </div>
 
     <!-- About Page -->
-    <div id="about" class="page mt-32 w-full max-w-4xl">
-      <h2 class="text-4xl font-bold mb-8 neon-text">About Me</h2>
+    <div id="about" class="page">
+      <section class="py-16">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+            About Me
+          </h2>
+          <p class="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+            Learn more about the creator behind this resource hub.
+          </p>
 
-      <div class="neon-card p-8 border border-green-500 mb-10">
-        <div class="flex flex-col md:flex-row items-center gap-8">
-          <div class="flex-shrink-0">
-            <img src="/developer.png" alt="Profile" class="profile-img" />
-          </div>
-          <div class="text-left">
-            <h3 class="text-2xl font-bold text-green-300 mb-4">
-              Hi, I'm Amit!
-            </h3>
-            <p class="text-gray-300 mb-4">
-              I'm a passionate web developer and digital enthusiast with a love
-              for discovering and sharing amazing online resources. This website
-              is my personal collection of the best tools and websites I've
-              found across the internet.
-            </p>
-            <p class="text-gray-300 mb-4">
-              My mission is to help others discover useful websites that can
-              enhance productivity, creativity, and entertainment. I carefully
-              curate each resource to ensure quality and value.
-            </p>
-            <div class="flex space-x-4 mt-6">
-              <a href="#" class="text-green-400 hover:text-green-300 text-2xl"
-                ><i class="fab fa-github"></i
-              ></a>
-              <a href="#" class="text-blue-400 hover:text-blue-300 text-2xl"
-                ><i class="fab fa-linkedin"></i
-              ></a>
-              <a href="#" class="text-pink-400 hover:text-pink-300 text-2xl"
-                ><i class="fab fa-instagram"></i
-              ></a>
-              <a href="#" class="text-cyan-400 hover:text-cyan-300 text-2xl"
-                ><i class="fab fa-twitter"></i
-              ></a>
+          <div class="card p-8 max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+              <div class="flex-shrink-0">
+                <div
+                  class="w-48 h-48 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center text-white text-6xl"
+                >
+                  <img
+                    src="./developer.png"
+                    alt="Amit's Avatar"
+                    class="w-48 h-48 rounded-full object-cover"
+                  />
+                </div>
+              </div>
+              <div class="text-left">
+                <h3 class="text-2xl font-bold text-white mb-4">
+                  Hi, I'm Amit!
+                </h3>
+                <p class="text-gray-300 mb-4">
+                  I'm a passionate web developer and digital enthusiast with a
+                  love for discovering and sharing amazing online resources.
+                  This website is my personal collection of the best tools and
+                  websites I've found across the internet.
+                </p>
+                <p class="text-gray-300 mb-6">
+                  My mission is to help others discover useful websites that can
+                  enhance productivity, creativity, and entertainment. I
+                  carefully curate each resource to ensure quality and value.
+                </p>
+                <div class="flex space-x-4">
+                  <a
+                    href="#"
+                    class="text-gray-400 hover:text-white text-2xl transition"
+                    ><i class="fab fa-github"></i
+                  ></a>
+                  <a
+                    href="#"
+                    class="text-gray-400 hover:text-blue-400 text-2xl transition"
+                    ><i class="fab fa-linkedin"></i
+                  ></a>
+                  <a
+                    href="#"
+                    class="text-gray-400 hover:text-pink-500 text-2xl transition"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                  <a
+                    href="#"
+                    class="text-gray-400 hover:text-cyan-400 text-2xl transition"
+                    ><i class="fab fa-twitter"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-12">
+              <h3 class="text-2xl font-bold text-white mb-6 text-center">
+                My Skills
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 class="text-lg font-semibold text-white mb-2">
+                    Web Development
+                  </h4>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 90%"></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-white mb-2">
+                    UI/UX Design
+                  </h4>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 80%"></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-white mb-2">
+                    Content Curation
+                  </h4>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 95%"></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-white mb-2">
+                    Digital Marketing
+                  </h4>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 75%"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <h3 class="text-2xl font-bold mb-6 text-cyan-300">My Skills</h3>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-        <div class="neon-card p-6 border border-cyan-500">
-          <h4 class="text-xl font-semibold text-cyan-300 mb-2">
-            Web Development
-          </h4>
-          <div class="skill-bar">
-            <div class="skill-progress" style="width: 90%"></div>
-          </div>
-        </div>
-
-        <div class="neon-card p-6 border border-purple-500">
-          <h4 class="text-xl font-semibold text-purple-300 mb-2">
-            UI/UX Design
-          </h4>
-          <div class="skill-bar">
-            <div class="skill-progress" style="width: 80%"></div>
-          </div>
-        </div>
-
-        <div class="neon-card p-6 border border-green-500">
-          <h4 class="text-xl font-semibold text-green-300 mb-2">
-            Content Curation
-          </h4>
-          <div class="skill-bar">
-            <div class="skill-progress" style="width: 95%"></div>
-          </div>
-        </div>
-
-        <div class="neon-card p-6 border border-yellow-500">
-          <h4 class="text-xl font-semibold text-yellow-300 mb-2">
-            Digital Marketing
-          </h4>
-          <div class="skill-bar">
-            <div class="skill-progress" style="width: 75%"></div>
-          </div>
-        </div>
-      </div>
-
-      <h3 class="text-2xl font-bold mb-6 text-pink-300">My Interests</h3>
-
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div class="neon-card p-4 border border-pink-500">
-          <i class="fas fa-code text-2xl text-pink-400 mb-2"></i>
-          <p class="text-gray-300">Coding</p>
-        </div>
-
-        <div class="neon-card p-4 border border-blue-500">
-          <i class="fas fa-film text-2xl text-blue-400 mb-2"></i>
-          <p class="text-gray-300">Movies</p>
-        </div>
-
-        <div class="neon-card p-4 border border-green-500">
-          <i class="fas fa-robot text-2xl text-green-400 mb-2"></i>
-          <p class="text-gray-300">AI Technology</p>
-        </div>
-
-        <div class="neon-card p-4 border border-yellow-500">
-          <i class="fas fa-music text-2xl text-yellow-400 mb-2"></i>
-          <p class="text-gray-300">Music</p>
-        </div>
-      </div>
+      </section>
     </div>
 
     <!-- Contact Page -->
-    <div id="contact" class="page mt-32 w-full max-w-2xl">
-      <h2 class="text-4xl font-bold mb-8 neon-text">Get In Touch</h2>
-      <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-        Have questions, suggestions, or just want to say hello? Feel free to
-        reach out!
-      </p>
+    <div id="contact" class="page">
+      <section class="py-16">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+            Get In Touch
+          </h2>
+          <p class="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+            Have questions, suggestions, or just want to say hello? Feel free to
+            reach out!
+          </p>
 
-      <div class="neon-card p-8 border border-purple-500">
-        <form id="contact-form" class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label for="name" class="form-label"
-                ><i class="fas fa-user mr-2"></i>Your Name</label
-              >
-              <input
-                type="text"
-                id="name"
-                class="form-input"
-                placeholder="Enter your name"
-                required
-              />
-            </div>
-
-            <div>
-              <label for="email" class="form-label"
-                ><i class="fas fa-envelope mr-2"></i>Your Email</label
-              >
-              <input
-                type="email"
-                id="email"
-                class="form-input"
-                placeholder="Enter your email"
-                required
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="subject" class="form-label"
-              ><i class="fas fa-tag mr-2"></i>Subject</label
-            >
-            <input
-              type="text"
-              id="subject"
-              class="form-input"
-              placeholder="What is this regarding?"
-              required
-            />
-          </div>
-
-          <div>
-            <label for="message" class="form-label"
-              ><i class="fas fa-comment mr-2"></i>Your Message</label
-            >
-            <textarea
-              id="message"
-              rows="5"
-              class="form-input"
-              placeholder="Type your message here..."
-              required
-            ></textarea>
-          </div>
-
-          <button type="submit" class="submit-btn w-full md:w-auto">
-            <i class="fas fa-paper-plane mr-2"></i>Send Message
-          </button>
-        </form>
-
-        <div class="mt-12 pt-8 border-t border-gray-700">
-          <h3 class="text-2xl font-bold mb-6 text-cyan-300">
-            Other Ways to Connect
-          </h3>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="text-center">
-              <div class="icon-container mx-auto text-cyan-400">
-                <i class="fas fa-envelope text-3xl"></i>
+          <div class="card p-8 max-w-2xl mx-auto">
+            <form id="contact-form" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-gray-300 mb-2"
+                    >Your Name</label
+                  >
+                  <input
+                    type="text"
+                    id="name"
+                    class="form-input"
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="email" class="block text-gray-300 mb-2"
+                    >Your Email</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-input"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
               </div>
-              <h4 class="text-lg font-semibold text-cyan-300 mt-4">Email</h4>
-              <p class="text-gray-400">amit192400@gmail.com</p>
-            </div>
-
-            <div class="text-center">
-              <div class="icon-container mx-auto text-green-400">
-                <i class="fas fa-comments text-3xl"></i>
-              </div>
-              <h4 class="text-lg font-semibold text-green-300 mt-4">
-                Chat with me
-              </h4>
-
-              <div class="space-y-3 mt-4">
-                <!-- Working WhatsApp -->
-                <a
-                  href="https://wa.me/919876543210?text=Hi%20Amit,%20I%20found%20your%20website%20and%20wanted%20to%20chat!"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="block text-green-400 hover:text-green-300 transition py-2 px-4 border border-green-500 rounded-lg hover:border-green-400"
+              <div>
+                <label for="subject" class="block text-gray-300 mb-2"
+                  >Subject</label
                 >
-                  <i class="fab fa-whatsapp mr-2"></i>
-                  WhatsApp
-                </a>
-
-                <!-- Working Telegram -->
-                <a
-                  href="https://t.me/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="block text-blue-400 hover:text-blue-300 transition py-2 px-4 border border-blue-500 rounded-lg hover:border-blue-400"
-                >
-                  <i class="fab fa-telegram mr-2"></i>
-                  Telegram
-                </a>
-
-                <!-- Email fallback -->
-                <a
-                  href="mailto:amit192400@gmail.com?subject=Chat%20Request&body=Hi%20Amit,%20I%20wanted%20to%20chat%20with%20you..."
-                  class="block text-purple-400 hover:text-purple-300 transition py-2 px-4 border border-purple-500 rounded-lg hover:border-purple-400"
-                >
-                  <i class="fas fa-envelope mr-2"></i>
-                  Email Me
-                </a>
+                <input
+                  type="text"
+                  id="subject"
+                  class="form-input"
+                  placeholder="What is this regarding?"
+                  required
+                />
               </div>
-            </div>
-
-            <div class="text-center">
-              <div class="icon-container mx-auto text-purple-400">
-                <i class="fas fa-map-marker-alt text-3xl"></i>
+              <div>
+                <label for="message" class="block text-gray-300 mb-2"
+                  >Your Message</label
+                >
+                <textarea
+                  id="message"
+                  rows="5"
+                  class="form-input"
+                  placeholder="Type your message here..."
+                  required
+                ></textarea>
               </div>
-              <h4 class="text-lg font-semibold text-purple-300 mt-4">
-                Location
-              </h4>
-              <p class="text-gray-400">India</p>
-            </div>
+              <button type="submit" class="submit-btn w-full md:w-auto">
+                <i class="fas fa-paper-plane mr-2"></i>Send Message
+              </button>
+            </form>
           </div>
         </div>
-      </div>
+      </section>
     </div>
 
     <!-- Footer -->
-    <footer class="mt-16 mb-8 text-gray-500">
-      <p class="footer-text">
-        <i class="fas fa-heart text-red-500 mr-2"></i>made by @mit<i
-          class="fas fa-heart text-red-500 ml-2"
-        ></i>
-      </p>
+    <footer class="footer py-8 mt-12">
+      <div class="container mx-auto px-4 text-center">
+        <p class="text-gray-400">
+          <i class="fas fa-heart text-red-500 mx-1"></i>
+          Made with love by Amit
+          <i class="fas fa-heart text-red-500 mx-1"></i>
+        </p>
+        <p class="text-gray-500 text-sm mt-2">
+          © 2023 WebHub. All rights reserved.
+        </p>
+      </div>
     </footer>
 
-    <!-- Script for Hamburger, Particles and Page Navigation -->
+    <!-- JavaScript -->
     <script>
       // Mobile menu toggle
       const menuBtn = document.getElementById('menu-btn');
@@ -805,17 +1069,9 @@
         mobileMenu.classList.toggle('hidden');
       });
 
-      // Animate cards on load
-      const cards = document.querySelectorAll('.neon-card');
-      cards.forEach((card, i) => {
-        setTimeout(() => {
-          card.style.opacity = '1';
-        }, i * 200);
-      });
-
       // Create floating particles
       const particlesContainer = document.getElementById('particles');
-      const particleCount = 30;
+      const particleCount = 20;
 
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
@@ -847,6 +1103,14 @@
           e.preventDefault();
           const targetPage = link.getAttribute('data-page');
 
+          // Update active nav link
+          navLinks.forEach((nav) => {
+            nav.classList.remove('active', 'text-white');
+            nav.classList.add('text-gray-300');
+          });
+          link.classList.add('active', 'text-white');
+          link.classList.remove('text-gray-300');
+
           // Hide all pages
           pages.forEach((page) => {
             page.classList.remove('active-page');
@@ -857,6 +1121,9 @@
 
           // Close mobile menu if open
           mobileMenu.classList.add('hidden');
+
+          // Scroll to top
+          window.scrollTo(0, 0);
         });
       });
 
@@ -879,6 +1146,16 @@
 
         // Reset form
         contactForm.reset();
+      });
+
+      // Animate cards on load
+      document.addEventListener('DOMContentLoaded', function () {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, i) => {
+          setTimeout(() => {
+            card.style.opacity = '1';
+          }, i * 100);
+        });
       });
     </script>
   </body>
