@@ -1,0 +1,2390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bihar Assembly Election 2025 - 243 Constituencies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0f0f23 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        color: #e2e8f0;
+        min-height: 100vh;
+      }
+
+      .neon-card {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.2),
+          inset 0 0 15px rgba(99, 102, 241, 0.1);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .neon-card:hover {
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.4),
+          inset 0 0 20px rgba(99, 102, 241, 0.2);
+        transform: translateY(-5px);
+      }
+
+      .neon-text {
+        text-shadow: 0 0 5px rgba(99, 102, 241, 0.7),
+          0 0 10px rgba(99, 102, 241, 0.5);
+      }
+
+      .search-box {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+      }
+
+      .party-nda {
+        color: #ff6b6b;
+        text-shadow: 0 0 5px rgba(255, 107, 107, 0.7);
+      }
+
+      .party-mgb {
+        color: #4dabf7;
+        text-shadow: 0 0 5px rgba(77, 171, 247, 0.7);
+      }
+
+      .voting-date {
+        color: #ffd43b;
+        text-shadow: 0 0 5px rgba(255, 212, 59, 0.7);
+      }
+
+      .district-name {
+        color: #63e6be;
+        text-shadow: 0 0 5px rgba(99, 230, 190, 0.7);
+      }
+
+      .constituency-number {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+      }
+
+      .glow {
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+      }
+
+      .scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(99, 102, 241, 0.8);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+        transition: all 0.3s ease;
+        z-index: 100;
+      }
+
+      .scroll-to-top:hover {
+        background: rgba(99, 102, 241, 1);
+        transform: scale(1.1);
+      }
+
+      .results-count {
+        color: #a5b4fc;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body class="py-8 px-4">
+    <div class="max-w-7xl mx-auto">
+      <!-- Header -->
+      <header class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold neon-text mb-4">
+          Bihar Assembly Election 2025
+        </h1>
+        <p class="text-xl text-indigo-300 mb-8">
+          243 Constituencies - NDA vs MGB
+        </p>
+
+        <!-- Search Box -->
+        <div class="max-w-2xl mx-auto mb-8">
+          <div class="relative search-box rounded-lg p-4">
+            <div class="flex items-center">
+              <i class="fas fa-search text-indigo-400 mr-3 text-lg"></i>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by district, constituency, or candidate name..."
+                class="w-full bg-transparent border-none focus:outline-none text-white placeholder-indigo-300"
+              />
+            </div>
+          </div>
+          <div class="flex flex-wrap justify-center gap-4 mt-4">
+            <button
+              class="filter-btn px-4 py-2 rounded-lg bg-indigo-900/50 text-indigo-300 border border-indigo-700 hover:bg-indigo-800 transition"
+              data-filter="all"
+            >
+              All
+            </button>
+            <button
+              class="filter-btn px-4 py-2 rounded-lg bg-indigo-900/50 text-indigo-300 border border-indigo-700 hover:bg-indigo-800 transition"
+              data-filter="nov6"
+            >
+              Nov 6 Voting
+            </button>
+            <button
+              class="filter-btn px-4 py-2 rounded-lg bg-indigo-900/50 text-indigo-300 border border-indigo-700 hover:bg-indigo-800 transition"
+              data-filter="nov11"
+            >
+              Nov 11 Voting
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="neon-card rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-indigo-400 mb-2">243</div>
+          <div class="text-lg text-indigo-300">Total Constituencies</div>
+        </div>
+        <div class="neon-card rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold party-nda mb-2">NDA</div>
+          <div class="text-lg text-indigo-300">
+            National Democratic Alliance
+          </div>
+        </div>
+        <div class="neon-card rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold party-mgb mb-2">MGB</div>
+          <div class="text-lg text-indigo-300">Mahagathbandhan</div>
+        </div>
+      </div>
+
+      <!-- Results Count -->
+      <div id="resultsCount" class="text-center mb-4 results-count"></div>
+
+      <!-- Constituencies Grid -->
+      <div
+        id="constituenciesContainer"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <!-- Constituencies will be loaded here by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+      // Complete election data for all 243 constituencies
+      const electionData = [
+        // West Champaran
+        {
+          votingDate: '11 November 2025',
+          district: 'West Champaran',
+          constituency: '1',
+          name: 'Valmiki Nagar',
+          nda: { party: 'JD(U)', candidate: 'Dhirendra Pratap Singh' },
+          mgb: { party: 'INC', candidate: 'Surendra Prasad Kushwaha' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'West Champaran',
+          constituency: '2',
+          name: 'Ramnagar (SC)',
+          nda: { party: 'BJP', candidate: 'Nand Kishore Ram' },
+          mgb: { party: 'RJD', candidate: 'Subodh Paswan' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'West Champaran',
+          constituency: '3',
+          name: 'Narkatiaganj',
+          nda: { party: 'BJP', candidate: 'Sanjay Pandey' },
+          mgb: [
+            { party: 'INC', candidate: 'Shaswat Kedar Pandey' },
+            { party: 'RJD', candidate: 'Deepak Yadav' },
+          ],
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'West Champaran',
+          constituency: '4',
+          name: 'Bagaha',
+          nda: { party: 'BJP', candidate: 'Ram Singh' },
+          mgb: { party: 'INC', candidate: 'Jayesh Mangal Singh' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'West Champaran',
+          constituency: '5',
+          name: 'Lauriya',
+          nda: { party: 'BJP', candidate: 'Vinay Bihari' },
+          mgb: { party: 'VIP', candidate: 'Ran Kaushal Pratap Singh' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'West Champaran',
+          constituency: '6',
+          name: 'Nautan',
+          nda: { party: 'BJP', candidate: 'Narayan Prasad' },
+          mgb: { party: 'INC', candidate: 'Amit Giri' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'West Champaran',
+          constituency: '7',
+          name: 'Chanpatia',
+          nda: { party: 'BJP', candidate: 'Umakant Singh' },
+          mgb: { party: 'INC', candidate: 'Abhishek Ranjan' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'West Champaran',
+          constituency: '8',
+          name: 'Bettiah',
+          nda: { party: 'BJP', candidate: 'Renu Devi' },
+          mgb: { party: 'INC', candidate: 'Wasi Ahmed' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'West Champaran',
+          constituency: '9',
+          name: 'Sikta',
+          nda: { party: 'JD(U)', candidate: 'Sammridh Varma' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Birendra Prasad Gupta' },
+        },
+
+        // East Champaran
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '10',
+          name: 'Raxaul',
+          nda: { party: 'BJP', candidate: 'Pramod Kumar Sinha' },
+          mgb: { party: 'INC', candidate: 'Shyam Bihari Prasad' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '11',
+          name: 'Sugauli',
+          nda: { party: 'LJP(RV)', candidate: 'Rajesh Kumar' },
+          mgb: { party: 'JJD', candidate: 'Shyam Kishore Chaudhary' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '12',
+          name: 'Narkatiya',
+          nda: { party: 'JD(U)', candidate: 'Vishal Shah' },
+          mgb: { party: 'RJD', candidate: 'Shamim Ahmad' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '13',
+          name: 'Harsidhi (SC)',
+          nda: { party: 'BJP', candidate: 'Krishnanandan Paswan' },
+          mgb: { party: 'RJD', candidate: 'Rajendra Kumar Ram' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '14',
+          name: 'Govindganj',
+          nda: { party: 'LJP(RV)', candidate: 'Raju Tiwari' },
+          mgb: { party: 'INC', candidate: 'Shashi Bhushan Rai' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '15',
+          name: 'Kesaria',
+          nda: { party: 'JD(U)', candidate: 'Shalini Mishra' },
+          mgb: { party: 'VIP', candidate: 'Varun Vijay' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '16',
+          name: 'Kalyanpur',
+          nda: { party: 'BJP', candidate: 'Sachindra Prasad Singh' },
+          mgb: { party: 'RJD', candidate: 'Manoj Kumar Yadav' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '17',
+          name: 'Pipra',
+          nda: { party: 'BJP', candidate: 'Shyambabu Prasad Yadav' },
+          mgb: { party: 'CPI(M)', candidate: 'Raj Mangal Prasad' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '18',
+          name: 'Madhuban',
+          nda: { party: 'BJP', candidate: 'Rana Randhir Singh' },
+          mgb: { party: 'RJD', candidate: 'Sandhya Rani Kushwaha' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '19',
+          name: 'Motihari',
+          nda: { party: 'BJP', candidate: 'Pramod Kumar' },
+          mgb: { party: 'RJD', candidate: 'Dewa Gupta' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '20',
+          name: 'Chiraia',
+          nda: { party: 'BJP', candidate: 'Lal Babu Prasad Gupta' },
+          mgb: { party: 'RJD', candidate: 'Lakshmi Narayan Prasad Yadav' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'East Champaran',
+          constituency: '21',
+          name: 'Dhaka',
+          nda: { party: 'BJP', candidate: 'Pawan Jaiswal' },
+          mgb: { party: 'RJD', candidate: 'Faisal Rahman' },
+        },
+
+        // Sheohar
+        {
+          votingDate: '11 November 2025',
+          district: 'Sheohar',
+          constituency: '22',
+          name: 'Sheohar',
+          nda: { party: 'JD(U)', candidate: 'Shweta Gupta' },
+          mgb: { party: 'RJD', candidate: 'Navneet Kumar' },
+        },
+
+        // Sitamarhi
+        {
+          votingDate: '11 November 2025',
+          district: 'Sitamarhi',
+          constituency: '23',
+          name: 'Riga',
+          nda: { party: 'BJP', candidate: 'Baidyanath Prasad' },
+          mgb: { party: 'INC', candidate: 'Amit Kumar Tunna' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Sitamarhi',
+          constituency: '24',
+          name: 'Bathnaha (SC)',
+          nda: { party: 'BJP', candidate: 'Anil Kumar Ram' },
+          mgb: { party: 'INC', candidate: 'Navin Kumar' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Sitamarhi',
+          constituency: '25',
+          name: 'Parihar',
+          nda: { party: 'BJP', candidate: 'Gayatri Devi' },
+          mgb: { party: 'RJD', candidate: 'Smita Purve Gupta' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Sitamarhi',
+          constituency: '26',
+          name: 'Sursand',
+          nda: { party: 'JD(U)', candidate: 'Nagendra Raut' },
+          mgb: { party: 'RJD', candidate: 'Syed Abu Dojana' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Sitamarhi',
+          constituency: '27',
+          name: 'Bajpatti',
+          nda: { party: 'RLM', candidate: 'Rameshwar Mahto' },
+          mgb: { party: 'RJD', candidate: 'Mukesh Yadav' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Sitamarhi',
+          constituency: '28',
+          name: 'Sitamarhi',
+          nda: { party: 'BJP', candidate: 'Sunil Kumar Pintu' },
+          mgb: { party: 'RJD', candidate: 'Sunil Kushwaha' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Sitamarhi',
+          constituency: '29',
+          name: 'Runnisaidpur',
+          nda: { party: 'JD(U)', candidate: 'Pankaj Kumar Mishra' },
+          mgb: { party: 'RJD', candidate: 'Chandan Kumar' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Sitamarhi',
+          constituency: '30',
+          name: 'Belsand',
+          nda: { party: 'LJP(RV)', candidate: 'Amit Kumar' },
+          mgb: { party: 'RJD', candidate: 'Sanjay Gupta' },
+        },
+
+        // Madhubani
+        {
+          votingDate: '11 November 2025',
+          district: 'Madhubani',
+          constituency: '31',
+          name: 'Harlakhi',
+          nda: { party: 'JD(U)', candidate: 'Sudhanshu Shekhar' },
+          mgb: { party: 'CPI', candidate: 'Ram Naresh Pandey' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Madhubani',
+          constituency: '32',
+          name: 'Benipatti',
+          nda: { party: 'BJP', candidate: 'Vinod Narayan Jha' },
+          mgb: { party: 'INC', candidate: 'Nalini Ranjan Jha' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Madhubani',
+          constituency: '33',
+          name: 'Khajauli',
+          nda: { party: 'BJP', candidate: 'Arun Shankar Prasad' },
+          mgb: { party: 'RJD', candidate: 'Braj Kishore Yadav' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Madhubani',
+          constituency: '34',
+          name: 'Babubarhi',
+          nda: { party: 'JD(U)', candidate: 'Mina Kumari' },
+          mgb: { party: 'RJD', candidate: 'Arun Kushwaha' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Madhubani',
+          constituency: '35',
+          name: 'Bisfi',
+          nda: { party: 'BJP', candidate: 'Haribhushan Thakur' },
+          mgb: { party: 'RJD', candidate: 'Asif Ahmad' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Madhubani',
+          constituency: '36',
+          name: 'Madhubani',
+          nda: { party: 'RLM', candidate: 'Madhav Anand' },
+          mgb: { party: 'RJD', candidate: 'Samir Kumar Mahaseth' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Madhubani',
+          constituency: '37',
+          name: 'Rajnagar (SC)',
+          nda: { party: 'BJP', candidate: 'Sujeet Paswan' },
+          mgb: { party: 'RJD', candidate: 'Bishnudeo Mochi' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Madhubani',
+          constituency: '38',
+          name: 'Jhanjharpur',
+          nda: { party: 'BJP', candidate: 'Nitish Mishra' },
+          mgb: { party: 'CPI', candidate: 'Ram Narayan Yadav' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Madhubani',
+          constituency: '39',
+          name: 'Phulparas',
+          nda: { party: 'JD(U)', candidate: 'Sheela Kumari' },
+          mgb: { party: 'INC', candidate: 'Subodh Mandal' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Madhubani',
+          constituency: '40',
+          name: 'Laukaha',
+          nda: { party: 'JD(U)', candidate: 'Satish Kumar Sah' },
+          mgb: { party: 'RJD', candidate: 'Bharat Bhushan Mandal' },
+        },
+
+        // Supaul
+        {
+          votingDate: '11 November 2025',
+          district: 'Supaul',
+          constituency: '41',
+          name: 'Nirmali',
+          nda: { party: 'JD(U)', candidate: 'Aniruddha Prasad Yadav' },
+          mgb: { party: 'RJD', candidate: 'Baijnath Mehta' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Supaul',
+          constituency: '42',
+          name: 'Pipra (Supaul)',
+          nda: { party: 'JD(U)', candidate: 'Rambilash Kamat' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Anil Kumar' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Supaul',
+          constituency: '43',
+          name: 'Supaul',
+          nda: { party: 'JD(U)', candidate: 'Bijendra Prasad Yadav' },
+          mgb: { party: 'INC', candidate: 'Minnat Rahmani' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Supaul',
+          constituency: '44',
+          name: 'Triveniganj (SC)',
+          nda: { party: 'JD(U)', candidate: 'Sonam Rani Sardar' },
+          mgb: { party: 'RJD', candidate: 'Santosh Sardar' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Supaul',
+          constituency: '45',
+          name: 'Chhatapur',
+          nda: { party: 'BJP', candidate: 'Neeraj Kumar Singh Bablu' },
+          mgb: { party: 'RJD', candidate: 'Dr. Vipin Kumar Nonia' },
+        },
+
+        // Araria
+        {
+          votingDate: '11 November 2025',
+          district: 'Araria',
+          constituency: '46',
+          name: 'Narpatganj',
+          nda: { party: 'BJP', candidate: 'Devanti Yadav' },
+          mgb: { party: 'RJD', candidate: 'Manish Yadav' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Araria',
+          constituency: '47',
+          name: 'Raniganj (SC)',
+          nda: { party: 'JD(U)', candidate: 'Achmit Rishidev' },
+          mgb: { party: 'RJD', candidate: 'Avinash Mangalam' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Araria',
+          constituency: '48',
+          name: 'Forbesganj',
+          nda: { party: 'BJP', candidate: 'Vidya Sagar Keshri' },
+          mgb: { party: 'INC', candidate: 'Manoj Vishwas' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Araria',
+          constituency: '49',
+          name: 'Araria',
+          nda: { party: 'JD(U)', candidate: 'Shagufta Azim' },
+          mgb: { party: 'INC', candidate: 'Avidur Rahman' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Araria',
+          constituency: '50',
+          name: 'Jokihat',
+          nda: { party: 'JD(U)', candidate: 'Manzar Alam' },
+          mgb: { party: 'RJD', candidate: 'Mohammed Shahnawaz Alam' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Araria',
+          constituency: '51',
+          name: 'Sikti',
+          nda: { party: 'BJP', candidate: 'Vijay Kumar Mandal' },
+          mgb: { party: 'VIP', candidate: 'Hari Narayan Pramanik' },
+        },
+
+        // Kishanganj
+        {
+          votingDate: '11 November 2025',
+          district: 'Kishanganj',
+          constituency: '52',
+          name: 'Bahadurganj',
+          nda: { party: 'LJP(RV)', candidate: 'Mohammad Kalimuddin' },
+          mgb: { party: 'INC', candidate: 'Maswar Alam' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Kishanganj',
+          constituency: '53',
+          name: 'Thakurganj',
+          nda: { party: 'JD(U)', candidate: 'Gopal Kumar Agarwal' },
+          mgb: { party: 'RJD', candidate: 'Saud Alam' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Kishanganj',
+          constituency: '54',
+          name: 'Kishanganj',
+          nda: { party: 'BJP', candidate: 'Sweety Singh' },
+          mgb: { party: 'INC', candidate: 'Qamrul Hoda' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Kishanganj',
+          constituency: '55',
+          name: 'Kochadhaman',
+          nda: { party: 'BJP', candidate: 'Bina Devi' },
+          mgb: { party: 'RJD', candidate: 'Mujahid Alam' },
+        },
+
+        // Purnia
+        {
+          votingDate: '11 November 2025',
+          district: 'Purnia',
+          constituency: '56',
+          name: 'Amour',
+          nda: { party: 'JD(U)', candidate: 'Saba Zafar' },
+          mgb: { party: 'INC', candidate: 'Abdul Jalil Mastan' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Purnia',
+          constituency: '57',
+          name: 'Baisi',
+          nda: { party: 'BJP', candidate: 'Vinod Yadav' },
+          mgb: { party: 'RJD', candidate: 'Abdus subhan' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Purnia',
+          constituency: '58',
+          name: 'Kasba',
+          nda: { party: 'LJP(RV)', candidate: 'Nitesh Kumar Singh' },
+          mgb: { party: 'INC', candidate: 'Irfan Alam' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Purnia',
+          constituency: '59',
+          name: 'Banmankhi (SC)',
+          nda: { party: 'BJP', candidate: 'Krishna Kumar Rishi' },
+          mgb: { party: 'INC', candidate: 'Devnarayan Rajak' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Purnia',
+          constituency: '60',
+          name: 'Rupauli',
+          nda: { party: 'JD(U)', candidate: 'Kaladhar Mandal' },
+          mgb: { party: 'RJD', candidate: 'Bima Bharati' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Purnia',
+          constituency: '61',
+          name: 'Dhamdaha',
+          nda: { party: 'JD(U)', candidate: 'Leshi Singh' },
+          mgb: { party: 'RJD', candidate: 'Santosh Kushwaha' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Purnia',
+          constituency: '62',
+          name: 'Purnia',
+          nda: { party: 'BJP', candidate: 'Vijay Kumar Khemka' },
+          mgb: { party: 'INC', candidate: 'Jitender Yadav' },
+        },
+
+        // Katihar
+        {
+          votingDate: '11 November 2025',
+          district: 'Katihar',
+          constituency: '63',
+          name: 'Katihar',
+          nda: { party: 'BJP', candidate: 'Tarkishore Prasad' },
+          mgb: { party: 'VIP', candidate: 'Saurabh Agarwal' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Katihar',
+          constituency: '64',
+          name: 'Kadwa',
+          nda: { party: 'JD(U)', candidate: 'Dulal Chandra Goswami' },
+          mgb: { party: 'INC', candidate: 'Shakeel Ahmad Khan' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Katihar',
+          constituency: '65',
+          name: 'Balrampur',
+          nda: { party: 'LJP(RV)', candidate: 'Sangita Devi' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Mahbub Alam' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Katihar',
+          constituency: '66',
+          name: 'Pranpur',
+          nda: { party: 'BJP', candidate: 'Nisha Singh' },
+          mgb: { party: 'RJD', candidate: 'Ishrat parween' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Katihar',
+          constituency: '67',
+          name: 'Manihari (ST)',
+          nda: { party: 'JD(U)', candidate: 'Shambhu Suman' },
+          mgb: { party: 'INC', candidate: 'Manohar Prasad Singh' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Katihar',
+          constituency: '68',
+          name: 'Barari',
+          nda: { party: 'JD(U)', candidate: 'Vijay Singh Nishad' },
+          mgb: { party: 'INC', candidate: 'Tauquir Alam' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Katihar',
+          constituency: '69',
+          name: 'Korha (SC)',
+          nda: { party: 'BJP', candidate: 'Kavita Devi' },
+          mgb: { party: 'INC', candidate: 'Punam Paswan' },
+        },
+
+        // Madhepura (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Madhepura',
+          constituency: '70',
+          name: 'Alamnagar',
+          nda: { party: 'JD(U)', candidate: 'Narendra Narayan Yadav' },
+          mgb: { party: 'VIP', candidate: 'Nabin Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Madhepura',
+          constituency: '71',
+          name: 'Bihariganj',
+          nda: { party: 'JD(U)', candidate: 'Niranjan Kumar Mehta' },
+          mgb: { party: 'RJD', candidate: 'Renu Kushawaha' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Madhepura',
+          constituency: '72',
+          name: 'Singheshwar (SC)',
+          nda: { party: 'JD(U)', candidate: 'Ramesh Rishidev' },
+          mgb: { party: 'RJD', candidate: 'Chandrahas Chaupal' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Madhepura',
+          constituency: '73',
+          name: 'Madhepura',
+          nda: { party: 'JD(U)', candidate: 'Kavita Kumari Saha' },
+          mgb: { party: 'RJD', candidate: 'Chandrashekhar Yadav' },
+        },
+
+        // Saharsa (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Saharsa',
+          constituency: '74',
+          name: 'Sonbarsha (SC)',
+          nda: { party: 'JD(U)', candidate: 'Ratnesh Sada' },
+          mgb: { party: 'INC', candidate: 'Sarita Devi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saharsa',
+          constituency: '75',
+          name: 'Saharsa',
+          nda: { party: 'BJP', candidate: 'Alok Ranjan Jha' },
+          mgb: { party: 'IIP', candidate: 'Indrajeet Prasad Gupta' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saharsa',
+          constituency: '76',
+          name: 'Simri Bakhtiarpur',
+          nda: { party: 'LJP(RV)', candidate: 'Sanjay Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Yusuf Salahuddin' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saharsa',
+          constituency: '77',
+          name: 'Mahishi',
+          nda: { party: 'JD(U)', candidate: 'Gunjeshwar Sah' },
+          mgb: { party: 'RJD', candidate: 'Gautam Krishna' },
+        },
+
+        // Darbhanga (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Darbhanga',
+          constituency: '78',
+          name: 'Kusheshwar Asthan (SC)',
+          nda: { party: 'JD(U)', candidate: 'Atirek Kumar' },
+          mgb: { party: 'Ind', candidate: 'Ganesh Bharti' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Darbhanga',
+          constituency: '79',
+          name: 'Gaura Bauram',
+          nda: { party: 'BJP', candidate: 'Sujit Kumar Singh' },
+          mgb: [
+            { party: 'VIP', candidate: 'Santosh Sahani' },
+            { party: 'RJD', candidate: 'Afzal Ali Khan' },
+          ],
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Darbhanga',
+          constituency: '80',
+          name: 'Benipur',
+          nda: { party: 'JD(U)', candidate: 'Binay Kumar Choudhary' },
+          mgb: { party: 'INC', candidate: 'Mithilesh Kumar Chaudhary' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Darbhanga',
+          constituency: '81',
+          name: 'Alinagar',
+          nda: { party: 'BJP', candidate: 'Maithili Thakur' },
+          mgb: { party: 'RJD', candidate: 'Binod Mishra' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Darbhanga',
+          constituency: '82',
+          name: 'Darbhanga Rural',
+          nda: { party: 'JD(U)', candidate: 'Ishwar Mandal' },
+          mgb: { party: 'RJD', candidate: 'Lalit Kumar Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Darbhanga',
+          constituency: '83',
+          name: 'Darbhanga',
+          nda: { party: 'BJP', candidate: 'Sanjay Saraogi' },
+          mgb: { party: 'VIP', candidate: 'Umesh Sahani' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Darbhanga',
+          constituency: '84',
+          name: 'Hayaghat',
+          nda: { party: 'BJP', candidate: 'Ram Chandra Prasad' },
+          mgb: { party: 'CPI(M)', candidate: 'Shyam Bharati' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Darbhanga',
+          constituency: '85',
+          name: 'Bahadurpur',
+          nda: { party: 'JD(U)', candidate: 'Madan Sahni' },
+          mgb: { party: 'RJD', candidate: 'Bhola Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Darbhanga',
+          constituency: '86',
+          name: 'Keoti',
+          nda: { party: 'BJP', candidate: 'Murari Mohan Jha' },
+          mgb: { party: 'RJD', candidate: 'Faraz Fatmi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Darbhanga',
+          constituency: '87',
+          name: 'Jale',
+          nda: { party: 'BJP', candidate: 'Jibesh Kumar Mishra' },
+          mgb: { party: 'INC', candidate: 'Rishi Mishra' },
+        },
+
+        // Muzaffarpur (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '88',
+          name: 'Gaighat',
+          nda: { party: 'JD(U)', candidate: 'Komal Singh' },
+          mgb: { party: 'RJD', candidate: 'Niranjan Ray' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '89',
+          name: 'Aurai',
+          nda: { party: 'BJP', candidate: 'Rama Nishad' },
+          mgb: { party: 'VIP', candidate: 'Bhogendar Sahani' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '90',
+          name: 'Minapur',
+          nda: { party: 'JD(U)', candidate: 'Ajay Kushwaha' },
+          mgb: { party: 'RJD', candidate: 'Munna Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '91',
+          name: 'Bochahan (SC)',
+          nda: { party: 'LJP(RV)', candidate: 'Baby Kumari' },
+          mgb: { party: 'RJD', candidate: 'Amar Kumar Paswan' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '92',
+          name: 'Sakra (SC)',
+          nda: { party: 'JD(U)', candidate: 'Aditya Kumar' },
+          mgb: { party: 'INC', candidate: 'Umesh Ram' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '93',
+          name: 'Kurhani',
+          nda: { party: 'BJP', candidate: 'Kedar Prasad Gupta' },
+          mgb: { party: 'RJD', candidate: 'Sunil Kumar Suman' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '94',
+          name: 'Muzaffarpur',
+          nda: { party: 'BJP', candidate: 'Ranjan Kumar' },
+          mgb: { party: 'INC', candidate: 'Bijendra Chaudhary' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '95',
+          name: 'Kanti',
+          nda: { party: 'JD(U)', candidate: 'Ajit Kumar' },
+          mgb: { party: 'RJD', candidate: 'Mohammad Israil Mansuri' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '96',
+          name: 'Baruraj',
+          nda: { party: 'BJP', candidate: 'Arun Kumar Singh' },
+          mgb: { party: 'VIP', candidate: 'Rakesh Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '97',
+          name: 'Paroo',
+          nda: { party: 'RLM', candidate: 'Madan Chaudhary' },
+          mgb: { party: 'RJD', candidate: 'Shankar Prasad Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Muzaffarpur',
+          constituency: '98',
+          name: 'Sahebganj',
+          nda: { party: 'BJP', candidate: 'Raju Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Prithvinath Ray' },
+        },
+
+        // Gopalganj (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Gopalganj',
+          constituency: '99',
+          name: 'Baikunthpur',
+          nda: { party: 'BJP', candidate: 'Mithlesh Tiwari' },
+          mgb: { party: 'RJD', candidate: 'Prem Shankar Prasad' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gopalganj',
+          constituency: '100',
+          name: 'Barauli',
+          nda: { party: 'JD(U)', candidate: 'Manjeet Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Dilip Kumar Singh' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gopalganj',
+          constituency: '101',
+          name: 'Gopalganj',
+          nda: { party: 'BJP', candidate: 'Subhash Singh' },
+          mgb: { party: 'INC', candidate: 'Om Prakash Garg' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gopalganj',
+          constituency: '102',
+          name: 'Kuchaikote',
+          nda: { party: 'JD(U)', candidate: 'Amrendra Kumar Pandey' },
+          mgb: { party: 'INC', candidate: 'Hari Narain Kushwah' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gopalganj',
+          constituency: '103',
+          name: 'Bhore (SC)',
+          nda: { party: 'JD(U)', candidate: 'Sunil Kumar' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Dhananjay Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gopalganj',
+          constituency: '104',
+          name: 'Hathua',
+          nda: { party: 'JD(U)', candidate: 'Ramsewak Singh Kushwaha' },
+          mgb: { party: 'RJD', candidate: 'Rajesh Singh Kushwaha' },
+        },
+
+        // Siwan (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Siwan',
+          constituency: '105',
+          name: 'Siwan',
+          nda: { party: 'BJP', candidate: 'Mangal Pandey' },
+          mgb: { party: 'RJD', candidate: 'Awadh Bihari Choudhary' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Siwan',
+          constituency: '106',
+          name: 'Ziradei',
+          nda: { party: 'JD(U)', candidate: 'Bhism Pratap Singh' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Amarjeet Kushwaha' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Siwan',
+          constituency: '107',
+          name: 'Darauli (SC)',
+          nda: { party: 'LJP(RV)', candidate: 'Vishnu Deo Paswan' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Satyadeo Ram' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Siwan',
+          constituency: '108',
+          name: 'Raghunathpur',
+          nda: { party: 'JD(U)', candidate: 'Vikash Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Osama Shahab' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Siwan',
+          constituency: '109',
+          name: 'Daraunda',
+          nda: { party: 'BJP', candidate: 'Karanjeet Singh' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Amarnath Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Siwan',
+          constituency: '110',
+          name: 'Barharia',
+          nda: { party: 'JD(U)', candidate: 'Indradev Patel' },
+          mgb: { party: 'RJD', candidate: 'Arun Kumar Gupta' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Siwan',
+          constituency: '111',
+          name: 'Goriakothi',
+          nda: { party: 'BJP', candidate: 'Devesh Kant Singh' },
+          mgb: { party: 'RJD', candidate: 'Anwarul Haque' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Siwan',
+          constituency: '112',
+          name: 'Maharajganj',
+          nda: { party: 'JD(U)', candidate: 'Hemnarayan Sah' },
+          mgb: { party: 'RJD', candidate: 'Vishal Jaiswal' },
+        },
+
+        // Saran (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Saran',
+          constituency: '113',
+          name: 'Ekma',
+          nda: { party: 'JD(U)', candidate: 'Manoranjan singh Dhumal' },
+          mgb: { party: 'RJD', candidate: 'Srikant Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saran',
+          constituency: '114',
+          name: 'Manjhi',
+          nda: { party: 'JD(U)', candidate: 'Randhir Kumar Singh' },
+          mgb: { party: 'CPI(M)', candidate: 'Satyendra Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saran',
+          constituency: '115',
+          name: 'Baniapur',
+          nda: { party: 'BJP', candidate: 'Kedar Nath Singh' },
+          mgb: { party: 'RJD', candidate: 'Chandani Devi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saran',
+          constituency: '116',
+          name: 'Taraiya',
+          nda: { party: 'BJP', candidate: 'Janak Singh' },
+          mgb: { party: 'RJD', candidate: 'Shailendra Pratap' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saran',
+          constituency: '117',
+          name: 'Marhaura',
+          nda: { party: 'Ind', candidate: 'Ankit Kumar' },
+          mgb: { party: 'RJD', candidate: 'Jitendra Kumar Rai' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saran',
+          constituency: '118',
+          name: 'Chapra',
+          nda: { party: 'BJP', candidate: 'Chhoti Kumari' },
+          mgb: { party: 'RJD', candidate: 'Khesari Lal Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saran',
+          constituency: '119',
+          name: 'Garkha (SC)',
+          nda: { party: 'LJP(RV)', candidate: 'Simant Mrinal' },
+          mgb: { party: 'RJD', candidate: 'Surendra Ram' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saran',
+          constituency: '120',
+          name: 'Amnour',
+          nda: { party: 'BJP', candidate: 'Krishna Kumar Mantoo' },
+          mgb: { party: 'RJD', candidate: 'Sunil Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saran',
+          constituency: '121',
+          name: 'Parsa',
+          nda: { party: 'JD(U)', candidate: 'Chhote Lal Ray' },
+          mgb: { party: 'RJD', candidate: 'Karishma Rai' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Saran',
+          constituency: '122',
+          name: 'Sonpur',
+          nda: { party: 'BJP', candidate: 'Vinay Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Ramanuj Prasad Yadav' },
+        },
+
+        // Vaishali (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Vaishali',
+          constituency: '123',
+          name: 'Hajipur',
+          nda: { party: 'BJP', candidate: 'Awadhesh Singh' },
+          mgb: { party: 'RJD', candidate: 'Deo Kumar Chaurasia' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Vaishali',
+          constituency: '124',
+          name: 'Lalganj',
+          nda: { party: 'BJP', candidate: 'Sanjay Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Shivani Shukla' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Vaishali',
+          constituency: '125',
+          name: 'Vaishali',
+          nda: { party: 'JD(U)', candidate: 'Siddharth Patel' },
+          mgb: [
+            { party: 'INC', candidate: 'Sanjeev Singh' },
+            { party: 'RJD', candidate: 'Ajay Kumar Kushwaha' },
+          ],
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Vaishali',
+          constituency: '126',
+          name: 'Mahua',
+          nda: { party: 'LJP(RV)', candidate: 'Sanjay Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Mukesh Kumar Raushan' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Vaishali',
+          constituency: '127',
+          name: 'Raja Pakar (SC)',
+          nda: { party: 'JD(U)', candidate: 'Mahendra Ram' },
+          mgb: [
+            { party: 'INC', candidate: 'Pratima Das' },
+            { party: 'CPI', candidate: 'Mohit Paswan' },
+          ],
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Vaishali',
+          constituency: '128',
+          name: 'Raghopur',
+          nda: { party: 'BJP', candidate: 'Satish Kumar Yadav' },
+          mgb: { party: 'RJD', candidate: 'Tejashwi Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Vaishali',
+          constituency: '129',
+          name: 'Mahnar',
+          nda: { party: 'JD(U)', candidate: 'Umesh Singh Kushwaha' },
+          mgb: { party: 'RJD', candidate: 'Ravindra Kumar Singh' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Vaishali',
+          constituency: '130',
+          name: 'Patepur (SC)',
+          nda: { party: 'BJP', candidate: 'Lakhendra Raushan' },
+          mgb: { party: 'RJD', candidate: 'Prema Chaudhary' },
+        },
+
+        // Samastipur (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Samastipur',
+          constituency: '131',
+          name: 'Kalyanpur (SC)',
+          nda: { party: 'JD(U)', candidate: 'Maheshwar Hazari' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Ranjeet Ram' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Samastipur',
+          constituency: '132',
+          name: 'Warisnagar',
+          nda: { party: 'JD(U)', candidate: 'Manjarik Mrinal' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Phoolbabu Singh' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Samastipur',
+          constituency: '133',
+          name: 'Samastipur',
+          nda: { party: 'JD(U)', candidate: 'Ashwamedh Devi' },
+          mgb: { party: 'RJD', candidate: 'Akhtarul Islam Shahin' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Samastipur',
+          constituency: '134',
+          name: 'Ujiarpur',
+          nda: { party: 'RLM', candidate: 'Prashant Kumar Pankaj' },
+          mgb: { party: 'RJD', candidate: 'Alok Kumar Mehta' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Samastipur',
+          constituency: '135',
+          name: 'Morwa',
+          nda: { party: 'JD(U)', candidate: 'Vidya Sagar Singh Nishad' },
+          mgb: { party: 'RJD', candidate: 'Ranvijay Sahu' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Samastipur',
+          constituency: '136',
+          name: 'Sarairanjan',
+          nda: { party: 'JD(U)', candidate: 'Vijay Kumar Chaudhary' },
+          mgb: { party: 'RJD', candidate: 'Arbind Kumar Sahani' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Samastipur',
+          constituency: '137',
+          name: 'Mohiuddinnagar',
+          nda: { party: 'BJP', candidate: 'Rajesh Singh' },
+          mgb: { party: 'RJD', candidate: 'Ejya Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Samastipur',
+          constituency: '138',
+          name: 'Bibhutipur',
+          nda: { party: 'JD(U)', candidate: 'Raveena Kushwaha' },
+          mgb: { party: 'CPI(M)', candidate: 'Ajay Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Samastipur',
+          constituency: '139',
+          name: 'Rosera (SC)',
+          nda: { party: 'BJP', candidate: 'Birendra Paswan' },
+          mgb: { party: 'INC', candidate: 'Braj Kishore Ravi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Samastipur',
+          constituency: '140',
+          name: 'Hasanpur',
+          nda: { party: 'JD(U)', candidate: 'Raj Kumar Ray' },
+          mgb: { party: 'RJD', candidate: 'Mala Pushpam' },
+        },
+
+        // Begusarai (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Begusarai',
+          constituency: '141',
+          name: 'Cheria-Bariarpur',
+          nda: { party: 'JD(U)', candidate: 'Abhishek Kumar' },
+          mgb: { party: 'RJD', candidate: 'Sushil Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Begusarai',
+          constituency: '142',
+          name: 'Bachhwara',
+          nda: { party: 'BJP', candidate: 'Surendra Mehata' },
+          mgb: [
+            { party: 'INC', candidate: 'Shiv Prakash Garib Das' },
+            { party: 'CPI', candidate: 'Abdesh Kumar Rai' },
+          ],
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Begusarai',
+          constituency: '143',
+          name: 'Teghra',
+          nda: { party: 'BJP', candidate: 'Rajnish Kumar Singh' },
+          mgb: { party: 'CPI', candidate: 'Ram Ratan Singh' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Begusarai',
+          constituency: '144',
+          name: 'Matihani',
+          nda: { party: 'JD(U)', candidate: 'Rajkumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Narendra Kumar Singh' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Begusarai',
+          constituency: '145',
+          name: 'Sahebpur Kamal',
+          nda: { party: 'LJP(RV)', candidate: 'Surendra Kumar' },
+          mgb: { party: 'RJD', candidate: 'Sattanand Sambuddha' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Begusarai',
+          constituency: '146',
+          name: 'Begusarai',
+          nda: { party: 'BJP', candidate: 'Kundan Kumar' },
+          mgb: { party: 'INC', candidate: 'Amita Bhushan' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Begusarai',
+          constituency: '147',
+          name: 'Bakhri (SC)',
+          nda: { party: 'LJP(RV)', candidate: 'Sanjay Paswan' },
+          mgb: { party: 'CPI', candidate: 'Suryakant Paswan' },
+        },
+
+        // Khagaria (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Khagaria',
+          constituency: '148',
+          name: 'Alauli (SC)',
+          nda: { party: 'JD(U)', candidate: 'Ram Chandra Sada' },
+          mgb: { party: 'RJD', candidate: 'Ramvriksh Sada' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Khagaria',
+          constituency: '149',
+          name: 'Khagaria',
+          nda: { party: 'JD(U)', candidate: 'Bablu Mandal' },
+          mgb: { party: 'INC', candidate: 'Chandan Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Khagaria',
+          constituency: '150',
+          name: 'Beldaur',
+          nda: { party: 'JD(U)', candidate: 'Panna Lal Singh Patel' },
+          mgb: [
+            { party: 'INC', candidate: 'Mithilesh Kumar Nishad' },
+            { party: 'IIP', candidate: 'Tanisha Bharti' },
+          ],
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Khagaria',
+          constituency: '151',
+          name: 'Parbatta',
+          nda: { party: 'LJP(RV)', candidate: 'Aditya Kumar Shorya' },
+          mgb: { party: 'RJD', candidate: 'Sanjeev Kumar' },
+        },
+
+        // Bhagalpur (Nov 11)
+        {
+          votingDate: '11 November 2025',
+          district: 'Bhagalpur',
+          constituency: '152',
+          name: 'Bihpur',
+          nda: { party: 'BJP', candidate: 'Kumar Shailendra' },
+          mgb: { party: 'VIP', candidate: 'Aprana Kumari Mandal' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Bhagalpur',
+          constituency: '153',
+          name: 'Gopalpur',
+          nda: { party: 'JD(U)', candidate: 'Shailesh Kumar Mandal' },
+          mgb: { party: 'VIP', candidate: 'Prem Sagar' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Bhagalpur',
+          constituency: '154',
+          name: 'Pirpainti (SC)',
+          nda: { party: 'BJP', candidate: 'Murari Paswan' },
+          mgb: { party: 'RJD', candidate: 'Ram Vilas Paswan' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Bhagalpur',
+          constituency: '155',
+          name: 'Kahalgaon',
+          nda: { party: 'JD(U)', candidate: 'Shubhanand Mukesh' },
+          mgb: [
+            { party: 'RJD', candidate: 'Rajnish Bharti' },
+            { party: 'INC', candidate: 'Praveen Singh Kushwaha' },
+          ],
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Bhagalpur',
+          constituency: '156',
+          name: 'Bhagalpur',
+          nda: { party: 'BJP', candidate: 'Rohit Pandey' },
+          mgb: { party: 'INC', candidate: 'Ajit Sharma' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Bhagalpur',
+          constituency: '157',
+          name: 'Sultanganj',
+          nda: { party: 'JD(U)', candidate: 'Lalit Narayan Mandal' },
+          mgb: [
+            { party: 'INC', candidate: 'Lalan Kumar' },
+            { party: 'RJD', candidate: 'Chandan Sinha' },
+          ],
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Bhagalpur',
+          constituency: '158',
+          name: 'Nathnagar',
+          nda: { party: 'LJP(RV)', candidate: 'Mithun Yadav' },
+          mgb: { party: 'RJD', candidate: 'Sheikh Zeyaul Hassan' },
+        },
+
+        // Banka (Nov 11)
+        {
+          votingDate: '11 November 2025',
+          district: 'Banka',
+          constituency: '159',
+          name: 'Amarpur',
+          nda: { party: 'JD(U)', candidate: 'Jayant Raj Kushwaha' },
+          mgb: { party: 'INC', candidate: 'Jitendra Singh' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Banka',
+          constituency: '160',
+          name: 'Dhoraiya (SC)',
+          nda: { party: 'JD(U)', candidate: 'Manish Kumar' },
+          mgb: { party: 'RJD', candidate: 'Tribhuvan Das' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Banka',
+          constituency: '161',
+          name: 'Banka',
+          nda: { party: 'BJP', candidate: 'Ramnarayan Mandal' },
+          mgb: { party: 'CPI', candidate: 'Sanjay Kumar' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Banka',
+          constituency: '162',
+          name: 'Katoria (ST)',
+          nda: { party: 'BJP', candidate: 'Puran Lal Tudu' },
+          mgb: { party: 'RJD', candidate: 'Sweety Sima Hembram' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Banka',
+          constituency: '163',
+          name: 'Belhar',
+          nda: { party: 'JD(U)', candidate: 'Manoj Yadav' },
+          mgb: { party: 'RJD', candidate: 'Chanakya Prakash Ranjan' },
+        },
+
+        // Munger (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Munger',
+          constituency: '164',
+          name: 'Tarapur',
+          nda: { party: 'BJP', candidate: 'Samrat Choudhary' },
+          mgb: { party: 'RJD', candidate: 'Arun Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Munger',
+          constituency: '165',
+          name: 'Munger',
+          nda: { party: 'BJP', candidate: 'Kumar Pranay' },
+          mgb: { party: 'RJD', candidate: 'Avinash Kumar Vidyarthi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Munger',
+          constituency: '166',
+          name: 'Jamalpur',
+          nda: { party: 'JD(U)', candidate: 'Nachiketa Mandal' },
+          mgb: { party: 'IIP', candidate: 'Narendra Kumar' },
+        },
+
+        // Lakhisarai (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Lakhisarai',
+          constituency: '167',
+          name: 'Suryagarha',
+          nda: { party: 'JD(U)', candidate: 'Ramanand Mandal' },
+          mgb: { party: 'RJD', candidate: 'Premsagar Choudhary' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Lakhisarai',
+          constituency: '168',
+          name: 'Lakhisarai',
+          nda: { party: 'BJP', candidate: 'Vijay Kumar Sinha' },
+          mgb: { party: 'INC', candidate: 'Amresh Kumar Aneesh' },
+        },
+
+        // Sheikhpura (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Sheikhpura',
+          constituency: '169',
+          name: 'Sheikhpura',
+          nda: { party: 'JD(U)', candidate: 'Randhir Kumar Soni' },
+          mgb: { party: 'RJD', candidate: 'Vijay Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Sheikhpura',
+          constituency: '170',
+          name: 'Barbigha',
+          nda: { party: 'JD(U)', candidate: 'Kumar Pushpanjay' },
+          mgb: { party: 'INC', candidate: 'Trishuldhari Singh' },
+        },
+
+        // Nalanda (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Nalanda',
+          constituency: '171',
+          name: 'Asthawan',
+          nda: { party: 'JD(U)', candidate: 'Jitendra Kumar' },
+          mgb: { party: 'RJD', candidate: 'Ravi Ranjan Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Nalanda',
+          constituency: '172',
+          name: 'Bihar Sharif',
+          nda: { party: 'BJP', candidate: 'Sunil Kumar' },
+          mgb: [
+            { party: 'INC', candidate: 'Omair Khan' },
+            { party: 'CPI', candidate: 'Shiv Kumar Yadav' },
+          ],
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Nalanda',
+          constituency: '173',
+          name: 'Rajgir (SC)',
+          nda: { party: 'JD(U)', candidate: 'Kaushal Kishore' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Biswanath Choudhary' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Nalanda',
+          constituency: '174',
+          name: 'Islampur',
+          nda: { party: 'JD(U)', candidate: 'Ruhel Ranjan' },
+          mgb: { party: 'RJD', candidate: 'Rakesh Kumar Raushan' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Nalanda',
+          constituency: '175',
+          name: 'Hilsa',
+          nda: { party: 'JD(U)', candidate: 'Krishnamurari Sharan' },
+          mgb: { party: 'RJD', candidate: 'Shaki Singh Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Nalanda',
+          constituency: '176',
+          name: 'Nalanda',
+          nda: { party: 'JD(U)', candidate: 'Shrawan Kumar' },
+          mgb: { party: 'INC', candidate: 'Kaushlendra Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Nalanda',
+          constituency: '177',
+          name: 'Harnaut',
+          nda: { party: 'JD(U)', candidate: 'Harinarayan Singh' },
+          mgb: { party: 'INC', candidate: 'Arun Kumar Bind' },
+        },
+
+        // Patna (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '178',
+          name: 'Mokama',
+          nda: { party: 'JD(U)', candidate: 'Anant Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Veena Devi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '179',
+          name: 'Barh',
+          nda: { party: 'BJP', candidate: 'Siyaram Singh' },
+          mgb: { party: 'RJD', candidate: 'Karnveer Singh Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '180',
+          name: 'Bakhtiarpur',
+          nda: { party: 'LJP(RV)', candidate: 'Arun Kumar' },
+          mgb: { party: 'RJD', candidate: 'Aniruddh Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '181',
+          name: 'Digha',
+          nda: { party: 'BJP', candidate: 'Sanjiv Chaurasiya' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Divya Gautam' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '182',
+          name: 'Bankipur',
+          nda: { party: 'BJP', candidate: 'Nitin Nabin' },
+          mgb: { party: 'RJD', candidate: 'Rekha Kumari' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '183',
+          name: 'Kumhrar',
+          nda: { party: 'BJP', candidate: 'Sanjay Gupta' },
+          mgb: { party: 'INC', candidate: 'Indradeep Chandravanshi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '184',
+          name: 'Patna Sahib',
+          nda: { party: 'BJP', candidate: 'Ratnesh Kushwaha' },
+          mgb: { party: 'INC', candidate: 'Shashant Shekar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '185',
+          name: 'Fatuha',
+          nda: { party: 'LJP(RV)', candidate: 'Roopa Kumari' },
+          mgb: { party: 'RJD', candidate: 'Ramanand Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '186',
+          name: 'Danapur',
+          nda: { party: 'BJP', candidate: 'Ram Kripal Yadav' },
+          mgb: { party: 'RJD', candidate: 'Ritlal Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '187',
+          name: 'Maner',
+          nda: { party: 'LJP(RV)', candidate: 'Jitendra Yadav' },
+          mgb: { party: 'RJD', candidate: 'Bhai Virendra' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '188',
+          name: 'Phulwari (SC)',
+          nda: { party: 'JD(U)', candidate: 'Shyam Rajak' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Gopal Ravidas' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '189',
+          name: 'Masaurhi (SC)',
+          nda: { party: 'JD(U)', candidate: 'Arun Manjhi' },
+          mgb: { party: 'RJD', candidate: 'Rekha Devi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '190',
+          name: 'Paliganj',
+          nda: { party: 'LJP(RV)', candidate: 'Sunil Kumar' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Sandeep Saurav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Patna',
+          constituency: '191',
+          name: 'Bikram',
+          nda: { party: 'BJP', candidate: 'Siddharth Saurav' },
+          mgb: { party: 'INC', candidate: 'Anil Kumar' },
+        },
+
+        // Bhojpur (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Bhojpur',
+          constituency: '192',
+          name: 'Sandesh',
+          nda: { party: 'JD(U)', candidate: 'Radha Charan Sah' },
+          mgb: { party: 'RJD', candidate: 'Dipu Singh' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Bhojpur',
+          constituency: '193',
+          name: 'Barhara',
+          nda: { party: 'BJP', candidate: 'Raghvendra Pratap Singh' },
+          mgb: { party: 'RJD', candidate: 'Ashok Kumar Singh' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Bhojpur',
+          constituency: '194',
+          name: 'Arrah',
+          nda: { party: 'BJP', candidate: 'Sanjay Singh Tiger' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Quyamuddin Ansar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Bhojpur',
+          constituency: '195',
+          name: 'Agiaon (SC)',
+          nda: { party: 'BJP', candidate: 'Mahesh Paswan' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Shiv Prakash Ranjan' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Bhojpur',
+          constituency: '196',
+          name: 'Tarari',
+          nda: { party: 'BJP', candidate: 'Vishal Prashant' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Madan Singh Chandravanshi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Bhojpur',
+          constituency: '197',
+          name: 'Jagdishpur',
+          nda: { party: 'JD(U)', candidate: 'Shri Bhagwan Singh Kushwaha' },
+          mgb: { party: 'RJD', candidate: 'Kishore Kunal' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Bhojpur',
+          constituency: '198',
+          name: 'Shahpur',
+          nda: { party: 'BJP', candidate: 'Rakesh Ojha' },
+          mgb: { party: 'RJD', candidate: 'Rahul Tiwari' },
+        },
+
+        // Buxar (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Buxar',
+          constituency: '199',
+          name: 'Brahampur',
+          nda: { party: 'LJP(RV)', candidate: 'Hulas Pandey' },
+          mgb: { party: 'RJD', candidate: 'Shambhu Nath Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Buxar',
+          constituency: '200',
+          name: 'Buxar',
+          nda: { party: 'BJP', candidate: 'Anand Mishra' },
+          mgb: { party: 'INC', candidate: 'Sanjay Kumar Tiwari' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Buxar',
+          constituency: '201',
+          name: 'Dumraon',
+          nda: { party: 'JD(U)', candidate: 'Rahul Singh' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Ajit Kushwaha' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Buxar',
+          constituency: '202',
+          name: 'Rajpur (SC)',
+          nda: { party: 'JD(U)', candidate: 'Santosh Kumar Nirala' },
+          mgb: { party: 'INC', candidate: 'Vishwanath Ram' },
+        },
+
+        // Kaimur (Nov 11)
+        {
+          votingDate: '11 November 2025',
+          district: 'Kaimur',
+          constituency: '203',
+          name: 'Ramgarh',
+          nda: { party: 'BJP', candidate: 'Ashok Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Ajit Singh' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Kaimur',
+          constituency: '204',
+          name: 'Mohania (SC)',
+          nda: { party: 'BJP', candidate: 'Sangita Kumari' },
+          mgb: { party: 'Ind', candidate: 'Ravi Paswan' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Kaimur',
+          constituency: '205',
+          name: 'Bhabua',
+          nda: { party: 'BJP', candidate: 'Bharat Bind' },
+          mgb: { party: 'RJD', candidate: 'Birender Kushwaha' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Kaimur',
+          constituency: '206',
+          name: 'Chainpur',
+          nda: { party: 'JD(U)', candidate: 'Mohd Zama Khan' },
+          mgb: [
+            { party: 'VIP', candidate: 'Bal Govind Bind' },
+            { party: 'RJD', candidate: 'Brij Kishore Bind' },
+          ],
+        },
+
+        // Rohtas (Nov 11)
+        {
+          votingDate: '11 November 2025',
+          district: 'Rohtas',
+          constituency: '207',
+          name: 'Chenari (SC)',
+          nda: { party: 'LJP(RV)', candidate: 'Murari Prasad Gautam' },
+          mgb: { party: 'INC', candidate: 'Mangal Ram' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Rohtas',
+          constituency: '208',
+          name: 'Sasaram',
+          nda: { party: 'RLM', candidate: 'Snehlata Kushwaha' },
+          mgb: { party: 'RJD', candidate: 'Satender Sah' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Rohtas',
+          constituency: '209',
+          name: 'Kargahar',
+          nda: { party: 'JD(U)', candidate: 'Bashisth Singh' },
+          mgb: [
+            { party: 'INC', candidate: 'Santosh Kumar Mishra' },
+            { party: 'CPI', candidate: 'Mahendra Prasad Gupta' },
+          ],
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Rohtas',
+          constituency: '210',
+          name: 'Dinara',
+          nda: { party: 'RLM', candidate: 'Alok Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Rajesh Yadav' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Rohtas',
+          constituency: '211',
+          name: 'Nokha',
+          nda: { party: 'JD(U)', candidate: 'Nagendra Chandravanshi' },
+          mgb: { party: 'RJD', candidate: 'Anita Devi' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Rohtas',
+          constituency: '212',
+          name: 'Dehri',
+          nda: { party: 'LJP(RV)', candidate: 'Rajeev Ranjan Singh' },
+          mgb: { party: 'RJD', candidate: 'Guddu Chandravanshi' },
+        },
+        {
+          votingDate: '11 November 2025',
+          district: 'Rohtas',
+          constituency: '213',
+          name: 'Karakat',
+          nda: { party: 'JD(U)', candidate: 'Mahabali Singh' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Arun Singh Kushwaha' },
+        },
+
+        // Arwal (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Arwal',
+          constituency: '214',
+          name: 'Arwal',
+          nda: { party: 'BJP', candidate: 'Manoj Kumar' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Maha Nand Singh' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Arwal',
+          constituency: '215',
+          name: 'Kurtha',
+          nda: { party: 'JD(U)', candidate: 'Pappu Verma' },
+          mgb: { party: 'RJD', candidate: 'Suday Yadav' },
+        },
+
+        // Jehanabad (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Jehanabad',
+          constituency: '216',
+          name: 'Jehanabad',
+          nda: { party: 'JD(U)', candidate: 'Chandeshwar Prasad' },
+          mgb: { party: 'RJD', candidate: 'Rahul Sharma' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Jehanabad',
+          constituency: '217',
+          name: 'Ghosi',
+          nda: { party: 'JD(U)', candidate: 'Rituraj Kumar' },
+          mgb: { party: 'CPI(ML)L', candidate: 'Ram Bali Singh Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Jehanabad',
+          constituency: '218',
+          name: 'Makhdumpur (SC)',
+          nda: { party: 'LJP(RV)', candidate: 'Rani Kumari' },
+          mgb: { party: 'RJD', candidate: 'Subedar Das' },
+        },
+
+        // Aurangabad (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Aurangabad',
+          constituency: '219',
+          name: 'Goh',
+          nda: { party: 'BJP', candidate: 'Ranvijay Kumar' },
+          mgb: { party: 'RJD', candidate: 'Amrender Kushwaha' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Aurangabad',
+          constituency: '220',
+          name: 'Obra',
+          nda: { party: 'LJP(RV)', candidate: 'Prakash Chandra' },
+          mgb: { party: 'RJD', candidate: 'Rishi Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Aurangabad',
+          constituency: '221',
+          name: 'Nabinagar',
+          nda: { party: 'JD(U)', candidate: 'Chetan Anand' },
+          mgb: { party: 'RJD', candidate: 'Amod Chandravanshi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Aurangabad',
+          constituency: '222',
+          name: 'Kutumba (SC)',
+          nda: { party: 'HAM(S)', candidate: 'Lalan Ram' },
+          mgb: { party: 'INC', candidate: 'Rajesh Ram' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Aurangabad',
+          constituency: '223',
+          name: 'Aurangabad',
+          nda: { party: 'BJP', candidate: 'Trivikram Singh' },
+          mgb: { party: 'INC', candidate: 'Anand Shankar Singh' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Aurangabad',
+          constituency: '224',
+          name: 'Rafiganj',
+          nda: { party: 'JD(U)', candidate: 'Pramod Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Dr. Ghulam Shahid' },
+        },
+
+        // Gaya (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Gaya',
+          constituency: '225',
+          name: 'Gurua',
+          nda: { party: 'BJP', candidate: 'Upendra Prasad' },
+          mgb: { party: 'RJD', candidate: 'Vinay Kumar' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gaya',
+          constituency: '226',
+          name: 'Sherghati',
+          nda: { party: 'LJP(RV)', candidate: 'Uday Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Pramod Verma' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gaya',
+          constituency: '227',
+          name: 'Imamganj (SC)',
+          nda: { party: 'HAM(S)', candidate: 'Deepa Manjhi' },
+          mgb: { party: 'RJD', candidate: 'Ritu Priya Chaudhary' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gaya',
+          constituency: '228',
+          name: 'Barachatti (SC)',
+          nda: { party: 'HAM(S)', candidate: 'Jyoti Devi' },
+          mgb: { party: 'RJD', candidate: 'Tanushree Manjhi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gaya',
+          constituency: '229',
+          name: 'Bodh Gaya (SC)',
+          nda: { party: 'LJP(RV)', candidate: 'Shyam Deo Paswan' },
+          mgb: { party: 'RJD', candidate: 'Kumar Sarvjit Paswan' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gaya',
+          constituency: '230',
+          name: 'Gaya Town',
+          nda: { party: 'BJP', candidate: 'Prem Kumar' },
+          mgb: { party: 'INC', candidate: 'Mohan Shrivasta' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gaya',
+          constituency: '231',
+          name: 'Tikari',
+          nda: { party: 'HAM(S)', candidate: 'Anil Kumar' },
+          mgb: { party: 'RJD', candidate: 'Ajay Dangi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gaya',
+          constituency: '232',
+          name: 'Belaganj',
+          nda: { party: 'JD(U)', candidate: 'Manorama Devi' },
+          mgb: { party: 'RJD', candidate: 'Vishwanath Kumar Singh' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gaya',
+          constituency: '233',
+          name: 'Atri',
+          nda: { party: 'HAM(S)', candidate: 'Romit Kumar' },
+          mgb: { party: 'RJD', candidate: 'Vaijayanti Devi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Gaya',
+          constituency: '234',
+          name: 'Wazirganj',
+          nda: { party: 'BJP', candidate: 'Birendra Singh' },
+          mgb: { party: 'INC', candidate: 'Awadhesh Singh' },
+        },
+
+        // Nawada (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Nawada',
+          constituency: '235',
+          name: 'Rajauli (SC)',
+          nda: { party: 'LJP(RV)', candidate: 'Vimala Rajvanshi' },
+          mgb: { party: 'RJD', candidate: 'Pinki Chaudhary' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Nawada',
+          constituency: '236',
+          name: 'Hisua',
+          nda: { party: 'BJP', candidate: 'Anil Singh' },
+          mgb: { party: 'INC', candidate: 'Nitu Kumari' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Nawada',
+          constituency: '237',
+          name: 'Nawada',
+          nda: { party: 'JD(U)', candidate: 'Vibha Devi Yadav' },
+          mgb: { party: 'RJD', candidate: 'Kaushal Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Nawada',
+          constituency: '238',
+          name: 'Gobindpur',
+          nda: { party: 'LJP(RV)', candidate: 'Binita Mahato' },
+          mgb: { party: 'RJD', candidate: 'Purnima Devi' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Nawada',
+          constituency: '239',
+          name: 'Warisaliganj',
+          nda: { party: 'BJP', candidate: 'Aruna Devi' },
+          mgb: { party: 'RJD', candidate: 'Anita Devi Mahato' },
+        },
+
+        // Jamui (Nov 6)
+        {
+          votingDate: '6 November 2025',
+          district: 'Jamui',
+          constituency: '240',
+          name: 'Sikandra (SC)',
+          nda: { party: 'HAM(S)', candidate: 'Prafull Manjhi' },
+          mgb: [
+            { party: 'INC', candidate: 'Vinod Kumar Chaudhary' },
+            { party: 'RJD', candidate: 'Uday Narain Choudhary' },
+          ],
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Jamui',
+          constituency: '241',
+          name: 'Jamui',
+          nda: { party: 'BJP', candidate: 'Shreyasi Singh' },
+          mgb: { party: 'RJD', candidate: 'Shamshad Alam' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Jamui',
+          constituency: '242',
+          name: 'Jhajha',
+          nda: { party: 'JD(U)', candidate: 'Damodar Rawat' },
+          mgb: { party: 'RJD', candidate: 'Jai Prakash Yadav' },
+        },
+        {
+          votingDate: '6 November 2025',
+          district: 'Jamui',
+          constituency: '243',
+          name: 'Chakai',
+          nda: { party: 'JD(U)', candidate: 'Sumit Kumar Singh' },
+          mgb: { party: 'RJD', candidate: 'Savitri Devi' },
+        },
+      ];
+
+      // Function to render constituencies
+      function renderConstituencies(data) {
+        const container = document.getElementById('constituenciesContainer');
+        container.innerHTML = '';
+
+        // Update results count
+        document.getElementById(
+          'resultsCount',
+        ).textContent = `Showing ${data.length} of ${electionData.length} constituencies`;
+
+        data.forEach((item) => {
+          const card = document.createElement('div');
+          card.className = 'neon-card rounded-xl p-6';
+
+          // Format MGB candidates if there are multiple
+          let mgbCandidates = '';
+          if (Array.isArray(item.mgb)) {
+            mgbCandidates = item.mgb
+              .map(
+                (candidate) =>
+                  `<div class="mb-2">
+                            <span class="party-mgb font-semibold">${candidate.party}</span>: ${candidate.candidate}
+                        </div>`,
+              )
+              .join('');
+          } else {
+            mgbCandidates = `
+                        <div class="mb-2">
+                            <span class="party-mgb font-semibold">${item.mgb.party}</span>: ${item.mgb.candidate}
+                        </div>
+                    `;
+          }
+
+          card.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="voting-date text-sm font-semibold">${item.votingDate}</span>
+                            <div class="district-name text-lg font-bold mt-1">${item.district}</div>
+                        </div>
+                        <div class="constituency-number text-2xl">${item.constituency}</div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-white mb-4">${item.name}</h3>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-indigo-900/30 p-3 rounded-lg">
+                            <div class="text-center party-nda font-bold mb-2">NDA</div>
+                            <div class="text-center">
+                                <span class="font-semibold">${item.nda.party}</span><br>
+                                ${item.nda.candidate}
+                            </div>
+                        </div>
+                        
+                        <div class="bg-indigo-900/30 p-3 rounded-lg">
+                            <div class="text-center party-mgb font-bold mb-2">MGB</div>
+                            <div class="text-center">
+                                ${mgbCandidates}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+          container.appendChild(card);
+        });
+      }
+
+      // Initial render
+      renderConstituencies(electionData);
+
+      // Search functionality
+      document
+        .getElementById('searchInput')
+        .addEventListener('input', function (e) {
+          const searchTerm = e.target.value.toLowerCase();
+
+          if (searchTerm === '') {
+            renderConstituencies(electionData);
+            return;
+          }
+
+          const filteredData = electionData.filter(
+            (item) =>
+              item.district.toLowerCase().includes(searchTerm) ||
+              item.name.toLowerCase().includes(searchTerm) ||
+              item.nda.candidate.toLowerCase().includes(searchTerm) ||
+              (Array.isArray(item.mgb)
+                ? item.mgb.some((candidate) =>
+                    candidate.candidate.toLowerCase().includes(searchTerm),
+                  )
+                : item.mgb.candidate.toLowerCase().includes(searchTerm)),
+          );
+
+          renderConstituencies(filteredData);
+        });
+
+      // Filter by voting date
+      document.querySelectorAll('.filter-btn').forEach((button) => {
+        button.addEventListener('click', function () {
+          const filter = this.getAttribute('data-filter');
+
+          let filteredData;
+          if (filter === 'all') {
+            filteredData = electionData;
+          } else if (filter === 'nov6') {
+            filteredData = electionData.filter(
+              (item) => item.votingDate === '6 November 2025',
+            );
+          } else if (filter === 'nov11') {
+            filteredData = electionData.filter(
+              (item) => item.votingDate === '11 November 2025',
+            );
+          }
+
+          renderConstituencies(filteredData);
+        });
+      });
+
+      // Scroll to top functionality
+      document
+        .getElementById('scrollToTop')
+        .addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+      // Show/hide scroll to top button based on scroll position
+      window.addEventListener('scroll', function () {
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        if (window.pageYOffset > 300) {
+          scrollToTopBtn.style.display = 'flex';
+        } else {
+          scrollToTopBtn.style.display = 'none';
+        }
+      });
+    </script>
+  </body>
+</html>
