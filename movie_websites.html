@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Movie Sites</title>
+    <title>Movie Sites - Enhanced</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -180,29 +180,246 @@
         border: 1px solid rgba(0, 247, 255, 0.2);
         box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
       }
+
+      /* Enhanced features styles */
+      .rating-stars {
+        display: flex;
+        gap: 2px;
+        margin: 8px 0;
+      }
+
+      .star {
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .star:hover {
+        transform: scale(1.2);
+      }
+
+      .favorite-btn {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: none;
+        border: none;
+        color: #6b7280;
+      }
+
+      .favorite-btn.active {
+        color: #ef4444;
+        text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+      }
+
+      .notes-textarea {
+        background: rgba(15, 23, 42, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 12px;
+        resize: vertical;
+        min-height: 60px;
+        color: #e5e7eb;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 8px;
+      }
+
+      .notes-textarea:focus {
+        outline: none;
+        border-color: rgba(255, 68, 68, 0.5);
+        box-shadow: 0 0 5px rgba(255, 68, 68, 0.3);
+      }
+
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+        padding: 16px;
+      }
+
+      .modal-content {
+        width: 100%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        background: rgba(15, 23, 42, 0.9);
+        border-radius: 16px;
+        padding: 20px;
+        border: 1px solid rgba(255, 68, 68, 0.3);
+        box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+      }
+
+      .filter-btn {
+        transition: all 0.3s ease;
+      }
+
+      .filter-btn.active {
+        background: rgba(255, 68, 68, 0.2);
+        box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+        border-color: rgba(255, 68, 68, 0.7);
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 4px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+      }
+
+      .action-buttons button {
+        flex: 1;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 0.75rem;
+        padding: 6px 8px;
+      }
+
+      /* Mobile-specific styles */
+      @media (max-width: 640px) {
+        body {
+          padding: 12px;
+        }
+
+        .neon-card {
+          padding: 12px;
+        }
+
+        .icon-container {
+          width: 36px;
+          height: 36px;
+          margin-right: 10px;
+        }
+
+        .notes-textarea {
+          font-size: 14px;
+          min-height: 70px;
+        }
+
+        .action-buttons {
+          gap: 4px;
+          margin-top: 8px;
+        }
+
+        .modal-content {
+          margin: 0 8px;
+          padding: 16px;
+        }
+
+        .modal-overlay {
+          padding: 12px;
+        }
+
+        .top-picks-section .grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+
+        .pick-card {
+          padding: 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card-content {
+          flex-direction: column;
+        }
+
+        .icon-container {
+          align-self: flex-start;
+          margin-bottom: 10px;
+        }
+
+        .card-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .card-title {
+          margin-bottom: 8px;
+        }
+
+        .action-buttons {
+          width: 100%;
+        }
+
+        .action-buttons button {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .top-picks-section .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Tablet-specific styles */
+      @media (min-width: 641px) and (max-width: 1024px) {
+        .notes-textarea {
+          font-size: 13px;
+        }
+
+        .top-picks-section .grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      /* Card layout improvements */
+      .card-content {
+        display: flex;
+      }
+
+      .card-details {
+        flex: 1;
+        min-width: 0; /* Prevent flex item from overflowing */
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+      }
+
+      .card-title {
+        flex: 1;
+        margin-right: 8px;
+        word-break: break-word;
+      }
     </style>
   </head>
-  <body class="min-h-screen py-8 px-4">
+  <body class="min-h-screen py-4 sm:py-8 px-3 sm:px-4">
     <div class="max-w-6xl mx-auto">
       <!-- Header -->
-      <header class="text-center mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold neon-text mb-4">
+      <header class="text-center mb-8 sm:mb-12">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold neon-text mb-4">
           Movie Websites
         </h1>
-        <p class="text-lg text-red-200 max-w-2xl mx-auto">
+        <p class="text-base sm:text-lg text-red-200 max-w-2xl mx-auto">
           Download or Stream any movies
         </p>
 
         <!-- Warning Section -->
-        <div class="hero-section p-6 mt-8 max-w-4xl mx-auto">
+        <div class="hero-section p-4 sm:p-6 mt-6 sm:mt-8 max-w-4xl mx-auto">
           <div class="text-center">
             <div
-              class="w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-red-700 flex items-center justify-center mx-auto mb-4"
+              class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-red-500 to-red-700 flex items-center justify-center mx-auto mb-3 sm:mb-4"
             >
-              <i class="fas fa-shield-alt text-white text-2xl"></i>
+              <i class="fas fa-shield-alt text-white text-xl sm:text-2xl"></i>
             </div>
-            <h2 class="text-2xl font-bold text-red-300 mb-2">Movies list 👇</h2>
-            <p class="text-red-100">
+            <h2 class="text-xl sm:text-2xl font-bold text-red-300 mb-2">
+              Movies list 👇
+            </h2>
+            <p class="text-red-100 text-sm sm:text-base">
               Best websites are mentioned in this list for downloading and
               streaming worldwide movies.
             </p>
@@ -210,346 +427,673 @@
         </div>
 
         <!-- Search Bar -->
-        <div class="mt-8 max-w-xl mx-auto">
+        <div class="mt-6 sm:mt-8 max-w-xl mx-auto">
           <div class="relative">
             <input
               type="text"
               id="searchInput"
               placeholder="Search for a website.."
-              class="w-full py-3 px-4 pr-10 rounded-lg search-input focus:outline-none"
+              class="w-full py-2 sm:py-3 px-4 pr-10 rounded-lg search-input focus:outline-none text-sm sm:text-base"
             />
-            <i class="fas fa-search absolute right-3 top-3 text-red-400"></i>
+            <i
+              class="fas fa-search absolute right-3 top-2.5 sm:top-3 text-red-400"
+            ></i>
           </div>
         </div>
 
         <!-- Category Filters -->
-        <div class="flex flex-wrap justify-center gap-2 mt-6">
+        <div class="flex flex-wrap justify-center gap-2 mt-4 sm:mt-6">
           <button
-            class="category-btn active px-4 py-2 rounded-lg"
+            class="category-btn active px-3 sm:px-4 py-2 rounded-lg text-sm"
             data-category="all"
           >
             All Sites
           </button>
           <button
-            class="category-btn px-4 py-2 rounded-lg"
+            class="category-btn px-3 sm:px-4 py-2 rounded-lg text-sm"
             data-category="streaming"
           >
             Streaming
           </button>
           <button
-            class="category-btn px-4 py-2 rounded-lg"
+            class="category-btn px-3 sm:px-4 py-2 rounded-lg text-sm"
             data-category="torrent"
           >
             Torrent
           </button>
           <button
-            class="category-btn px-4 py-2 rounded-lg"
+            class="category-btn px-3 sm:px-4 py-2 rounded-lg text-sm"
             data-category="download"
           >
             Download
           </button>
           <button
-            class="category-btn px-4 py-2 rounded-lg"
+            class="category-btn px-3 sm:px-4 py-2 rounded-lg text-sm"
             data-category="bollywood"
           >
             Bollywood
+          </button>
+          <button
+            id="favoritesFilter"
+            class="filter-btn px-3 sm:px-4 py-2 rounded-lg text-sm"
+          >
+            <i class="fas fa-heart"></i> Favorites
+          </button>
+          <button
+            id="addSiteBtn"
+            class="px-3 sm:px-4 py-2 rounded-lg text-sm bg-red-600 hover:bg-red-700"
+          >
+            <i class="fas fa-plus"></i> Add Site
           </button>
         </div>
       </header>
 
       <!-- Sites Grid -->
       <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
         id="sitesContainer"
       >
         <!-- Sites will be dynamically inserted here -->
       </div>
 
       <!-- Top Picks Section -->
-      <div class="top-picks-section p-6 mt-12 max-w-4xl mx-auto">
-        <div class="text-center mb-6">
-          <h2 class="text-3xl font-bold text-cyan-300 mb-2">
+      <div class="top-picks-section p-4 sm:p-6 mt-8 sm:mt-12 max-w-4xl mx-auto">
+        <div class="text-center mb-4 sm:mb-6">
+          <h2 class="text-2xl sm:text-3xl font-bold text-cyan-300 mb-2">
             Top 5 Picks from this List
           </h2>
-          <p class="text-cyan-200">
+          <p class="text-cyan-200 text-sm sm:text-base">
             Based on popularity, content quality, and user experience
           </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          <div class="pick-card rounded-lg p-4 text-center">
+        <div
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4"
+        >
+          <div class="pick-card rounded-lg p-3 sm:p-4 text-center">
             <div
-              class="w-12 h-12 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center mx-auto mb-3"
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center mx-auto mb-2 sm:mb-3"
             >
-              <i class="fas fa-crown text-white"></i>
+              <i class="fas fa-crown text-white text-sm sm:text-base"></i>
             </div>
-            <h3 class="font-bold text-yellow-300">1. YTS</h3>
+            <h3 class="font-bold text-yellow-300 text-sm sm:text-base">
+              1. YTS
+            </h3>
             <p class="text-xs text-gray-300 mt-1">
               High-quality small file sizes
             </p>
           </div>
-          <div class="pick-card rounded-lg p-4 text-center">
+          <div class="pick-card rounded-lg p-3 sm:p-4 text-center">
             <div
-              class="w-12 h-12 rounded-full bg-gradient-to-r from-gray-500 to-gray-700 flex items-center justify-center mx-auto mb-3"
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-gray-500 to-gray-700 flex items-center justify-center mx-auto mb-2 sm:mb-3"
             >
-              <i class="fas fa-trophy text-white"></i>
+              <i class="fas fa-trophy text-white text-sm sm:text-base"></i>
             </div>
-            <h3 class="font-bold text-gray-300">2. 1337x</h3>
+            <h3 class="font-bold text-gray-300 text-sm sm:text-base">
+              2. 1337x
+            </h3>
             <p class="text-xs text-gray-300 mt-1">Massive torrent collection</p>
           </div>
-          <div class="pick-card rounded-lg p-4 text-center">
+          <div class="pick-card rounded-lg p-3 sm:p-4 text-center">
             <div
-              class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mx-auto mb-3"
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mx-auto mb-2 sm:mb-3"
             >
-              <i class="fas fa-video text-white"></i>
+              <i class="fas fa-video text-white text-sm sm:text-base"></i>
             </div>
-            <h3 class="font-bold text-blue-300">3. FMovies</h3>
+            <h3 class="font-bold text-blue-300 text-sm sm:text-base">
+              3. FMovies
+            </h3>
             <p class="text-xs text-gray-300 mt-1">Best streaming interface</p>
           </div>
-          <div class="pick-card rounded-lg p-4 text-center">
+          <div class="pick-card rounded-lg p-3 sm:p-4 text-center">
             <div
-              class="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center mx-auto mb-3"
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center mx-auto mb-2 sm:mb-3"
             >
-              <i class="fas fa-film text-white"></i>
+              <i class="fas fa-film text-white text-sm sm:text-base"></i>
             </div>
-            <h3 class="font-bold text-green-300">4. TamilRockers</h3>
+            <h3 class="font-bold text-green-300 text-sm sm:text-base">
+              4. TamilRockers
+            </h3>
             <p class="text-xs text-gray-300 mt-1">Indian content specialist</p>
           </div>
-          <div class="pick-card rounded-lg p-4 text-center">
+          <div class="pick-card rounded-lg p-3 sm:p-4 text-center">
             <div
-              class="w-12 h-12 rounded-full bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center mx-auto mb-3"
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center mx-auto mb-2 sm:mb-3"
             >
-              <i class="fas fa-bolt text-white"></i>
+              <i class="fas fa-bolt text-white text-sm sm:text-base"></i>
             </div>
-            <h3 class="font-bold text-red-300">5. Vegamovies</h3>
+            <h3 class="font-bold text-red-300 text-sm sm:text-base">
+              5. Vegamovies
+            </h3>
             <p class="text-xs text-gray-300 mt-1">Latest releases quickly</p>
           </div>
         </div>
       </div>
 
       <!-- Footer -->
-      <footer class="mt-12 text-center text-red-200 text-sm">
+      <footer class="mt-8 sm:mt-12 text-center text-red-200 text-sm">
         <p class="mb-2">Thanks for visiting this websites</p>
         <p>Made with <i class="fas fa-shield-alt text-red-500"></i>by @mit</p>
+        <button
+          id="exportBtn"
+          class="mt-4 px-4 py-2 rounded-lg text-sm bg-red-600 hover:bg-red-700"
+        >
+          <i class="fas fa-download"></i> Export Data
+        </button>
       </footer>
     </div>
 
+    <!-- Add/Edit Site Modal -->
+    <div id="siteModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg sm:text-xl font-bold text-red-300" id="modalTitle">
+            Add New Site
+          </h3>
+          <button
+            id="closeModal"
+            class="p-2 rounded-lg hover:bg-white/10 text-red-300"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="siteForm" class="space-y-4">
+          <div>
+            <label class="block text-sm mb-2 text-red-200">Site Name</label>
+            <input
+              type="text"
+              id="siteName"
+              class="w-full bg-blue-800 rounded-lg py-2 px-3 search-box text-sm outline-none"
+              placeholder="Enter site name"
+              required
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm mb-2 text-red-200">URL</label>
+            <input
+              type="url"
+              id="siteUrl"
+              class="w-full bg-blue-800 rounded-lg py-2 px-3 search-box text-sm outline-none"
+              placeholder="https://example.com"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm mb-2 text-red-200">Category</label>
+            <div class="flex gap-2 flex-wrap">
+              <label class="flex items-center text-sm">
+                <input
+                  type="radio"
+                  name="siteCategory"
+                  value="streaming"
+                  class="mr-2"
+                />
+                <span>Streaming</span>
+              </label>
+              <label class="flex items-center text-sm">
+                <input
+                  type="radio"
+                  name="siteCategory"
+                  value="torrent"
+                  class="mr-2"
+                />
+                <span>Torrent</span>
+              </label>
+              <label class="flex items-center text-sm">
+                <input
+                  type="radio"
+                  name="siteCategory"
+                  value="download"
+                  class="mr-2"
+                />
+                <span>Download</span>
+              </label>
+              <label class="flex items-center text-sm">
+                <input
+                  type="radio"
+                  name="siteCategory"
+                  value="bollywood"
+                  class="mr-2"
+                  checked
+                />
+                <span>Bollywood</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm mb-2 text-red-200"
+              >Icon (Font Awesome class)</label
+            >
+            <input
+              type="text"
+              id="siteIcon"
+              class="w-full bg-blue-800 rounded-lg py-2 px-3 search-box text-sm outline-none"
+              placeholder="fa-film"
+              value="fa-film"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm mb-2 text-red-200">Description</label>
+            <textarea
+              id="siteDescription"
+              class="w-full bg-blue-800 rounded-lg py-2 px-3 search-box text-sm outline-none"
+              placeholder="Enter site description"
+              rows="2"
+            ></textarea>
+          </div>
+
+          <div class="flex justify-end gap-3 pt-4">
+            <button
+              type="button"
+              id="cancelBtn"
+              class="px-4 py-2 rounded-lg text-sm bg-gray-600 hover:bg-gray-700"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 rounded-lg text-sm bg-red-600 hover:bg-red-700"
+            >
+              Save Site
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script>
-      // Pirated Sites data - Updated with additional sites
-      const piratedSites = [
+      let movieSites = [
         {
+          id: 1,
           name: 'TamilRockers',
           category: 'torrent',
           icon: 'fa-film',
           description: 'Popular torrent site for Tamil and other Indian movies',
           type: 'Movie Torrents',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 2,
           name: 'MovieRulz',
           category: 'streaming',
           icon: 'fa-play-circle',
           description: 'Streaming site for Telugu, Tamil, and Hindi movies',
           type: 'Movie Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 3,
           name: 'Filmywap',
           category: 'download',
           icon: 'fa-download',
           description:
             'Download Bollywood and Hollywood movies in various qualities',
           type: 'Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 4,
           name: 'Filmyzilla',
           category: 'download',
           icon: 'fa-file-download',
           description:
             'Movie download site with dual audio and multiple resolutions',
           type: 'Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 5,
           name: '123Movies',
           category: 'streaming',
           icon: 'fa-tv',
           description: 'Large streaming platform for movies and TV shows',
           type: 'Movie & TV Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 6,
           name: 'FMovies',
           category: 'streaming',
           icon: 'fa-video',
           description: 'Popular streaming site with extensive movie library',
           type: 'Movie Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 7,
           name: 'Putlocker',
           category: 'streaming',
           icon: 'fa-lock-open',
           description: 'Long-running streaming service for movies and series',
           type: 'Movie & TV Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 8,
           name: 'HDHub4u',
           category: 'download',
           icon: 'fa-hdd',
           description: 'HD movie downloads in various formats and sizes',
           type: 'HD Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 9,
           name: 'YTS',
           category: 'torrent',
           icon: 'fa-magnet',
           description: 'Torrent site specializing in small-size HD movies',
           type: 'Movie Torrents',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 10,
           name: 'Bolly4u',
           category: 'bollywood',
           icon: 'fa-bolt',
           description: 'Bollywood movie downloads and streaming',
           type: 'Bollywood Content',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 11,
           name: 'KatMovieHD',
           category: 'streaming',
           icon: 'fa-cat',
           description: 'Streaming and download site for Hollywood movies',
           type: 'Movie Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 12,
           name: 'WorldFree4u',
           category: 'download',
           icon: 'fa-globe',
           description: 'Movie download portal with regional content',
           type: 'Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 13,
           name: 'OkJatt',
           category: 'bollywood',
           icon: 'fa-music',
           description: 'Punjabi and Bollywood movie download site',
           type: 'Bollywood Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 14,
           name: 'DesireMovies',
           category: 'download',
           icon: 'fa-heart',
           description: 'Movie download site with latest releases',
           type: 'Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 15,
           name: '9xMovies',
           category: 'download',
           icon: 'fa-star',
           description: 'Bollywood and Hollywood movie download portal',
           type: 'Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 16,
           name: 'SkyMoviesHD',
           category: 'download',
           icon: 'fa-cloud-download-alt',
           description: 'HD movie downloads with fast servers',
           type: 'HD Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 17,
           name: 'LimeTorrents',
           category: 'torrent',
           icon: 'fa-torrent',
           description: 'General torrent site with movies and software',
           type: 'General Torrents',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 18,
           name: 'GoMovies',
           category: 'streaming',
           icon: 'fa-arrow-right',
           description: 'Movie streaming platform with clean interface',
           type: 'Movie Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 19,
           name: '1337x',
           category: 'torrent',
           icon: 'fa-skull',
           description: 'Popular torrent index for movies and TV shows',
           type: 'Movie & TV Torrents',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
-        // Newly added sites
         {
+          id: 20,
           name: 'Multimovies',
           category: 'streaming',
           icon: 'fa-layer-group',
           description: 'Multi-language movie streaming platform',
           type: 'Multi-language Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 21,
           name: 'Luxcinema',
           category: 'streaming',
           icon: 'fa-crown',
           description: 'Premium quality movie streaming service',
           type: 'HD Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 22,
           name: 'UHDmovies',
           category: 'download',
           icon: 'fa-hd-video',
           description: 'Ultra HD movie downloads in 4K quality',
           type: '4K Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 23,
           name: 'Downloadhub',
           category: 'download',
           icon: 'fa-download',
           description: 'Movie download hub with various quality options',
           type: 'Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 24,
           name: 'Yupmovies',
           category: 'streaming',
           icon: 'fa-thumbs-up',
           description: 'User-friendly streaming site with ratings',
           type: 'Movie Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 25,
           name: 'Vegamovies',
           category: 'download',
           icon: 'fa-bolt',
           description: 'Fast movie downloads with latest releases',
           type: 'Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 26,
           name: 'Netmirror',
           category: 'download',
           icon: 'fa-mirror',
           description: 'Mirror site for various movie downloads',
           type: 'Movie Downloads',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 27,
           name: 'Moviebox',
           category: 'streaming',
           icon: 'fa-box',
           description: 'All-in-one movie streaming application',
           type: 'Movie Streaming App',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 28,
           name: 'Filmyfly',
           category: 'streaming',
           icon: 'fa-plane',
           description: 'Fast streaming site with quick loading',
           type: 'Movie Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 29,
           name: 'Flixfox',
           category: 'streaming',
           icon: 'fa-fox',
           description: 'Smart streaming platform with recommendations',
           type: 'Movie Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
         {
+          id: 30,
           name: 'Watchout',
           category: 'streaming',
           icon: 'fa-binoculars',
           description: 'Movie streaming with watchlist features',
           type: 'Movie Streaming',
+          rating: 0,
+          favorite: false,
+          notes: '',
+          url: '',
         },
       ];
+      // Load data from localStorage if available
+      function loadData() {
+        const savedData = localStorage.getItem('movieSitesData');
+        if (savedData) {
+          movieSites = JSON.parse(savedData);
+        }
+      }
+
+      // Save data to localStorage
+      function saveData() {
+        localStorage.setItem('movieSitesData', JSON.stringify(movieSites));
+      }
+
+      // Generate star rating HTML
+      function generateStars(rating, siteId) {
+        let starsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+          const isFilled = i <= rating;
+          starsHtml += `<i class="fas fa-star star ${
+            isFilled ? 'text-yellow-400' : 'text-gray-500'
+          }" 
+                          data-rating="${i}" data-site="${siteId}"></i>`;
+        }
+        return starsHtml;
+      }
 
       // Function to open Google search - ONLY THE SITE NAME
       function searchOnGoogle(siteName) {
@@ -567,22 +1111,33 @@
           siteElement.className = 'gradient-border';
 
           siteElement.innerHTML = `
-                    <div class="neon-card rounded-lg p-4 h-full flex flex-col">
+                    <div class="neon-card rounded-lg p-3 sm:p-4 h-full flex flex-col">
                         <div class="site-link block flex-grow" data-name="${
                           site.name
                         }">
-                            <div class="flex items-center justify-between mb-3">
+                            <div class="card-header">
                                 <div class="flex items-center">
                                     <div class="icon-container">
                                         <i class="fas ${
                                           site.icon
                                         } text-red-400"></i>
                                     </div>
-                                    <h3 class="text-xl font-bold text-red-300">${
+                                    <h3 class="card-title text-lg sm:text-xl font-bold text-red-300">${
                                       site.name
                                     }</h3>
                                 </div>
-                                <span class="warning-badge">BLOCK</span>
+                                <button class="favorite-btn ${
+                                  site.favorite ? 'active' : ''
+                                }" data-id="${site.id}">
+                                    <i class="fas fa-heart ${
+                                      site.favorite
+                                        ? 'text-red-500'
+                                        : 'text-gray-500'
+                                    }"></i>
+                                </button>
+                            </div>
+                            <div class="rating-stars">
+                                ${generateStars(site.rating, site.id)}
                             </div>
                             <p class="text-sm text-gray-300 mb-3">${
                               site.description
@@ -596,12 +1151,26 @@
                                       site.type
                                     }</span>
                                 </div>
-                                <button class="google-search-btn w-full mt-3 px-3 py-2 rounded-lg text-sm flex items-center justify-center" data-name="${
-                                  site.name
-                                }">
-                                    <i class="fab fa-google mr-2 text-blue-400"></i>
-                                    Search on Google
-                                </button>
+                                <div class="action-buttons">
+                                    <button class="edit-btn google-search-btn px-2 py-1 rounded text-xs" data-id="${
+                                      site.id
+                                    }">
+                                        <i class="fas fa-edit mr-1"></i> Edit
+                                    </button>
+                                    <button class="google-search-btn px-2 py-1 rounded text-xs" data-name="${
+                                      site.name
+                                    }">
+                                        <i class="fab fa-google mr-1"></i> Search
+                                    </button>
+                                    <button class="delete-btn google-search-btn px-2 py-1 rounded text-xs" data-id="${
+                                      site.id
+                                    }">
+                                        <i class="fas fa-trash mr-1"></i> Delete
+                                    </button>
+                                </div>
+                                <textarea class="notes-textarea" placeholder="Add notes..." data-id="${
+                                  site.id
+                                }">${site.notes || ''}</textarea>
                             </div>
                         </div>
                     </div>
@@ -610,10 +1179,52 @@
           container.appendChild(siteElement);
         });
 
+        // Add event listeners for enhanced features
+        document.querySelectorAll('.favorite-btn').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const siteId = parseInt(btn.getAttribute('data-id'));
+            toggleFavorite(siteId);
+          });
+        });
+
+        document.querySelectorAll('.star').forEach((star) => {
+          star.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const rating = parseInt(star.getAttribute('data-rating'));
+            const siteId = parseInt(star.getAttribute('data-site'));
+            setRating(siteId, rating);
+          });
+        });
+
+        document.querySelectorAll('.edit-btn').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const siteId = parseInt(btn.getAttribute('data-id'));
+            openModal(siteId);
+          });
+        });
+
+        document.querySelectorAll('.delete-btn').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const siteId = parseInt(btn.getAttribute('data-id'));
+            deleteSite(siteId);
+          });
+        });
+
+        document.querySelectorAll('.notes-textarea').forEach((textarea) => {
+          textarea.addEventListener('change', (e) => {
+            const siteId = parseInt(textarea.getAttribute('data-id'));
+            const notes = textarea.value;
+            updateNotes(siteId, notes);
+          });
+        });
+
         // Add click event to all site cards
         document.querySelectorAll('.site-link').forEach((card) => {
           card.addEventListener('click', (e) => {
-            if (!e.target.closest('button')) {
+            if (!e.target.closest('button') && !e.target.closest('textarea')) {
               const siteName = card.getAttribute('data-name');
               searchOnGoogle(siteName);
             }
@@ -621,13 +1232,17 @@
         });
 
         // Add click event to all search buttons
-        document.querySelectorAll('.google-search-btn').forEach((button) => {
-          button.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const siteName = button.getAttribute('data-name');
-            searchOnGoogle(siteName);
+        document
+          .querySelectorAll(
+            '.google-search-btn:not(.edit-btn):not(.delete-btn)',
+          )
+          .forEach((button) => {
+            button.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const siteName = button.getAttribute('data-name');
+              searchOnGoogle(siteName);
+            });
           });
-        });
       }
 
       // Helper functions for categories
@@ -662,16 +1277,23 @@
       }
 
       // Filter sites by category
-      function filterSites(category) {
-        if (category === 'all') {
-          return piratedSites;
+      function filterSites(category, showFavorites = false) {
+        let filtered = movieSites;
+
+        if (category !== 'all') {
+          filtered = filtered.filter((site) => site.category === category);
         }
-        return piratedSites.filter((site) => site.category === category);
+
+        if (showFavorites) {
+          filtered = filtered.filter((site) => site.favorite);
+        }
+
+        return filtered;
       }
 
       // Search functionality
       function searchSites(query) {
-        return piratedSites.filter(
+        return movieSites.filter(
           (site) =>
             site.name.toLowerCase().includes(query.toLowerCase()) ||
             site.description.toLowerCase().includes(query.toLowerCase()) ||
@@ -679,10 +1301,168 @@
         );
       }
 
+      // Enhanced features functions
+      function toggleFavorite(siteId) {
+        const site = movieSites.find((s) => s.id === siteId);
+        if (site) {
+          site.favorite = !site.favorite;
+          saveData();
+          applyFilters();
+        }
+      }
+
+      function setRating(siteId, rating) {
+        const site = movieSites.find((s) => s.id === siteId);
+        if (site) {
+          site.rating = rating;
+          saveData();
+          applyFilters();
+        }
+      }
+
+      function updateNotes(siteId, notes) {
+        const site = movieSites.find((s) => s.id === siteId);
+        if (site) {
+          site.notes = notes;
+          saveData();
+        }
+      }
+
+      function openModal(siteId = null) {
+        const modal = document.getElementById('siteModal');
+        const title = document.getElementById('modalTitle');
+        const form = document.getElementById('siteForm');
+
+        if (siteId) {
+          // Edit mode
+          title.textContent = 'Edit Site';
+          const site = movieSites.find((s) => s.id === siteId);
+          if (site) {
+            document.getElementById('siteName').value = site.name;
+            document.getElementById('siteUrl').value = site.url || '';
+            document.getElementById('siteIcon').value = site.icon;
+            document.getElementById('siteDescription').value = site.description;
+
+            // Set the radio button
+            const radio = document.querySelector(
+              `input[name="siteCategory"][value="${site.category}"]`,
+            );
+            if (radio) radio.checked = true;
+
+            // Store the site ID for updating
+            form.setAttribute('data-edit-id', siteId);
+          }
+        } else {
+          // Add mode
+          title.textContent = 'Add New Site';
+          form.reset();
+          document.getElementById('siteIcon').value = 'fa-film';
+          form.removeAttribute('data-edit-id');
+        }
+
+        modal.classList.remove('hidden');
+      }
+
+      function closeModal() {
+        document.getElementById('siteModal').classList.add('hidden');
+      }
+
+      function saveSite() {
+        const form = document.getElementById('siteForm');
+        const name = document.getElementById('siteName').value.trim();
+        const url = document.getElementById('siteUrl').value.trim();
+        const category = document.querySelector(
+          'input[name="siteCategory"]:checked',
+        ).value;
+        const icon = document.getElementById('siteIcon').value.trim();
+        const description = document
+          .getElementById('siteDescription')
+          .value.trim();
+
+        if (!name) return;
+
+        const editId = form.getAttribute('data-edit-id');
+
+        if (editId) {
+          // Update existing site
+          const site = movieSites.find((s) => s.id === parseInt(editId));
+          if (site) {
+            site.name = name;
+            site.url = url;
+            site.category = category;
+            site.icon = icon;
+            site.description = description;
+          }
+        } else {
+          // Add new site
+          const newId = Math.max(...movieSites.map((s) => s.id)) + 1;
+          movieSites.push({
+            id: newId,
+            name,
+            url,
+            category,
+            icon,
+            description,
+            type: getCategoryText(category),
+            rating: 0,
+            favorite: false,
+            notes: '',
+          });
+        }
+
+        saveData();
+        applyFilters();
+        closeModal();
+      }
+
+      function deleteSite(siteId) {
+        if (confirm('Are you sure you want to delete this site?')) {
+          movieSites = movieSites.filter((s) => s.id !== siteId);
+          saveData();
+          applyFilters();
+        }
+      }
+
+      function exportData() {
+        const dataStr = JSON.stringify(movieSites, null, 2);
+        const dataUri =
+          'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+        const exportFileDefaultName = 'movie-sites-data.json';
+
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+      }
+
+      function applyFilters() {
+        const query = document.getElementById('searchInput').value;
+        const activeCategory = document
+          .querySelector('.category-btn.active')
+          .getAttribute('data-category');
+        const showFavorites = document
+          .getElementById('favoritesFilter')
+          .classList.contains('active');
+
+        let filteredSites;
+
+        if (query.length > 0) {
+          filteredSites = searchSites(query);
+        } else {
+          filteredSites = filterSites(activeCategory, showFavorites);
+        }
+
+        renderSites(filteredSites);
+      }
+
       // Initialize the page
       document.addEventListener('DOMContentLoaded', () => {
+        // Load data from localStorage
+        loadData();
+
         // Render all sites initially
-        renderSites(piratedSites);
+        renderSites(movieSites);
 
         // Category filter buttons
         document.querySelectorAll('.category-btn').forEach((button) => {
@@ -692,29 +1472,45 @@
               .forEach((btn) => btn.classList.remove('active'));
             button.classList.add('active');
 
-            const category = button.getAttribute('data-category');
-            const filteredSites = filterSites(category);
-            renderSites(filteredSites);
+            applyFilters();
           });
         });
+
+        // Favorites filter
+        document
+          .getElementById('favoritesFilter')
+          .addEventListener('click', () => {
+            const btn = document.getElementById('favoritesFilter');
+            btn.classList.toggle('active');
+            applyFilters();
+          });
 
         // Search functionality
         document
           .getElementById('searchInput')
-          .addEventListener('input', (e) => {
-            const query = e.target.value;
-            if (query.length > 0) {
-              const searchedSites = searchSites(query);
-              renderSites(searchedSites);
-            } else {
-              // If search is empty, show sites based on active category
-              const activeCategory = document
-                .querySelector('.category-btn.active')
-                .getAttribute('data-category');
-              const filteredSites = filterSites(activeCategory);
-              renderSites(filteredSites);
-            }
-          });
+          .addEventListener('input', applyFilters);
+
+        // Modal functionality
+        document.getElementById('addSiteBtn').addEventListener('click', () => {
+          openModal();
+        });
+
+        document
+          .getElementById('closeModal')
+          .addEventListener('click', closeModal);
+        document
+          .getElementById('cancelBtn')
+          .addEventListener('click', closeModal);
+
+        document.getElementById('siteForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          saveSite();
+        });
+
+        // Export functionality
+        document
+          .getElementById('exportBtn')
+          .addEventListener('click', exportData);
       });
     </script>
   </body>
