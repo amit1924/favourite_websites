@@ -1,124 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Favorite Websites ✨</title>
-    <script
-      src="https://kit.fontawesome.com/a076d05399.js"
-      crossorigin="anonymous"
-    ></script>
+    <title>Websites Hub — Your Digital Resource</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
-
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       body {
-        background: linear-gradient(
-          135deg,
-          #0a0a0a 0%,
-          #1a1a2e 50%,
-          #16213e 100%
-        );
-        color: #e0e0e0;
-        font-family: 'Poppins', sans-serif;
-        overflow-x: hidden;
+        background: linear-gradient(145deg, #0c0c14, #12121f, #0e0e1a);
+        color: #e2e8f0;
+        font-family: 'Inter', system-ui, sans-serif;
         min-height: 100vh;
+        overflow-x: hidden;
+      }
+      html {
+        scroll-behavior: smooth;
       }
 
-      /* ✨ Neon Glow */
-      .neon-text {
-        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+      /* Animated background blobs */
+      .blob {
+        position: fixed;
+        pointer-events: none;
+        z-index: -2;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.12;
+        animation: blobFloat 20s ease-in-out infinite;
       }
-
-      /* 💫 Glowing Card Animation */
-      .neon-card {
-        position: relative;
-        background: rgba(20, 20, 20, 0.8);
-        transition: all 0.4s ease;
-        box-shadow: 0 0 15px #00ffff40;
-        overflow: hidden;
-        border-radius: 1rem;
-        animation: floatIn 0.8s ease-out forwards;
-        opacity: 0;
-        backdrop-filter: blur(10px);
+      .blob-1 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, #8b5cf6, transparent);
+        top: -15%;
+        left: -10%;
       }
-
-      /* 🌀 Floating Entry Animation */
-      @keyframes floatIn {
-        0% {
-          transform: translateY(30px);
-          opacity: 0;
-        }
+      .blob-2 {
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(circle, #3b82f6, transparent);
+        bottom: -12%;
+        right: -8%;
+        animation-delay: -7s;
+      }
+      .blob-3 {
+        width: 350px;
+        height: 350px;
+        background: radial-gradient(circle, #14b8a6, transparent);
+        top: 40%;
+        left: 50%;
+        animation-delay: -14s;
+      }
+      @keyframes blobFloat {
+        0%,
         100% {
-          transform: translateY(0);
-          opacity: 1;
+          transform: translate(0, 0) scale(1);
         }
-      }
-
-      /* 🌈 Animated Neon Border */
-      .neon-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 1rem;
-        padding: 2px;
-        background: linear-gradient(45deg, #0ff, #f0f, #0f0, #0ff);
-        background-size: 400%;
-        animation: neonGlow 6s linear infinite;
-        -webkit-mask: linear-gradient(#000 0 0) content-box,
-          linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-      }
-
-      @keyframes neonGlow {
-        0% {
-          background-position: 0% 50%;
+        25% {
+          transform: translate(50px, -30px) scale(1.05);
         }
         50% {
-          background-position: 100% 50%;
+          transform: translate(-20px, 40px) scale(0.95);
         }
-        100% {
-          background-position: 0% 50%;
+        75% {
+          transform: translate(-40px, -20px) scale(1.02);
         }
       }
 
-      /* ✨ Hover Lift + Glow */
-      .neon-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 0 30px #00ffffa0;
-      }
-
-      /* 🧭 Navbar */
-      .nav-bg {
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(8px);
-      }
-
-      /* Floating particles background */
-      .particles {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        overflow: hidden;
-      }
-
+      /* Particles */
       .particle {
-        position: absolute;
+        position: fixed;
+        pointer-events: none;
+        z-index: -1;
         border-radius: 50%;
-        background: rgba(0, 255, 255, 0.3);
-        animation: float 15s infinite linear;
+        background: rgba(139, 92, 246, 0.15);
+        animation: particleDrift linear infinite;
       }
-
-      @keyframes float {
+      @keyframes particleDrift {
         0% {
-          transform: translateY(0) translateX(0);
+          transform: translateY(0) rotate(0deg);
           opacity: 0;
         }
         10% {
@@ -128,819 +101,708 @@
           opacity: 1;
         }
         100% {
-          transform: translateY(-100vh) translateX(100px);
+          transform: translateY(-120vh) rotate(720deg);
           opacity: 0;
         }
       }
 
-      /* Enhanced icons */
-      .icon-container {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        margin-bottom: 1.5rem;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(5px);
-        transition: all 0.3s ease;
+      /* ===== NAVBAR ===== */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 50;
+        background: rgba(12, 12, 20, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        transition: all 0.4s ease;
+      }
+      .navbar.scrolled {
+        background: rgba(12, 12, 20, 0.95);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
       }
 
-      .neon-card:hover .icon-container {
-        transform: scale(1.1);
-        box-shadow: 0 0 20px currentColor;
+      /* ===== HERO ENTRANCE ANIMATIONS ===== */
+      .hero-badge {
+        opacity: 0;
+        transform: translateY(-12px);
+        animation: heroBadgeIn 0.8s 0.15s ease-out forwards;
+      }
+      @keyframes heroBadgeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-12px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
-      /* Gradient text */
-      .gradient-text {
-        background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+      .hero-title {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+        animation: heroTitleIn 0.9s 0.35s ease-out forwards;
+      }
+      @keyframes heroTitleIn {
+        0% {
+          opacity: 0;
+          transform: translateY(30px) scale(0.96);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
       }
 
-      /* Enhanced footer */
-      .footer-text {
+      .hero-sub {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: heroSubIn 0.8s 0.55s ease-out forwards;
+      }
+      @keyframes heroSubIn {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Shimmering gradient text */
+      .shimmer-text {
+        background-size: 200% 100%;
+        animation: shimmerMove 4s ease-in-out infinite;
+      }
+      @keyframes shimmerMove {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      /* ===== GLASS CARD ===== */
+      .card {
+        background: linear-gradient(160deg, rgba(22, 22, 36, 0.55), rgba(16, 16, 26, 0.65));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 20px;
+        transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+        opacity: 0;
+        transform: translateY(30px);
+        animation: cardFadeUp 0.7s ease-out forwards;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
         position: relative;
-        display: inline-block;
+        overflow: hidden;
       }
-
-      .footer-text::after {
+      .card::before {
         content: '';
         position: absolute;
-        width: 100%;
-        height: 2px;
-        bottom: -5px;
-        left: 0;
-        background: linear-gradient(90deg, transparent, #00ffff, transparent);
+        inset: 0;
+        border-radius: 20px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+      }
+      .card:hover::before {
+        opacity: 1;
+      }
+      .card[data-accent='red']:hover::before {
+        box-shadow: inset 0 0 60px rgba(239, 68, 68, 0.08);
+      }
+      .card[data-accent='orange']:hover::before {
+        box-shadow: inset 0 0 60px rgba(249, 115, 22, 0.08);
+      }
+      .card[data-accent='green']:hover::before {
+        box-shadow: inset 0 0 60px rgba(34, 197, 94, 0.08);
+      }
+      .card[data-accent='purple']:hover::before {
+        box-shadow: inset 0 0 60px rgba(168, 85, 247, 0.08);
+      }
+      .card[data-accent='pink']:hover::before {
+        box-shadow: inset 0 0 60px rgba(236, 72, 153, 0.08);
+      }
+      .card[data-accent='blue']:hover::before {
+        box-shadow: inset 0 0 60px rgba(59, 130, 246, 0.08);
+      }
+      .card[data-accent='cyan']:hover::before {
+        box-shadow: inset 0 0 60px rgba(6, 182, 212, 0.08);
+      }
+      .card[data-accent='teal']:hover::before {
+        box-shadow: inset 0 0 60px rgba(20, 184, 166, 0.08);
+      }
+      .card[data-accent='amber']:hover::before {
+        box-shadow: inset 0 0 60px rgba(245, 158, 11, 0.08);
       }
 
-      /* Form styles */
-      .form-input {
-        background: rgba(20, 20, 20, 0.7);
-        border: 1px solid #00ffff;
-        border-radius: 0.5rem;
-        padding: 0.75rem 1rem;
-        color: white;
-        width: 100%;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(5px);
+      .card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
       }
-
-      .form-input:focus {
-        outline: none;
-        box-shadow: 0 0 10px #00ffff;
-        border-color: #00ffff;
-      }
-
-      .form-label {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: #00ffff;
-        font-weight: 500;
-      }
-
-      .submit-btn {
-        background: linear-gradient(45deg, #00ffff, #0080ff);
-        border: none;
-        border-radius: 0.5rem;
-        padding: 0.75rem 2rem;
-        color: white;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 15px #00ffff80;
-      }
-
-      .submit-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 0 20px #00ffff;
-      }
-
-      /* About page specific styles */
-      .profile-img {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #00ffff;
-        box-shadow: 0 0 20px #00ffff80;
-      }
-
-      .skill-bar {
-        height: 10px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 5px;
-        overflow: hidden;
-        margin-top: 0.5rem;
-      }
-
-      .skill-progress {
-        height: 100%;
-        background: linear-gradient(90deg, #00ffff, #0080ff);
-        border-radius: 5px;
-      }
-
-      /* Page transition */
-      .page {
-        display: none;
-        animation: fadeIn 0.5s ease forwards;
-      }
-
-      .active-page {
-        display: block;
-      }
-
-      @keyframes fadeIn {
-        from {
+      @keyframes cardFadeUp {
+        0% {
           opacity: 0;
+          transform: translateY(30px);
         }
-        to {
+        100% {
           opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Staggered delays */
+      .card:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .card:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .card:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .card:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .card:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .card:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .card:nth-child(7) {
+        animation-delay: 0.35s;
+      }
+      .card:nth-child(8) {
+        animation-delay: 0.4s;
+      }
+      .card:nth-child(9) {
+        animation-delay: 0.45s;
+      }
+
+      /* Accent strip */
+      .card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 20px 20px 0 0;
+        opacity: 0.6;
+        transition:
+          opacity 0.4s,
+          height 0.3s;
+      }
+      .card:hover::after {
+        opacity: 1;
+        height: 4px;
+      }
+      .card[data-accent='red']::after {
+        background: linear-gradient(90deg, #ef4444, #f97316);
+      }
+      .card[data-accent='orange']::after {
+        background: linear-gradient(90deg, #f97316, #eab308);
+      }
+      .card[data-accent='green']::after {
+        background: linear-gradient(90deg, #22c55e, #10b981);
+      }
+      .card[data-accent='purple']::after {
+        background: linear-gradient(90deg, #a855f7, #ec4899);
+      }
+      .card[data-accent='pink']::after {
+        background: linear-gradient(90deg, #ec4899, #f43f5e);
+      }
+      .card[data-accent='blue']::after {
+        background: linear-gradient(90deg, #3b82f6, #06b6d4);
+      }
+      .card[data-accent='cyan']::after {
+        background: linear-gradient(90deg, #06b6d4, #14b8a6);
+      }
+      .card[data-accent='teal']::after {
+        background: linear-gradient(90deg, #14b8a6, #10b981);
+      }
+      .card[data-accent='amber']::after {
+        background: linear-gradient(90deg, #f59e0b, #ef4444);
+      }
+
+      /* Icon container */
+      .icon-wrap {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        transition: all 0.4s ease;
+        animation: iconFloat 3s ease-in-out infinite;
+      }
+      .card:hover .icon-wrap {
+        transform: scale(1.12) rotate(-5deg);
+        animation-play-state: paused;
+      }
+      @keyframes iconFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-4px);
+        }
+      }
+
+      /* Explore arrow slide */
+      .explore-arrow {
+        transition: all 0.4s ease;
+      }
+      .card:hover .explore-arrow {
+        gap: 8px;
+      }
+      .card:hover .explore-arrow i {
+        transform: translateX(4px);
+      }
+
+      /* ===== SCROLLBAR ===== */
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(139, 92, 246, 0.15);
+        border-radius: 3px;
+      }
+
+      /* ===== MOBILE MENU ===== */
+      .mobile-menu {
+        background: rgba(12, 12, 20, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 16px;
+        transform-origin: top center;
+        animation: menuSlideIn 0.25s ease-out;
+      }
+      @keyframes menuSlideIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-8px) scaleY(0.96);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scaleY(1);
+        }
+      }
+
+      /* ===== FOOTER ===== */
+      .footer-heart {
+        display: inline-block;
+        animation: heartBeat 1.5s ease-in-out infinite;
+      }
+      @keyframes heartBeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        15% {
+          transform: scale(1.2);
+        }
+        30% {
+          transform: scale(1);
+        }
+        45% {
+          transform: scale(1.15);
+        }
+        60% {
+          transform: scale(1);
+        }
+      }
+
+      /* ===== LOADING OVERLAY ===== */
+      .page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0c0c14;
+        transition:
+          opacity 0.6s ease,
+          visibility 0.6s ease;
+      }
+      .page-loader.hidden-loader {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .loader-spinner {
+        width: 32px;
+        height: 32px;
+        border: 2px solid rgba(139, 92, 246, 0.1);
+        border-top-color: #8b5cf6;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
       }
     </style>
   </head>
+  <body>
+    <!-- Loading overlay -->
+    <div id="pageLoader" class="page-loader">
+      <div class="loader-spinner"></div>
+    </div>
 
-  <body
-    class="min-h-screen flex flex-col items-center justify-center text-center px-4"
-  >
-    <!-- Floating Particles Background -->
-    <div class="particles" id="particles"></div>
+    <!-- Background blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
 
-    <!-- Navbar -->
-    <nav
-      class="w-full flex justify-between items-center py-4 px-6 nav-bg fixed top-0 left-0 shadow-lg border-b border-cyan-400 z-50"
-    >
-      <h1 class="text-2xl font-bold text-cyan-400 neon-text">
-        <i class="fas fa-star mr-2"></i>My Favorite Websites✨
-      </h1>
-      <button id="menu-btn" class="text-cyan-400 text-3xl md:hidden">
-        <i class="fas fa-bars"></i>
-      </button>
-      <ul id="menu" class="hidden md:flex space-x-6 text-lg">
-        <li>
-          <a
-            href="#"
-            class="nav-link hover:text-pink-400 transition"
-            data-page="home"
-            ><i class="fas fa-home mr-1"></i>Home</a
+    <!-- Particles container -->
+    <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav id="navbar" class="navbar">
+      <div class="max-w-6xl mx-auto px-4 md:px-6 flex items-center justify-between h-14 md:h-16">
+        <a
+          href="/"
+          class="flex items-center gap-2.5 text-white font-extrabold text-lg md:text-xl tracking-tight"
+        >
+          <span
+            class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white text-sm"
           >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="nav-link hover:text-green-400 transition"
-            data-page="about"
-            ><i class="fas fa-info-circle mr-1"></i>About</a
+            <i class="fas fa-cubes"></i>
+          </span>
+          <span>Websites Hub</span>
+        </a>
+        <div class="hidden sm:flex items-center gap-6 text-sm">
+          <a href="/" class="text-white font-medium flex items-center gap-1.5"
+            ><i class="fas fa-home text-purple-400 text-xs"></i>Home</a
           >
-        </li>
-        <li>
           <a
-            href="#"
-            class="nav-link hover:text-purple-400 transition"
-            data-page="contact"
-            ><i class="fas fa-envelope mr-1"></i>Contact</a
+            href="/about.html"
+            class="text-gray-400 hover:text-white transition flex items-center gap-1.5"
+            ><i class="fas fa-info-circle text-xs"></i>About</a
           >
-        </li>
-      </ul>
+          <a
+            href="/contact.html"
+            class="text-gray-400 hover:text-white transition flex items-center gap-1.5"
+            ><i class="fas fa-envelope text-xs"></i>Contact</a
+          >
+        </div>
+        <button
+          id="menuBtn"
+          class="sm:hidden flex items-center justify-center w-9 h-9 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition"
+          aria-label="Menu"
+        >
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+      </div>
+      <div id="mobileMenu" class="mobile-menu hidden sm:hidden mx-4 mb-2 overflow-hidden">
+        <a href="/" class="flex items-center gap-3 px-4 py-3 text-white font-medium"
+          ><i class="fas fa-home w-5 text-purple-400"></i>Home</a
+        >
+        <a
+          href="/about.html"
+          class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white transition"
+          ><i class="fas fa-info-circle w-5 text-purple-400"></i>About</a
+        >
+        <a
+          href="/contact.html"
+          class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white transition"
+          ><i class="fas fa-envelope w-5 text-purple-400"></i>Contact</a
+        >
+      </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div
-      id="mobile-menu"
-      class="hidden flex-col space-y-4 mt-20 md:hidden text-xl fixed top-16 left-0 w-full bg-black bg-opacity-90 py-4 z-40 backdrop-blur-md"
-    >
-      <a href="#" class="nav-link hover:text-pink-400 py-2" data-page="home"
-        ><i class="fas fa-home mr-2"></i>Home</a
-      >
-      <a href="#" class="nav-link hover:text-green-400 py-2" data-page="about"
-        ><i class="fas fa-info-circle mr-2"></i>About</a
-      >
-      <a
-        href="#"
-        class="nav-link hover:text-purple-400 py-2"
-        data-page="contact"
-        ><i class="fas fa-envelope mr-2"></i>Contact</a
-      >
-    </div>
-
-    <!-- Home Page -->
-    <div id="home" class="page active-page mt-32 w-full max-w-6xl">
-      <h2 class="text-4xl font-bold mb-8 neon-text">
-        Discover Amazing Websites
-      </h2>
-      <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-        Explore my curated collection of the best websites for movies, AI tools,
-        coding resources, and more!
-      </p>
-
-      <!-- Links Section -->
-      <main
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 w-full font-[Inter]"
-      >
-        <!-- 🎬 Movies Websites -->
-        <a
-          href="/movie_websites.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-red-600 bg-gradient-to-br from-black via-gray-900 to-red-950 group shadow-lg hover:shadow-red-700/50 transition-all duration-500"
+    <!-- ==================== HERO ==================== -->
+    <section class="pt-28 md:pt-36 pb-10 md:pb-14 px-4 text-center">
+      <div class="max-w-3xl mx-auto">
+        <div
+          class="hero-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/5 border border-purple-500/10 text-purple-400 text-xs font-medium mb-5"
         >
-          <div
-            class="icon-container text-red-400 group-hover:scale-110 transform transition-transform duration-300"
+          <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+          <span id="counterDisplay">9 categories &middot; 200+ resources</span>
+        </div>
+        <h1
+          class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight"
+        >
+          Your Digital<br class="sm:hidden" />
+          <span
+            class="shimmer-text text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400"
+            >Resource Hub</span
           >
-            <i class="fas fa-film text-5xl drop-shadow-[0_0_10px_#ff3b3b]"></i>
+        </h1>
+        <p
+          class="hero-sub text-gray-500 text-sm sm:text-base mt-4 max-w-xl mx-auto leading-relaxed"
+        >
+          A hand-picked collection of websites across movies, AI, education, medicine, and more —
+          all in one place.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== CARDS GRID ==================== -->
+    <main class="max-w-6xl mx-auto px-4 pb-16">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        <a href="/movie_websites.html" target="_blank" class="card p-5 md:p-6" data-accent="red">
+          <div class="icon-wrap mb-3" style="color: #ef4444">
+            <i class="fas fa-film text-xl md:text-2xl"></i>
           </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-pink-500 to-yellow-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-video mr-2"></i>Best Movies Websites
+          <h2 class="text-lg md:text-xl font-bold text-white leading-tight">
+            Best Movies Websites
           </h2>
-          <p class="text-gray-300 leading-relaxed">
-            Download and stream your favorite movies in HD quality 🎥
+          <p class="text-gray-500 text-xs md:text-sm mt-1.5 leading-relaxed flex-1">
+            Download and stream your favorite movies in HD quality
           </p>
           <div
-            class="mt-5 text-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
+            class="explore-arrow flex items-center text-xs font-semibold mt-3"
+            style="color: #ef4444"
           >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
+            <span>Explore</span>
+            <i class="fas fa-arrow-right text-[10px] ml-1.5 transition-transform duration-300"></i>
           </div>
         </a>
 
-        <!-- 🍿 46 Movie Websites -->
-        <a
-          href="/movieslink.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-orange-500 bg-gradient-to-br from-black via-gray-900 to-orange-950 group shadow-lg hover:shadow-orange-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-orange-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i
-              class="fas fa-ticket-alt text-5xl drop-shadow-[0_0_10px_#ff8a3b]"
-            ></i>
+        <a href="/movieslink.html" target="_blank" class="card p-5 md:p-6" data-accent="orange">
+          <div class="icon-wrap mb-3" style="color: #f97316">
+            <i class="fas fa-ticket-alt text-xl md:text-2xl"></i>
           </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-500 to-yellow-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-film mr-2"></i>Best 46 Movie Websites
+          <h2 class="text-lg md:text-xl font-bold text-white leading-tight">
+            Best 46 Movie Websites
           </h2>
-          <p class="text-gray-300 leading-relaxed">
-            Explore a handpicked collection of 46 top movie and web series
-            websites 🍿
+          <p class="text-gray-500 text-xs md:text-sm mt-1.5 leading-relaxed flex-1">
+            Explore a handpicked collection of 46 top movie and web series websites
           </p>
           <div
-            class="mt-5 text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
+            class="explore-arrow flex items-center text-xs font-semibold mt-3"
+            style="color: #f97316"
           >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
+            <span>Explore</span>
+            <i class="fas fa-arrow-right text-[10px] ml-1.5 transition-transform duration-300"></i>
           </div>
         </a>
 
-        <!-- 🤖 AI Tools -->
-        <a
-          href="/ai_tools.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-green-500 bg-gradient-to-br from-gray-900 via-black to-green-950 group shadow-lg hover:shadow-green-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-green-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i class="fas fa-robot text-5xl drop-shadow-[0_0_10px_#22c55e]"></i>
+        <a href="/ai_tools.html" target="_blank" class="card p-5 md:p-6" data-accent="green">
+          <div class="icon-wrap mb-3" style="color: #22c55e">
+            <i class="fas fa-robot text-xl md:text-2xl"></i>
           </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-tools mr-2"></i>Free AI Tools
-          </h2>
-          <p class="text-gray-300 leading-relaxed">
-            Discover top free AI tools to boost productivity and creativity ⚙️
+          <h2 class="text-lg md:text-xl font-bold text-white leading-tight">Free AI Tools</h2>
+          <p class="text-gray-500 text-xs md:text-sm mt-1.5 leading-relaxed flex-1">
+            Discover top free AI tools to boost productivity and creativity
           </p>
           <div
-            class="mt-5 text-green-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
+            class="explore-arrow flex items-center text-xs font-semibold mt-3"
+            style="color: #22c55e"
           >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
+            <span>Explore</span>
+            <i class="fas fa-arrow-right text-[10px] ml-1.5 transition-transform duration-300"></i>
           </div>
         </a>
 
-        <!-- 🧠 AI Websites -->
-        <a
-          href="/ai_website.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-purple-500 bg-gradient-to-br from-gray-900 via-black to-purple-950 group shadow-lg hover:shadow-purple-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-purple-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i class="fas fa-brain text-5xl drop-shadow-[0_0_10px_#c084fc]"></i>
+        <a href="/ai_website.html" target="_blank" class="card p-5 md:p-6" data-accent="purple">
+          <div class="icon-wrap mb-3" style="color: #a855f7">
+            <i class="fas fa-brain text-xl md:text-2xl"></i>
           </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-globe mr-2"></i>Best AI Websites
-          </h2>
-          <p class="text-gray-300 leading-relaxed">
-            Stay updated with the latest AI trends, tools, and breakthroughs 💡
+          <h2 class="text-lg md:text-xl font-bold text-white leading-tight">Best AI Websites</h2>
+          <p class="text-gray-500 text-xs md:text-sm mt-1.5 leading-relaxed flex-1">
+            Stay updated with the latest AI trends, tools, and breakthroughs
           </p>
           <div
-            class="mt-5 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
+            class="explore-arrow flex items-center text-xs font-semibold mt-3"
+            style="color: #a855f7"
           >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
+            <span>Explore</span>
+            <i class="fas fa-arrow-right text-[10px] ml-1.5 transition-transform duration-300"></i>
           </div>
         </a>
 
-        <!-- 💻 46 AI Websites -->
-        <a
-          href="/aitools_46.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-pink-500 bg-gradient-to-br from-black via-gray-900 to-pink-950 group shadow-lg hover:shadow-pink-700/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-pink-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i
-              class="fas fa-microchip text-5xl drop-shadow-[0_0_10px_#ec4899]"
-            ></i>
+        <a href="/aitools_46.html" target="_blank" class="card p-5 md:p-6" data-accent="pink">
+          <div class="icon-wrap mb-3" style="color: #ec4899">
+            <i class="fas fa-microchip text-xl md:text-2xl"></i>
           </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-fuchsia-500 to-rose-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-robot mr-2"></i>Best 46 AI Websites
-          </h2>
-          <p class="text-gray-300 leading-relaxed">
+          <h2 class="text-lg md:text-xl font-bold text-white leading-tight">Best 46 AI Websites</h2>
+          <p class="text-gray-500 text-xs md:text-sm mt-1.5 leading-relaxed flex-1">
             A comprehensive list of AI platforms for professionals and learners
-            🤖
           </p>
           <div
-            class="mt-5 text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
+            class="explore-arrow flex items-center text-xs font-semibold mt-3"
+            style="color: #ec4899"
           >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
+            <span>Explore</span>
+            <i class="fas fa-arrow-right text-[10px] ml-1.5 transition-transform duration-300"></i>
           </div>
         </a>
 
-        <!-- 🧰 Misc Websites -->
-        <a
-          href="/illegal_websites.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-blue-500 bg-gradient-to-br from-gray-900 via-black to-blue-950 group shadow-lg hover:shadow-blue-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-blue-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i
-              class="fas fa-toolbox text-5xl drop-shadow-[0_0_10px_#3b82f6]"
-            ></i>
+        <a href="/illegal_websites.html" target="_blank" class="card p-5 md:p-6" data-accent="blue">
+          <div class="icon-wrap mb-3" style="color: #3b82f6">
+            <i class="fas fa-toolbox text-xl md:text-2xl"></i>
           </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-500 to-sky-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-globe mr-2"></i>Miscellaneous Useful Websites
+          <h2 class="text-lg md:text-xl font-bold text-white leading-tight">
+            Miscellaneous Useful Websites
           </h2>
-          <p class="text-gray-300 leading-relaxed">
-            Useful and lesser-known sites for daily needs and projects 🔧
+          <p class="text-gray-500 text-xs md:text-sm mt-1.5 leading-relaxed flex-1">
+            Useful and lesser-known sites for daily needs and projects
           </p>
           <div
-            class="mt-5 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
+            class="explore-arrow flex items-center text-xs font-semibold mt-3"
+            style="color: #3b82f6"
           >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
+            <span>Explore</span>
+            <i class="fas fa-arrow-right text-[10px] ml-1.5 transition-transform duration-300"></i>
           </div>
         </a>
 
-        <!-- 🎓 Student Hub -->
-        <a
-          href="/student_hub.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-cyan-500 bg-gradient-to-br from-gray-900 via-black to-cyan-950 group shadow-lg hover:shadow-cyan-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-cyan-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i
-              class="fas fa-graduation-cap text-5xl drop-shadow-[0_0_10px_#06b6d4]"
-            ></i>
+        <a href="/student_hub.html" target="_blank" class="card p-5 md:p-6" data-accent="cyan">
+          <div class="icon-wrap mb-3" style="color: #06b6d4">
+            <i class="fas fa-graduation-cap text-xl md:text-2xl"></i>
           </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-500 to-teal-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-user-graduate mr-2"></i>Student Resource Hub
+          <h2 class="text-lg md:text-xl font-bold text-white leading-tight">
+            Student Resource Hub
           </h2>
-          <p class="text-gray-300 leading-relaxed">
-            A curated collection of educational and productivity websites 🎓
+          <p class="text-gray-500 text-xs md:text-sm mt-1.5 leading-relaxed flex-1">
+            A curated collection of educational and productivity websites
           </p>
           <div
-            class="mt-5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
+            class="explore-arrow flex items-center text-xs font-semibold mt-3"
+            style="color: #06b6d4"
           >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
+            <span>Explore</span>
+            <i class="fas fa-arrow-right text-[10px] ml-1.5 transition-transform duration-300"></i>
           </div>
         </a>
 
-        <!-- Medicine Card -->
-        <a
-          href="/medicine.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-cyan-500 bg-gradient-to-br from-gray-900 via-black to-cyan-950 group shadow-lg hover:shadow-cyan-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-purple-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i
-              class="fas fa-medkit text-5xl drop-shadow-[0_0_10px_#6b5b9a]"
-            ></i>
+        <a href="/medicine.html" target="_blank" class="card p-5 md:p-6" data-accent="teal">
+          <div class="icon-wrap mb-3" style="color: #14b8a6">
+            <i class="fas fa-medkit text-xl md:text-2xl"></i>
           </div>
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-500 to-teal-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-medkit mr-2"></i>Medicines Resource Hub
+          <h2 class="text-lg md:text-xl font-bold text-white leading-tight">
+            Medicines Resource Hub
           </h2>
-          <p class="text-gray-300 leading-relaxed">
-            A curated collection of medical and health-related websites 💊
+          <p class="text-gray-500 text-xs md:text-sm mt-1.5 leading-relaxed flex-1">
+            A curated collection of medical and health-related websites
           </p>
           <div
-            class="mt-5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
+            class="explore-arrow flex items-center text-xs font-semibold mt-3"
+            style="color: #14b8a6"
           >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
+            <span>Explore</span>
+            <i class="fas fa-arrow-right text-[10px] ml-1.5 transition-transform duration-300"></i>
           </div>
         </a>
-
-        <!-- Bihar Election Resource -->
-        <a
-          href="/assembly_election.html"
-          target="_blank"
-          class="neon-card p-8 rounded-2xl border border-orange-500 bg-gradient-to-br from-gray-900 via-black to-orange-900 group shadow-lg hover:shadow-orange-600/50 transition-all duration-500"
-        >
-          <div
-            class="icon-container text-green-400 group-hover:scale-110 transform transition-transform duration-300"
-          >
-            <i
-              class="fas fa-vote-yea text-5xl drop-shadow-[0_0_10px_#16a34a]"
-            ></i>
-          </div>
-
-          <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-green-400 mb-2 mt-4 font-[Poppins]"
-          >
-            <i class="fas fa-poll mr-2"></i>Election Voter Information Hub
-          </h2>
-
-          <p class="text-gray-300 leading-relaxed">
-            List, booths, candidates, districts, voting info 🗳️
-          </p>
-
-          <div
-            class="mt-5 text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 font-semibold"
-          >
-            <i class="fas fa-external-link-alt animate-pulse"></i
-            ><span>Explore Now</span>
-          </div>
-        </a>
-      </main>
-    </div>
-
-    <!-- About Page -->
-    <div id="about" class="page mt-32 w-full max-w-4xl">
-      <h2 class="text-4xl font-bold mb-8 neon-text">About Me</h2>
-
-      <div class="neon-card p-8 border border-green-500 mb-10">
-        <div class="flex flex-col md:flex-row items-center gap-8">
-          <div class="flex-shrink-0">
-            <img src="/developer.png" alt="Profile" class="profile-img" />
-          </div>
-          <div class="text-left">
-            <h3 class="text-2xl font-bold text-green-300 mb-4">
-              Hi, I'm Amit!
-            </h3>
-            <p class="text-gray-300 mb-4">
-              I'm a passionate web developer and digital enthusiast with a love
-              for discovering and sharing amazing online resources. This website
-              is my personal collection of the best tools and websites I've
-              found across the internet.
-            </p>
-            <p class="text-gray-300 mb-4">
-              My mission is to help others discover useful websites that can
-              enhance productivity, creativity, and entertainment. I carefully
-              curate each resource to ensure quality and value.
-            </p>
-            <div class="flex space-x-4 mt-6">
-              <a href="#" class="text-green-400 hover:text-green-300 text-2xl"
-                ><i class="fab fa-github"></i
-              ></a>
-              <a href="#" class="text-blue-400 hover:text-blue-300 text-2xl"
-                ><i class="fab fa-linkedin"></i
-              ></a>
-              <a href="#" class="text-pink-400 hover:text-pink-300 text-2xl"
-                ><i class="fab fa-instagram"></i
-              ></a>
-              <a href="#" class="text-cyan-400 hover:text-cyan-300 text-2xl"
-                ><i class="fab fa-twitter"></i
-              ></a>
-            </div>
-          </div>
-        </div>
       </div>
+    </main>
 
-      <h3 class="text-2xl font-bold mb-6 text-cyan-300">My Skills</h3>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-        <div class="neon-card p-6 border border-cyan-500">
-          <h4 class="text-xl font-semibold text-cyan-300 mb-2">
-            Web Development
-          </h4>
-          <div class="skill-bar">
-            <div class="skill-progress" style="width: 90%"></div>
-          </div>
-        </div>
-
-        <div class="neon-card p-6 border border-purple-500">
-          <h4 class="text-xl font-semibold text-purple-300 mb-2">
-            UI/UX Design
-          </h4>
-          <div class="skill-bar">
-            <div class="skill-progress" style="width: 80%"></div>
-          </div>
-        </div>
-
-        <div class="neon-card p-6 border border-green-500">
-          <h4 class="text-xl font-semibold text-green-300 mb-2">
-            Content Curation
-          </h4>
-          <div class="skill-bar">
-            <div class="skill-progress" style="width: 95%"></div>
-          </div>
-        </div>
-
-        <div class="neon-card p-6 border border-yellow-500">
-          <h4 class="text-xl font-semibold text-yellow-300 mb-2">
-            Digital Marketing
-          </h4>
-          <div class="skill-bar">
-            <div class="skill-progress" style="width: 75%"></div>
-          </div>
-        </div>
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="text-center pb-8 px-4">
+      <div class="max-w-md mx-auto border-t border-white/5 pt-6">
+        <p class="text-gray-600 text-xs">
+          made with <i class="footer-heart fas fa-heart text-purple-500 mx-1"></i> by @mit
+        </p>
       </div>
-
-      <h3 class="text-2xl font-bold mb-6 text-pink-300">My Interests</h3>
-
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div class="neon-card p-4 border border-pink-500">
-          <i class="fas fa-code text-2xl text-pink-400 mb-2"></i>
-          <p class="text-gray-300">Coding</p>
-        </div>
-
-        <div class="neon-card p-4 border border-blue-500">
-          <i class="fas fa-film text-2xl text-blue-400 mb-2"></i>
-          <p class="text-gray-300">Movies</p>
-        </div>
-
-        <div class="neon-card p-4 border border-green-500">
-          <i class="fas fa-robot text-2xl text-green-400 mb-2"></i>
-          <p class="text-gray-300">AI Technology</p>
-        </div>
-
-        <div class="neon-card p-4 border border-yellow-500">
-          <i class="fas fa-music text-2xl text-yellow-400 mb-2"></i>
-          <p class="text-gray-300">Music</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Contact Page -->
-    <div id="contact" class="page mt-32 w-full max-w-2xl">
-      <h2 class="text-4xl font-bold mb-8 neon-text">Get In Touch</h2>
-      <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-        Have questions, suggestions, or just want to say hello? Feel free to
-        reach out!
-      </p>
-
-      <div class="neon-card p-8 border border-purple-500">
-        <form id="contact-form" class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label for="name" class="form-label"
-                ><i class="fas fa-user mr-2"></i>Your Name</label
-              >
-              <input
-                type="text"
-                id="name"
-                class="form-input"
-                placeholder="Enter your name"
-                required
-              />
-            </div>
-
-            <div>
-              <label for="email" class="form-label"
-                ><i class="fas fa-envelope mr-2"></i>Your Email</label
-              >
-              <input
-                type="email"
-                id="email"
-                class="form-input"
-                placeholder="Enter your email"
-                required
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="subject" class="form-label"
-              ><i class="fas fa-tag mr-2"></i>Subject</label
-            >
-            <input
-              type="text"
-              id="subject"
-              class="form-input"
-              placeholder="What is this regarding?"
-              required
-            />
-          </div>
-
-          <div>
-            <label for="message" class="form-label"
-              ><i class="fas fa-comment mr-2"></i>Your Message</label
-            >
-            <textarea
-              id="message"
-              rows="5"
-              class="form-input"
-              placeholder="Type your message here..."
-              required
-            ></textarea>
-          </div>
-
-          <button type="submit" class="submit-btn w-full md:w-auto">
-            <i class="fas fa-paper-plane mr-2"></i>Send Message
-          </button>
-        </form>
-
-        <div class="mt-12 pt-8 border-t border-gray-700">
-          <h3 class="text-2xl font-bold mb-6 text-cyan-300">
-            Other Ways to Connect
-          </h3>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="text-center">
-              <div class="icon-container mx-auto text-cyan-400">
-                <i class="fas fa-envelope text-3xl"></i>
-              </div>
-              <h4 class="text-lg font-semibold text-cyan-300 mt-4">Email</h4>
-              <p class="text-gray-400">amit192400@gmail.com</p>
-            </div>
-
-            <div class="text-center">
-              <div class="icon-container mx-auto text-green-400">
-                <i class="fas fa-comments text-3xl"></i>
-              </div>
-              <h4 class="text-lg font-semibold text-green-300 mt-4">
-                Chat with me
-              </h4>
-
-              <div class="space-y-3 mt-4">
-                <!-- Working WhatsApp -->
-                <a
-                  href="https://wa.me/919876543210?text=Hi%20Amit,%20I%20found%20your%20website%20and%20wanted%20to%20chat!"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="block text-green-400 hover:text-green-300 transition py-2 px-4 border border-green-500 rounded-lg hover:border-green-400"
-                >
-                  <i class="fab fa-whatsapp mr-2"></i>
-                  WhatsApp
-                </a>
-
-                <!-- Working Telegram -->
-                <a
-                  href="https://t.me/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="block text-blue-400 hover:text-blue-300 transition py-2 px-4 border border-blue-500 rounded-lg hover:border-blue-400"
-                >
-                  <i class="fab fa-telegram mr-2"></i>
-                  Telegram
-                </a>
-
-                <!-- Email fallback -->
-                <a
-                  href="mailto:amit192400@gmail.com?subject=Chat%20Request&body=Hi%20Amit,%20I%20wanted%20to%20chat%20with%20you..."
-                  class="block text-purple-400 hover:text-purple-300 transition py-2 px-4 border border-purple-500 rounded-lg hover:border-purple-400"
-                >
-                  <i class="fas fa-envelope mr-2"></i>
-                  Email Me
-                </a>
-              </div>
-            </div>
-
-            <div class="text-center">
-              <div class="icon-container mx-auto text-purple-400">
-                <i class="fas fa-map-marker-alt text-3xl"></i>
-              </div>
-              <h4 class="text-lg font-semibold text-purple-300 mt-4">
-                Location
-              </h4>
-              <p class="text-gray-400">India</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="mt-16 mb-8 text-gray-500">
-      <p class="footer-text">
-        <i class="fas fa-heart text-red-500 mr-2"></i>made by @mit<i
-          class="fas fa-heart text-red-500 ml-2"
-        ></i>
-      </p>
     </footer>
 
-    <!-- Script for Hamburger, Particles and Page Navigation -->
+    <!-- ==================== SCRIPTS ==================== -->
     <script>
-      // Mobile menu toggle
-      const menuBtn = document.getElementById('menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      menuBtn.addEventListener('click', () => {
+      // --- Loading overlay ---
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.getElementById('pageLoader').classList.add('hidden-loader');
+        }, 400);
+      });
+
+      // --- Navbar scroll effect ---
+      const navbar = document.getElementById('navbar');
+      let lastScroll = 0;
+      window.addEventListener('scroll', () => {
+        const sy = window.scrollY;
+        if (sy > 40) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+        lastScroll = sy;
+      });
+
+      // --- Mobile menu ---
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         mobileMenu.classList.toggle('hidden');
       });
 
-      // Animate cards on load
-      const cards = document.querySelectorAll('.neon-card');
-      cards.forEach((card, i) => {
-        setTimeout(() => {
-          card.style.opacity = '1';
-        }, i * 200);
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('#menuBtn') && !e.target.closest('#mobileMenu')) {
+          mobileMenu.classList.add('hidden');
+        }
       });
 
-      // Create floating particles
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = 30;
-
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-
-        // Random properties
-        const size = Math.random() * 6 + 2;
-        const posX = Math.random() * 100;
-        const posY = Math.random() * 100;
-        const delay = Math.random() * 15;
-        const duration = Math.random() * 10 + 15;
-
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${posX}%`;
-        particle.style.top = `${posY}%`;
-        particle.style.animationDelay = `${delay}s`;
-        particle.style.animationDuration = `${duration}s`;
-
-        particlesContainer.appendChild(particle);
+      // --- Particles ---
+      const pc = document.getElementById('particles');
+      for (let i = 0; i < 20; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const s = Math.random() * 3 + 1;
+        p.style.cssText =
+          'width:' +
+          s +
+          'px;height:' +
+          s +
+          'px;left:' +
+          Math.random() * 100 +
+          '%;top:' +
+          (Math.random() * 100 + 10) +
+          '%;animation-delay:' +
+          Math.random() * 12 +
+          's;animation-duration:' +
+          (Math.random() * 15 + 20) +
+          's';
+        pc.appendChild(p);
       }
 
-      // Page navigation
-      const navLinks = document.querySelectorAll('.nav-link');
-      const pages = document.querySelectorAll('.page');
-
-      navLinks.forEach((link) => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetPage = link.getAttribute('data-page');
-
-          // Hide all pages
-          pages.forEach((page) => {
-            page.classList.remove('active-page');
-          });
-
-          // Show target page
-          document.getElementById(targetPage).classList.add('active-page');
-
-          // Close mobile menu if open
-          mobileMenu.classList.add('hidden');
-        });
-      });
-
-      // Contact form submission
-      const contactForm = document.getElementById('contact-form');
-      contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
-
-        // In a real application, you would send this data to a server
-        // For now, we'll just show an alert
-        alert(
-          `Thank you, ${name}! Your message has been sent. I'll get back to you soon.`,
-        );
-
-        // Reset form
-        contactForm.reset();
-      });
+      // --- Counter animation on scroll ---
+      const counterEl = document.getElementById('counterDisplay');
+      let counted = false;
+      function handleCounter() {
+        if (counted) return;
+        const rect = counterEl.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          counted = true;
+          const target = 200;
+          let current = 0;
+          const step = Math.ceil(target / 35);
+          const interval = setInterval(() => {
+            current += step;
+            if (current >= target) {
+              current = target;
+              clearInterval(interval);
+            }
+            counterEl.textContent = '9 categories · ' + current + '+ resources';
+          }, 40);
+        }
+      }
+      window.addEventListener('scroll', handleCounter);
+      handleCounter();
     </script>
   </body>
 </html>
